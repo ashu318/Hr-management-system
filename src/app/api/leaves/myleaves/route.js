@@ -1,54 +1,149 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { verifyToken } from "@/lib/jwt";
-import { BsGlobeAsiaAustralia } from "react-icons/bs";
-
-
 
 const prisma = new PrismaClient();
+
+export async function POST(request) {
+    try {
+        // 🔐 Auth
+        const token = request.cookies.get("auth_token")?.value;
+        if (!token) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
+
+        const decoded = verifyToken(token);
+        if (!decoded?.userId) {
+            return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+        }
+
+        const userId = decoded.userId;
+
+        // 📩 Request body
+        const { leaveType, startDate, endDate, reason } = await request.json();
+
+        // ✅ Validation 1
+        if (!leaveType || !startDate || !endDate || !reason) {
+            return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+        }
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        // ✅ Validation 2
+        if (isNaN(start) || isNaN(end) || end < start) {
+            return NextResponse.json({ message: "Invalid date range" }, { status: 400 });
+        }
+
+        // 📅 Calculate days
+        const dayCount =
+            Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+        // 🔍 Fetch leave balance
+        const leaveBalance = await prisma.leaveBalance.findUnique({
+            where: {
+                userId_leaveType: {
+                    userId,
+                    leaveType,
+                },
+            },
+        });
+
+        if (!leaveBalance) {
+            return NextResponse.json(
+                { message: "Leave type not assigned to user" },
+                { status: 400 }
+            );
+        }
+
+        if (dayCount > leaveBalance.total) {
+            return NextResponse.json(
+                { message: "Insufficient leave balance" },
+                { status: 400 }
+            );
+        }
+
+        // 🔥 Transaction
+        const [application] = await prisma.$transaction([
+            prisma.leaveApplication.create({
+                data: {
+                    userId,
+                    leaveType,
+                    startDate: start,
+                    endDate: end,
+                    reason,
+                    status: "PENDING",
+                },
+            }),
+            prisma.leaveBalance.update({
+                where: {
+                    userId_leaveType: {
+                        userId,
+                        leaveType,
+                    },
+                },
+                data: {
+                    total: { decrement: dayCount },
+                },
+            }),
+        ]);
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Leave applied successfully",
+                application,
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error("Error applying leave:", error);
+        return NextResponse.json(
+            { success: false, error: "Internal server error" },
+            { status: 500 }
+        );
+    }
+}
 
 
 
 
 export async function GET(request) {
     try {
-
-        // 1️⃣ Validate token
+        // 🔐 Auth
         const token = request.cookies.get("auth_token")?.value;
-        if (!token)
+        if (!token) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
 
         const decoded = verifyToken(token);
-        if (!decoded)
+        if (!decoded?.userId) {
             return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+        }
 
-        const userId = decoded.userId; // make sure your token has userId
+        const userId = decoded.userId;
 
-        // console.log("The users id is :", userId);
-
-        const leaveBalances = await prisma.leaveBalance.findMany({
-            where: { userId },
-            select: {
-                leaveType: true,
-                total: true,
+        // 🔍 Fetch leave balance
+        const allLeaveApplictaions = await prisma.leaveApplication.findMany({
+            where: {
+                userId,
             },
         });
 
-        return NextResponse.json({
-            success: true,
-            leaveBalances: leaveBalances,
-        });
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return new Response(
-            JSON.stringify({
-                success: false,
-                error: "Failed to fetch users",
-            }),
+        return NextResponse.json(
             {
-                status: 500,
-                headers: { "Content-Type": "application/json" },
-            }
+                success: true,
+                message: "Fetched leave balance successfully",
+                allLeaveApplictaions,
+
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error("Error fetching leave balance:", error);
+        return NextResponse.json(
+            { success: false, error: "Internal server error" },
+            { status: 500 }
         );
     }
 }

@@ -575,5 +575,25 @@ export const menuList = [
             }
         ]
     },
+       {
+        id: 13,
+        name: "Leaves Management",
+        path: '#',
+        icon: 'feather-send',
+        dropdownMenu: [
+            {
+                id: 1,
+                name: "Create Leave",
+                path: "/leaves/create",
+                subdropdownMenu: false
+            },
+            {
+                id: 2,
+                name: "Request Leaves",
+                path: "/leaves/list",
+                subdropdownMenu: false
+            }
+        ]
+    },
 
 ]

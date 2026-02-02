@@ -13,6 +13,8 @@ import topTost from '@/utils/topTost'
 import Dropdown from '@/components/shared/Dropdown'
 import toast from "react-hot-toast";
 import { leaveTypeOptions } from '@/utils/options'
+import { User, Send, Loader2 } from "lucide-react";
+import LeaveSidebar from "@/components/leaves/LeaveSidebar"
 
 const previtems = [
     {
@@ -104,7 +106,7 @@ const CreateLeaves = () => {
 
             setIsLoading(true);
 
-            const response = await fetch("/api/leaves/apply", {
+            const response = await fetch("/api/leaves/myleaves", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -147,8 +149,12 @@ const CreateLeaves = () => {
                 <div className="card invoice-container">
                     <div className="card-header">
                         <h5>Apply Your Leave</h5>
-                        <div className="fs-14 text-muted">
-                            Employee: <strong>John Doe</strong>
+                        <div className="d-flex align-items-center gap-2 fs-14 text-muted">
+                            <User size={16} className="text-primary" />
+                            <span>
+                                Employee:
+                                <strong className="fw-bold text-dark ms-1">John Doe</strong>
+                            </span>
                         </div>
                     </div>
 
@@ -161,7 +167,7 @@ const CreateLeaves = () => {
                                 <div className="mb-4 mb-md-0 your-brand">
                                     <label className="wd-100 ht-100 mb-0 position-relative overflow-hidden border border-gray-2 rounded">
                                         <img
-                                            src="/images/logo-abbr.png"
+                                            src="https://i.pravatar.cc/150"
                                             className="img-fluid rounded h-100 w-100"
                                             alt="Employee"
                                         />
@@ -233,57 +239,28 @@ const CreateLeaves = () => {
 
                         {/* Action */}
                         <div className="px-4 pb-4 text-end">
-                            <button className="btn btn-primary" onClick={handleClick} disabled={isLoading}>
-                                {isLoading ? "Applying..." : "Apply Leave"}
+                            <button className="btn btn-primary d-inline-flex align-items-center gap-2"
+                                onClick={handleClick}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 size={16} className="animate-spin" />
+                                        Applying...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Send size={16} />
+                                        Apply Leave
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="col-xl-4">
-                <div className="card stretch stretch-full">
-                    <div className="card-body">
-                        <div className="mb-4 d-flex align-items-center justify-content-between">
-                            <div>
-                                <h6 className="fw-bold">Grand Total:</h6>
-                                <span className="fs-12 text-muted">Grand total invoice</span>
-                            </div>
-                            <div className="avatar-text avatar-sm" data-toggle="tooltip" data-bs-trigger="hover" data-title="Grand total invoice">
-                                <FiInfo />
-                            </div>
-                        </div>
-                        <div className="table-responsive">
-                            <table className="table table-bordered" id="tab_logic_total">
-                                <tbody>
-                                    <tr className="single-item">
-                                        <th className="fs-10 text-dark text-uppercase">Sub Total</th>
-                                        <td className="w-25"><input type="number" name="sub_total" placeholder="0.00" className="form-control border-0 bg-transparent p-0" id="sub_total" readOnly value={subTotal} /></td>
-                                    </tr>
-                                    <tr className="single-item">
-                                        <th className="fs-10 text-dark text-uppercase">Tax</th>
-                                        <td className="w-25">
-                                            <div className="input-group mb-2 mb-sm-0">
-                                                <input type="number" className="form-control border-0 bg-transparent p-0" id="tax" placeholder="0" defaultValue="10" />
-                                                <div className="input-group-addon">%</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr className="single-item">
-                                        <th className="fs-10 text-dark text-uppercase">Tax Amount</th>
-                                        <td className="w-25"><input type="number" name="tax_amount" id="tax_amount" placeholder="0.00" className="form-control border-0 bg-transparent p-0" readOnly value={vat} /></td>
-                                    </tr>
-                                    <tr className="single-item">
-                                        <th className="fs-10 text-dark text-uppercase bg-gray-100">Grand Total</th>
-                                        <td className="bg-gray-100 w-25"><input type="number" name="total_amount" id="total_amount" placeholder="0.00" className="form-control border-0 bg-transparent p-0 fw-700 text-dark" readOnly value={total} /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <LeaveSidebar />
         </>
     )
 }

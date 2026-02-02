@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiBarChart, FiBriefcase, FiDollarSign, FiEye, FiFilter, FiFlag, FiPaperclip, FiPlus, FiUserCheck, FiUserMinus, FiUsers } from 'react-icons/fi'
+import { FiBarChart, FiBriefcase, FiDollarSign, FiEye, FiFilter, FiFlag, FiPaperclip, FiPlus, FiUserCheck, FiUserMinus, FiUsers, FiClipboard } from 'react-icons/fi'
 import { BsFiletypeCsv, BsFiletypeExe, BsFiletypePdf, BsFiletypeTsx, BsFiletypeXml, BsPrinter } from 'react-icons/bs';
 import Dropdown from '@/components/shared/Dropdown';
 import LeadsStatisticsTwo from "../widgetsStatistics/LeadsStatisticsTwo"
@@ -23,7 +23,7 @@ export const fileType = [
     { label: "Print", icon: <BsPrinter /> },
 ];
 
-const LeadsHeader = () => {
+const LeavesHeader = () => {
     return (
         <>
             <div className="d-flex align-items-center gap-2 page-header-right-items-wrapper">
@@ -45,9 +45,9 @@ const LeadsHeader = () => {
                     iconStrokeWidth={0}
                     isAvatar={false}
                 />
-                <Link href="/leaves/create" className="btn btn-primary">
-                    <FiPlus size={16} className='me-2' />
-                    <span>Apply for a Leave</span>
+                <Link href="/leaves/list" className="btn btn-primary">
+                    <FiClipboard size={16} className='me-2' />
+                    <span>Show your Applications</span>
                 </Link>
             </div>
 
@@ -62,4 +62,4 @@ const LeadsHeader = () => {
     )
 }
 
-export default LeadsHeader
+export default LeavesHeader
