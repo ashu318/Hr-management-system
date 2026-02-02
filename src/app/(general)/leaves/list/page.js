@@ -1,7 +1,7 @@
 import React from 'react'
 import PageHeader from '@/components/shared/pageHeader/PageHeader'
 import LeadsHeader from '@/components/leads/LeadsHeader'
-import LeavesTables from '@/components/leaves/leavesTables'
+import LeavesTables from '@/components/leaves/LeavesTables'
 import Footer from '@/components/shared/Footer'
 
 const page = () => {

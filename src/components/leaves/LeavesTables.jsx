@@ -126,4 +126,4 @@ const LeavesTables = () => {
     )
 }
 
-export default LeavesTables
+export default LeavesTables;
