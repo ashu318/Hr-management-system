@@ -575,7 +575,7 @@ export const menuList = [
             }
         ]
     },
-       {
+    {
         id: 13,
         name: "Leaves Management",
         path: '#',
@@ -591,6 +591,12 @@ export const menuList = [
                 id: 2,
                 name: "Request Leaves",
                 path: "/leaves/list",
+                subdropdownMenu: false
+            },
+            {
+                id: 3,
+                name: "Leave Applications",
+                path: "/leaves/all",
                 subdropdownMenu: false
             }
         ]

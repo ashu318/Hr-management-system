@@ -21,6 +21,7 @@
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
+    "dayjs": "^1.11.19",
     "emoji-picker-react": "^4.12.0",
     "feather-icons": "^4.29.2",
     "feather-icons-react": "^0.7.0",
