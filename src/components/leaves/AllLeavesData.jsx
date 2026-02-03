@@ -7,6 +7,7 @@ import Table from '@/components/shared/table/Table';
 import Link from 'next/link';
 import dayjs from 'dayjs'
 import HolidayTableSkeleton from "@/components/loaders/HolidayTableSkeleton"
+import LeavesSidebar from './LeavesSidebar';
 
 
 
@@ -91,13 +92,13 @@ const AllLeavesData = () => {
             accessorKey: 'startDate',
             header: 'Start Date',
             cell: ({ row }) =>
-                dayjs(row.original.startDate).format('DD MMM YYYY')
+                dayjs(row.original.startDate).format('DD MMM , YYYY')
         },
         {
             accessorKey: 'endDate',
             header: 'End Date',
             cell: ({ row }) =>
-                dayjs(row.original.endDate).format('DD MMM YYYY')
+                dayjs(row.original.endDate).format('DD MMM , YYYY')
         },
         {
             accessorKey: 'status',
@@ -117,16 +118,22 @@ const AllLeavesData = () => {
             accessorKey: 'CreatedAt',
             header: 'Created At',
             cell: ({ row }) =>
-                dayjs(row.original.createdAt).format('DD MMM YYYY')
+                dayjs(row.original.createdAt).format('DD MMM , YYYY')
         },
         {
             accessorKey: 'reason',
             header: 'Actions',
             cell: info => (
                 <div className="hstack gap-2 justify-content-end">
-                    <Link href="/payment/view" className="avatar-text avatar-md">
+                    <button
+                        className="avatar-text avatar-md"
+                        onClick={() => {
+                            // setSelectedLeave(row.original)
+                            setSidebarOpen(true)
+                        }}
+                    >
                         <FiEye />
-                    </Link>
+                    </button>
                     <Dropdown dropdownItems={actions} triggerIcon={<FiMoreHorizontal />} triggerClass='avatar-md' triggerPosition={"0,21"} />
                 </div>
             ),
@@ -139,6 +146,7 @@ const AllLeavesData = () => {
     // function to fetch and set the data to the tabel
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [sidebarOpen, setSidebarOpen] = useState(false)
 
     useEffect(() => {
         const fetchLeaves = async () => {
@@ -160,14 +168,15 @@ const AllLeavesData = () => {
     }, [])
     // function to fetch and set the data to the tabel
 
-
-
     return (
         <>
             {loading ? (
                 <HolidayTableSkeleton />
             ) : (
                 <Table data={data} columns={columns} />
+            )}
+            {sidebarOpen && (
+                <LeavesSidebar onClose={() => setSidebarOpen(false)} />
             )}
         </>
     )

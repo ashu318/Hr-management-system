@@ -29,7 +29,7 @@ const CardBody = ({ imgSrc, imgAlt, title, fileCount }) => {
                     <img src={imgSrc} alt={imgAlt} className="img-fluid" />
                 </div>
                 <div className="ms-3">
-                    <span className="d-block">{title}</span>
+                    {/* <span className="d-block">{title}</span> */}
                     <span className="fs-10 text-muted text-uppercase d-block">2,447 Files</span>
                 </div>
             </a>

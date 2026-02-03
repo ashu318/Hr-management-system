@@ -83,3 +83,26 @@ after chong the hr will reviewa nd send the apppoveal and resject withe desc.
 
 once done all the data will be save in teh db i need tgis typesof flow what to do giveme the ideas first to evbalatuate and then we willabwl to add these coplete flow.
 
+the hr will check the leaves and approve or rejecet accordingly
+/leaves/all-leaves
+
+
+
+\\\\NEED TO WOKRIN ON THIS \\\\
+
+
+
+
+### Department wise perope see
+Thei is one page showing the cards for details perope
+and on click in the data its getting in to the data finding the peorple assocuoated iwthe that
+
+
+### Bulk email Sender 
+Hr will able to send the bulk email to all the peorson who are active in the system
+and aftre sending the email from the system all the peron will get the data in the mail and email will receved by indivisual.
+
+From the emplyee view all the empley will get the notifictaion both in the emil and dahbsoard point wise which was sending by the hr/admin.
+
+
+
