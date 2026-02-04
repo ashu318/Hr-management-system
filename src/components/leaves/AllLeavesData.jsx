@@ -6,7 +6,6 @@ import { paymentTableData } from '@/utils/fackData/paymentTableData';
 import Table from '@/components/shared/table/Table';
 import Link from 'next/link';
 import dayjs from 'dayjs'
-import HolidayTableSkeleton from "@/components/loaders/HolidayTableSkeleton"
 import LeavesSidebar from './LeavesSidebar';
 
 
@@ -170,11 +169,9 @@ const AllLeavesData = () => {
 
     return (
         <>
-            {loading ? (
-                <HolidayTableSkeleton />
-            ) : (
-                <Table data={data} columns={columns} />
-            )}
+
+            <Table data={data} columns={columns} loading={loading} />
+
             {sidebarOpen && (
                 <LeavesSidebar onClose={() => setSidebarOpen(false)} />
             )}

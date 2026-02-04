@@ -176,19 +176,25 @@ const CreateLeaves = () => {
                                         </div>
                                     </label>
                                     <div className="fs-12 text-muted mt-1">
-                                        * Is this your image?
+                                        <label className="form-label">
+                                             <span className="text-danger">*</span>
+                                        </label> Is this your image?
                                     </div>
                                 </div>
 
                                 {/* Dates */}
                                 <div className="d-md-flex align-items-center justify-content-end gap-4">
                                     <div className="form-group mb-3 mb-md-0">
-                                        <label className="form-label">Start Date</label>
+                                        <label className="form-label">Start Date
+                                            <span className="text-danger">*</span>
+                                        </label>
                                         <input type="date" name="startDate" className="form-control" value={formData.startDate} onChange={handleChange} />
                                     </div>
 
                                     <div className="form-group">
-                                        <label className="form-label">End Date</label>
+                                        <label className="form-label">End Date
+                                            <span className="text-danger">*</span>
+                                        </label>
                                         <input type="date" name='endDate' className="form-control" value={formData.endDate} onChange={handleChange} />
                                     </div>
                                 </div>
@@ -202,7 +208,7 @@ const CreateLeaves = () => {
                             {/* Leave Type */}
                             <div className="col-xl-4">
                                 <div className="form-group">
-                                    <label className="form-label">Leave Type</label>
+                                    <label className="form-label">Leave Type <span className="text-danger">*</span></label>
                                     <SelectDropdown
                                         options={leaveTypeOptions}
                                         selectedOption={selectedLeaveType} // ✅ must be the full object
@@ -222,7 +228,7 @@ const CreateLeaves = () => {
                             {/* Reason */}
                             <div className="col-xl-8">
                                 <div className="form-group">
-                                    <label className="form-label">Reason</label>
+                                    <label className="form-label">Reason <span className="text-danger">*</span> </label>
                                     <input
                                         type="text"
                                         className="form-control"

@@ -3,8 +3,6 @@ import { PrismaClient, Role } from '../../../lib/generated/prisma';
 import bcrypt from 'bcryptjs';
 import { verifyToken } from "@/lib/jwt";
 
-
-
 const prisma = new PrismaClient();
 
 
