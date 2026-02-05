@@ -1,7 +1,11 @@
 import { PrismaClient } from '../../../../lib/generated/prisma';
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
 const prisma = new PrismaClient();
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 
 export async function POST(req) {
@@ -39,9 +43,11 @@ export async function POST(req) {
         },
     });
 
+
+
     return NextResponse.json({
         success: true,
-        message: "User created successfully",
+        message: "User created successfully and welcome email sent",
         user: {
             id: user.id,
             email: user.email,

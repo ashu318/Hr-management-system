@@ -2,15 +2,17 @@ import { NextResponse } from 'next/server';
 import { PrismaClient, Role } from '../../../lib/generated/prisma';
 import bcrypt from 'bcryptjs';
 import { verifyToken } from "@/lib/jwt";
+import { Resend } from "resend";
 
 const prisma = new PrismaClient();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 export async function POST(request) {
     try {
         const data = await request.json();
 
-        console.log("Received user data:", data);
+        // console.log("Received user data:", data);
 
         // 🔐 Default password
         const hashedPassword = await bcrypt.hash("1111", 10);
@@ -75,7 +77,85 @@ export async function POST(request) {
             },
         });
 
-        console.log("New user created:", newUser);
+        try {
+            // Send welcome email
+            await resend.emails.send({
+                from: "Crusharders <noreply@odishabiz.com>",
+                to: data.email,
+                subject: "Welcome to the Crusharders Team 🎉",
+            html: `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Crusharders</title>
+</head>
+
+<body style="margin:0;padding:0;background-color:#eef1f7;font-family:'Segoe UI',Roboto,Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+    <tr>
+      <td align="center">
+
+        <table width="620" cellpadding="0" cellspacing="0"
+          style="background:#ffffff;border-radius:14px;overflow:hidden;
+          box-shadow:0 12px 30px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:#3454d1;padding:35px;text-align:center;">
+              <img
+                src="https://crushaderstech.com/images/logo/logo.webp"
+                alt="Crusharders Logo"
+                width="140"
+                style="display:block;margin:0 auto 10px;"
+              />
+              <p style="margin:0;color:#dbe2ff;font-size:14px;">
+                Welcome to Crusharders
+              </p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px 45px;color:#2c2c2c;font-size:15px;line-height:1.6;">
+              <h2 style="margin-top:0;">
+                Hey ${data.fullName}, Welcome to Crusharders!
+              </h2>
+
+              <p>We’re excited to have you on board.</p>
+              <p>Your account has been successfully created.</p>
+              <p>If you have any questions, feel free to reach out to the team.</p>
+
+              <br/>
+              <p>
+                — <strong>Crusharders Team</strong>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f5f7fc;padding:15px;text-align:center;
+              font-size:12px;color:#777;">
+              © ${new Date().getFullYear()} Crusharders. All rights reserved.
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+`,
+            });
+        } catch (error) {
+            console.error("Error sending welcome email:", error);
+        }
 
         return NextResponse.json({
             success: true,
