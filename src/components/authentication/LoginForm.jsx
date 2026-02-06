@@ -5,6 +5,7 @@ import React from 'react'
 import { FiFacebook, FiGithub, FiTwitter } from 'react-icons/fi'
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const LoginForm = ({ registerPath, resetPath }) => {
 
@@ -25,14 +26,18 @@ const LoginForm = ({ registerPath, resetPath }) => {
                 body: JSON.stringify({ email, password }),
             });
 
+            const data = await res.json();
+
             if (!res.ok) {
-                throw new Error("Login failed");
+                toast.error(data.message || "Something went wrong");
+                return;
             }
 
+            toast.success("Login successful");
             router.push("/");
         } catch (error) {
             console.error(error);
-            alert("Login failed. Please check your credentials.");
+            toast.error("Login failed");
         } finally {
             setLoading(false);
         }
@@ -62,7 +67,7 @@ const LoginForm = ({ registerPath, resetPath }) => {
                         </div>
                     </div>
                     <div>
-                        <Link href={resetPath} className="fs-11 text-primary">Forget password?</Link>
+                        <Link href="/authentication/reset/forgot-password" className="fs-11 text-primary">Forget password?</Link>
                     </div>
                 </div>
                 <div className="mt-5">

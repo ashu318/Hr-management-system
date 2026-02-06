@@ -148,6 +148,12 @@ model User {
   isDeleted Boolean   @default(false)
   deletedAt DateTime?
 
+  // =========================
+  // Reset and Forgot Token
+  // =========================
+  resetPasswordToken   String?
+  resetPasswordExpires BigInt? // or DateTime
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

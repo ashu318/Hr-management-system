@@ -2512,8 +2512,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    resetPasswordExpires: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    resetPasswordExpires: bigint | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2549,6 +2559,8 @@ export namespace Prisma {
     organizationId: string | null
     isDeleted: boolean | null
     deletedAt: Date | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: bigint | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2586,6 +2598,8 @@ export namespace Prisma {
     organizationId: string | null
     isDeleted: boolean | null
     deletedAt: Date | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: bigint | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2623,11 +2637,21 @@ export namespace Prisma {
     organizationId: number
     isDeleted: number
     deletedAt: number
+    resetPasswordToken: number
+    resetPasswordExpires: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    resetPasswordExpires?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    resetPasswordExpires?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -2662,6 +2686,8 @@ export namespace Prisma {
     organizationId?: true
     isDeleted?: true
     deletedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2699,6 +2725,8 @@ export namespace Prisma {
     organizationId?: true
     isDeleted?: true
     deletedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2736,6 +2764,8 @@ export namespace Prisma {
     organizationId?: true
     isDeleted?: true
     deletedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2779,6 +2809,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2809,6 +2851,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -2846,9 +2890,13 @@ export namespace Prisma {
     organizationId: string
     isDeleted: boolean
     deletedAt: Date | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: bigint | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2900,6 +2948,8 @@ export namespace Prisma {
     organizationId?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -2941,6 +2991,8 @@ export namespace Prisma {
     organizationId?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -2979,6 +3031,8 @@ export namespace Prisma {
     organizationId?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -3017,11 +3071,13 @@ export namespace Prisma {
     organizationId?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designation" | "department" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designation" | "department" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     leaveBalances?: boolean | User$leaveBalancesArgs<ExtArgs>
@@ -3075,6 +3131,8 @@ export namespace Prisma {
       organizationId: string
       isDeleted: boolean
       deletedAt: Date | null
+      resetPasswordToken: string | null
+      resetPasswordExpires: bigint | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3535,6 +3593,8 @@ export namespace Prisma {
     readonly organizationId: FieldRef<"User", 'String'>
     readonly isDeleted: FieldRef<"User", 'Boolean'>
     readonly deletedAt: FieldRef<"User", 'DateTime'>
+    readonly resetPasswordToken: FieldRef<"User", 'String'>
+    readonly resetPasswordExpires: FieldRef<"User", 'BigInt'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -7448,6 +7508,8 @@ export namespace Prisma {
     organizationId: 'organizationId',
     isDeleted: 'isDeleted',
     deletedAt: 'deletedAt',
+    resetPasswordToken: 'resetPasswordToken',
+    resetPasswordExpires: 'resetPasswordExpires',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7619,6 +7681,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -7785,6 +7861,8 @@ export namespace Prisma {
     organizationId?: StringFilter<"User"> | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordToken?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpires?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
@@ -7825,6 +7903,8 @@ export namespace Prisma {
     organizationId?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
@@ -7869,6 +7949,8 @@ export namespace Prisma {
     organizationId?: StringFilter<"User"> | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordToken?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpires?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
@@ -7909,11 +7991,15 @@ export namespace Prisma {
     organizationId?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -7952,6 +8038,8 @@ export namespace Prisma {
     organizationId?: StringWithAggregatesFilter<"User"> | string
     isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPasswordExpires?: BigIntNullableWithAggregatesFilter<"User"> | bigint | number | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -8273,6 +8361,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutUsersInput
@@ -8313,6 +8403,8 @@ export namespace Prisma {
     organizationId: string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
@@ -8351,6 +8443,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
@@ -8391,6 +8485,8 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -8430,6 +8526,8 @@ export namespace Prisma {
     organizationId: string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8466,6 +8564,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8503,6 +8603,8 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8926,6 +9028,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
@@ -8989,8 +9102,14 @@ export namespace Prisma {
     organizationId?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    resetPasswordExpires?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -9026,6 +9145,8 @@ export namespace Prisma {
     organizationId?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9063,8 +9184,14 @@ export namespace Prisma {
     organizationId?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    resetPasswordExpires?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -9127,6 +9254,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -9499,6 +9642,14 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
   export type OrganizationUpdateOneRequiredWithoutUsersNestedInput = {
     create?: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutUsersInput
@@ -9780,6 +9931,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -9840,6 +10002,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumHolidayTypeFilter<$PrismaModel = never> = {
@@ -9952,6 +10141,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
@@ -9990,6 +10181,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
@@ -10094,6 +10287,8 @@ export namespace Prisma {
     organizationId?: StringFilter<"User"> | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordToken?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpires?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -10381,6 +10576,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutUsersInput
@@ -10420,6 +10617,8 @@ export namespace Prisma {
     organizationId: string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
@@ -10473,6 +10672,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
@@ -10512,6 +10713,8 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
@@ -10549,6 +10752,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutUsersInput
@@ -10588,6 +10793,8 @@ export namespace Prisma {
     organizationId: string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
@@ -10641,6 +10848,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
@@ -10680,6 +10889,8 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -10717,6 +10928,8 @@ export namespace Prisma {
     reportingManagerName?: string | null
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10766,6 +10979,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
@@ -10804,6 +11019,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -10842,6 +11059,8 @@ export namespace Prisma {
     reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
