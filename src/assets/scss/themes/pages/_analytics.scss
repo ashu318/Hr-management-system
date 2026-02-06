@@ -4,13 +4,11 @@
 <--!----------------------------------------------------------------!-->
 */
 
-
 .goal-card {
   .CircularProgressbar {
     width: 80px;
 
     .CircularProgressbar {
-
       &-trail {
         stroke: #e9ecef;
         stroke-width: 5px;
@@ -20,7 +18,7 @@
         fill: #283c50;
         color: #283c50;
         font-size: 13px;
-        font-weight: 600
+        font-weight: 600;
       }
     }
   }

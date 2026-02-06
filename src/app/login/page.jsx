@@ -4,39 +4,33 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-    const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleLogin = async () => {
-        const res = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
+  const handleLogin = async () => {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-        if (res.ok) {
-            router.push("/");
-        } else {
-            alert("Login failed");
-        }
-    };
+    if (res.ok) {
+      router.push("/");
+    } else {
+      alert("Login failed");
+    }
+  };
 
-    return (
-        <div>
-            <h2>Login</h2>
-            <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-            <input
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleLogin}>Login</button>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Login</h2>
+      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  );
 }
-
-
 
 // 'use client'
 
@@ -94,7 +88,6 @@ export default function LoginPage() {
 //                     <button type="submit" className="btn btn-lg btn-primary w-100" onClick={handleLogin}>Login</button>
 //                 </div>
 //             </form>
-
 
 //         </>
 //     )

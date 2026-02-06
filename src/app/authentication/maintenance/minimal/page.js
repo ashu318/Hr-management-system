@@ -1,5 +1,5 @@
-import MaintenaceForm from '@/components/authentication/MaintenaceForm'
-import React from 'react'
+import MaintenaceForm from "@/components/authentication/MaintenaceForm";
+import React from "react";
 
 const page = () => {
   return (
@@ -17,7 +17,7 @@ const page = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;

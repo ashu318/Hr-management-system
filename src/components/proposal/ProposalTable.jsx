@@ -1,11 +1,20 @@
-'use client'
-import React, { useEffect } from 'react'
-import Table from '@/components/shared/table/Table'
-import { FiAlertOctagon, FiArchive, FiClock, FiEdit3, FiEye, FiMoreHorizontal, FiPrinter, FiSend, FiTrash2 } from 'react-icons/fi'
-import Dropdown from '@/components/shared/Dropdown';
-import { proposalTableData } from '@/utils/fackData/proposalTableData';
-import Link from 'next/link';
-
+"use client";
+import React, { useEffect } from "react";
+import Table from "@/components/shared/table/Table";
+import {
+  FiAlertOctagon,
+  FiArchive,
+  FiClock,
+  FiEdit3,
+  FiEye,
+  FiMoreHorizontal,
+  FiPrinter,
+  FiSend,
+  FiTrash2,
+} from "react-icons/fi";
+import Dropdown from "@/components/shared/Dropdown";
+import { proposalTableData } from "@/utils/fackData/proposalTableData";
+import Link from "next/link";
 
 const actions = [
   { label: "Edit", icon: <FiEdit3 /> },
@@ -13,18 +22,15 @@ const actions = [
   { label: "Remind", icon: <FiClock /> },
   { type: "divider" },
   { label: "Archive", icon: <FiArchive /> },
-  { label: "Report Spam", icon: <FiAlertOctagon />, },
+  { label: "Report Spam", icon: <FiAlertOctagon /> },
   { type: "divider" },
-  { label: "Delete", icon: <FiTrash2 />, },
+  { label: "Delete", icon: <FiTrash2 /> },
 ];
-
-
-
 
 const ProposalTable = () => {
   const columns = [
     {
-      accessorKey: 'id',
+      accessorKey: "id",
       header: ({ table }) => {
         const checkboxRef = React.useRef(null);
 
@@ -54,83 +60,99 @@ const ProposalTable = () => {
         />
       ),
       meta: {
-        headerClassName: 'width-30',
+        headerClassName: "width-30",
       },
     },
 
-
     {
-      accessorKey: 'proposal',
-      header: () => 'Proposal',
-      cell: (info) => <a href='#' className='fw-bold'>{info.getValue()}</a>
+      accessorKey: "proposal",
+      header: () => "Proposal",
+      cell: (info) => (
+        <a href="#" className="fw-bold">
+          {info.getValue()}
+        </a>
+      ),
     },
     {
-      accessorKey: 'client',
-      header: () => 'Client',
+      accessorKey: "client",
+      header: () => "Client",
       cell: (info) => {
         const roles = info.getValue();
         return (
           <a href="#" className="hstack gap-3">
-            {
-              roles?.img ?
-                <div className="avatar-image avatar-md">
-                  <img src={roles?.img} alt="" className="img-fluid" />
-                </div>
-                :
-                <div className="text-white avatar-text user-avatar-text avatar-md">{roles?.name.substring(0, 1)}</div>
-            }
+            {roles?.img ? (
+              <div className="avatar-image avatar-md">
+                <img src={roles?.img} alt="" className="img-fluid" />
+              </div>
+            ) : (
+              <div className="text-white avatar-text user-avatar-text avatar-md">
+                {roles?.name.substring(0, 1)}
+              </div>
+            )}
             <div>
               <span className="text-truncate-1-line">{roles?.name}</span>
               <small className="fs-12 fw-normal text-muted">{roles?.email}</small>
             </div>
           </a>
-        )
-      }
+        );
+      },
     },
     {
-      accessorKey: 'subject',
-      header: () => 'Subject',
+      accessorKey: "subject",
+      header: () => "Subject",
     },
     {
-      accessorKey: 'amount',
-      header: () => 'Amount',
+      accessorKey: "amount",
+      header: () => "Amount",
       meta: {
-        className: "fw-bold text-dark"
-      }
+        className: "fw-bold text-dark",
+      },
     },
     {
-      accessorKey: 'date',
-      header: () => 'Date',
+      accessorKey: "date",
+      header: () => "Date",
     },
     {
-      accessorKey: 'status',
-      header: () => 'Status',
-      cell: (info) => <div className={`badge ${info.getValue().color}`}>{info.getValue().content}</div>
+      accessorKey: "status",
+      header: () => "Status",
+      cell: (info) => (
+        <div className={`badge ${info.getValue().color}`}>{info.getValue().content}</div>
+      ),
     },
     {
-      accessorKey: 'actions',
+      accessorKey: "actions",
       header: () => "Actions",
-      cell: info => (
+      cell: (info) => (
         <div className="hstack gap-2 justify-content-end">
-          <a href="#" className="avatar-text avatar-md" data-bs-toggle="offcanvas" data-bs-target="#proposalSent">
+          <a
+            href="#"
+            className="avatar-text avatar-md"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#proposalSent"
+          >
             <FiSend />
           </a>
           <Link href="/proposal/view" className="avatar-text avatar-md">
             <FiEye />
           </Link>
-          <Dropdown dropdownItems={actions} triggerIcon={<FiMoreHorizontal />} triggerClass='avatar-md' triggerPosition={"0,21"} />
+          <Dropdown
+            dropdownItems={actions}
+            triggerIcon={<FiMoreHorizontal />}
+            triggerClass="avatar-md"
+            triggerPosition={"0,21"}
+          />
         </div>
       ),
       meta: {
-        headerClassName: 'text-end'
-      }
+        headerClassName: "text-end",
+      },
     },
-  ]
+  ];
   return (
     <>
       <Table data={proposalTableData} columns={columns} />
     </>
-  )
-}
+  );
+};
 
-export default ProposalTable
+export default ProposalTable;

@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const page = () => {
   return (
@@ -8,7 +8,14 @@ const page = () => {
       <div className="auth-cover-content-inner">
         <div className="auth-cover-content-wrapper">
           <div className="auth-img">
-            <Image width={600} height={600} sizes='100vw' src="/images/auth/auth-cover-404-bg.svg" alt="img" className="img-fluid" />
+            <Image
+              width={600}
+              height={600}
+              sizes="100vw"
+              src="/images/auth/auth-cover-404-bg.svg"
+              alt="img"
+              className="img-fluid"
+            />
           </div>
         </div>
       </div>
@@ -19,16 +26,23 @@ const page = () => {
               <img src="/images/logo-abbr.png" alt="img" className="img-fluid" />
             </div>
             <h4 className="fw-bold mb-2">Page not found</h4>
-            <p className="fs-12 fw-medium text-muted">Sorry, the page you are looking for can't be found. Please check the URL or try to a different page on our site.</p>
-            <h2 className="fw-bolder mb-4" style={{ fontSize: 120 }}>4<span className="text-danger">0</span>4</h2>
+            <p className="fs-12 fw-medium text-muted">
+              Sorry, the page you are looking for can't be found. Please check the URL or try to a
+              different page on our site.
+            </p>
+            <h2 className="fw-bolder mb-4" style={{ fontSize: 120 }}>
+              4<span className="text-danger">0</span>4
+            </h2>
             <div className="mt-5">
-              <Link href="/" className="btn btn-light-brand w-100">Back Home</Link>
+              <Link href="/" className="btn btn-light-brand w-100">
+                Back Home
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;

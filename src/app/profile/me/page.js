@@ -1,12 +1,12 @@
-import ProfileInfo from '@/components/profile/ProfileInfo'
-import React from 'react'
+import ProfileInfo from "@/components/profile/ProfileInfo";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <ProfileInfo />
-        </>
-    )
-}
+  return (
+    <>
+      <ProfileInfo />
+    </>
+  );
+};
 
-export default page
+export default page;

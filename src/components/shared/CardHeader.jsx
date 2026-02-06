@@ -10,7 +10,6 @@ import {
   FiTrash,
 } from "react-icons/fi";
 
-
 const CardHeader = ({ title, refresh, remove, expanded }) => {
   return (
     <div className="card-header">
@@ -18,36 +17,23 @@ const CardHeader = ({ title, refresh, remove, expanded }) => {
       <div className="card-header-action">
         <div className="card-header-btn">
           <div data-toggle="tooltip" data-title="Delete" onClick={remove}>
-            <span
-              className="avatar-text avatar-xs bg-danger"
-              data-bs-toggle="remove"
-            >
+            <span className="avatar-text avatar-xs bg-danger" data-bs-toggle="remove">
               {" "}
             </span>
           </div>
           <div data-toggle="tooltip" data-title="Refresh" onClick={refresh}>
-            <span
-              className="avatar-text avatar-xs bg-warning"
-              data-bs-toggle="refresh"
-            >
+            <span className="avatar-text avatar-xs bg-warning" data-bs-toggle="refresh">
               {" "}
             </span>
           </div>
           <div data-toggle="tooltip" data-title="Maximize/Minimize" onClick={expanded}>
-            <span
-              className="avatar-text avatar-xs bg-success"
-              data-bs-toggle="expand"
-            >
+            <span className="avatar-text avatar-xs bg-success" data-bs-toggle="expand">
               {" "}
             </span>
           </div>
         </div>
         <div className="filter-dropdown">
-          <div
-            className="avatar-text avatar-sm"
-            data-bs-toggle="dropdown"
-            data-bs-offset="25, 25"
-          >
+          <div className="avatar-text avatar-sm" data-bs-toggle="dropdown" data-bs-offset="25, 25">
             <div data-toggle="tooltip" data-title="Options" className="lh-1">
               <FiMoreVertical />
             </div>

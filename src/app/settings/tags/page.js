@@ -1,12 +1,12 @@
-import SettingsTagsForm from '@/components/setting/settingsTagsForm'
-import React from 'react'
+import SettingsTagsForm from "@/components/setting/settingsTagsForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <SettingsTagsForm />
-        </>
-    )
-}
+  return (
+    <>
+      <SettingsTagsForm />
+    </>
+  );
+};
 
-export default page
+export default page;

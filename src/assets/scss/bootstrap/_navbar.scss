@@ -57,7 +57,6 @@
   }
 }
 
-
 // Navbar brand
 //
 // Used for brand, project, or site names.
@@ -77,7 +76,6 @@
     text-decoration: if($link-hover-decoration == underline, none, null);
   }
 }
-
 
 // Navbar nav
 //
@@ -108,7 +106,6 @@
   }
 }
 
-
 // Navbar text
 //
 //
@@ -120,11 +117,10 @@
 
   a,
   a:hover,
-  a:focus  {
+  a:focus {
     color: var(--#{$prefix}navbar-active-color);
   }
 }
-
 
 // Responsive navbar
 //

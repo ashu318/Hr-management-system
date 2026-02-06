@@ -1,12 +1,12 @@
-import SettingGeneralForm from '@/components/setting/settingGeneralForm'
-import React from 'react'
+import SettingGeneralForm from "@/components/setting/settingGeneralForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <SettingGeneralForm />
-        </>
-    )
-}
+  return (
+    <>
+      <SettingGeneralForm />
+    </>
+  );
+};
 
-export default page
+export default page;

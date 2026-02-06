@@ -1,22 +1,22 @@
-import React from 'react'
-import PageHeader from '@/components/shared/pageHeader/PageHeader'
-import CreateLeaves from '@/components/leaves/CreateLeaves'
-import LeavesHeader from '@/components/leaves/LeavesHeader'
+import React from "react";
+import PageHeader from "@/components/shared/pageHeader/PageHeader";
+import CreateLeaves from "@/components/leaves/CreateLeaves";
+import LeavesHeader from "@/components/leaves/LeavesHeader";
 
 const page = () => {
-    return (
-        <>
-            <PageHeader>
-                <LeavesHeader />
-            </PageHeader>
-            <div className='main-content'>
-                <div className='row'>
-                    {/* <PaymentTable /> */}
-                    <CreateLeaves />
-                </div>
-            </div>
-        </>
-    )
-}
+  return (
+    <>
+      <PageHeader>
+        <LeavesHeader />
+      </PageHeader>
+      <div className="main-content">
+        <div className="row">
+          {/* <PaymentTable /> */}
+          <CreateLeaves />
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default page
+export default page;

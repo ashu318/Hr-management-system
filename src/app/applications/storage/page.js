@@ -1,12 +1,12 @@
-import StorageContent from '@/components/storage/StorageContent'
-import React from 'react'
+import StorageContent from "@/components/storage/StorageContent";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <StorageContent />
-        </>
-    )
-}
+  return (
+    <>
+      <StorageContent />
+    </>
+  );
+};
 
-export default page
+export default page;

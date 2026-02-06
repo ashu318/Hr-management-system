@@ -1,10 +1,8 @@
-import SettingsSupportForm from '@/components/setting/settingsSupportForm'
-import React from 'react'
+import SettingsSupportForm from "@/components/setting/settingsSupportForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <SettingsSupportForm />
-    )
-}
+  return <SettingsSupportForm />;
+};
 
-export default page
+export default page;

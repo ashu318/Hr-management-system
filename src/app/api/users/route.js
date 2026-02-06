@@ -1,89 +1,86 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient, Role } from '../../../lib/generated/prisma';
-import bcrypt from 'bcryptjs';
+import { NextResponse } from "next/server";
+import { PrismaClient, Role } from "../../../lib/generated/prisma";
+import bcrypt from "bcryptjs";
 import { verifyToken } from "@/lib/jwt";
 import { Resend } from "resend";
 
 const prisma = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-
 export async function POST(request) {
+  try {
+    const data = await request.json();
+
+    // console.log("Received user data:", data);
+
+    // 🔐 Default password
+    const hashedPassword = await bcrypt.hash("1111", 10);
+
+    const newUser = await prisma.user.create({
+      data: {
+        // =====================
+        // Auth
+        // =====================
+        email: data.email,
+        password: hashedPassword,
+        role: Role.EMPLOYEE,
+
+        // =====================
+        // Employee Core
+        // =====================
+        employeeId: data.employeeId,
+        fullName: data.fullName,
+        phone: data.phone,
+        designation: data.designation,
+        department: data.department || null,
+        employmentType: data.employmentType || null,
+        workLocation: data.workLocation || null,
+        dateOfJoining: new Date(data.dateOfJoining),
+
+        // =====================
+        // Personal Details
+        // =====================
+        gender: data.gender || null,
+        dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
+        fatherName: data.fatherName || null,
+        motherName: data.motherName || null,
+
+        // =====================
+        // Address
+        // =====================
+        currentAddress: data.currentAddress || null,
+        permanentAddress: data.permanentAddress || null,
+        city: data.city || null,
+        state: data.state || null,
+        country: data.country || null,
+        pincode: data.pincode || null,
+
+        // =====================
+        // Emergency Contact
+        // =====================
+        emergencyContactName: data.emergencyContactName || null,
+        emergencyContactPhone: data.emergencyContactPhone || null,
+        emergencyContactRelation: data.emergencyContactRelation || null,
+
+        // =====================
+        // Reporting Manager
+        // =====================
+        reportingManagerName: data.reportingManagerName || null,
+
+        // =====================
+        // Organization
+        // =====================
+        organizationId: "ctsl_2026",
+      },
+    });
+
     try {
-        const data = await request.json();
-
-        // console.log("Received user data:", data);
-
-        // 🔐 Default password
-        const hashedPassword = await bcrypt.hash("1111", 10);
-
-        const newUser = await prisma.user.create({
-            data: {
-                // =====================
-                // Auth
-                // =====================
-                email: data.email,
-                password: hashedPassword,
-                role: Role.EMPLOYEE,
-
-                // =====================
-                // Employee Core
-                // =====================
-                employeeId: data.employeeId,
-                fullName: data.fullName,
-                phone: data.phone,
-                designation: data.designation,
-                department: data.department || null,
-                employmentType: data.employmentType || null,
-                workLocation: data.workLocation || null,
-                dateOfJoining: new Date(data.dateOfJoining),
-
-                // =====================
-                // Personal Details
-                // =====================
-                gender: data.gender || null,
-                dateOfBirth: data.dateOfBirth
-                    ? new Date(data.dateOfBirth)
-                    : null,
-                fatherName: data.fatherName || null,
-                motherName: data.motherName || null,
-
-                // =====================
-                // Address
-                // =====================
-                currentAddress: data.currentAddress || null,
-                permanentAddress: data.permanentAddress || null,
-                city: data.city || null,
-                state: data.state || null,
-                country: data.country || null,
-                pincode: data.pincode || null,
-
-                // =====================
-                // Emergency Contact
-                // =====================
-                emergencyContactName: data.emergencyContactName || null,
-                emergencyContactPhone: data.emergencyContactPhone || null,
-                emergencyContactRelation: data.emergencyContactRelation || null,
-
-                // =====================
-                // Reporting Manager
-                // =====================
-                reportingManagerName: data.reportingManagerName || null,
-
-                // =====================
-                // Organization
-                // =====================
-                organizationId: "ctsl_2026",
-            },
-        });
-
-        try {
-            // Send welcome email
-            await resend.emails.send({
-                from: "Crusharders <noreply@odishabiz.com>",
-                to: data.email,
-                subject: "Welcome to the Crusharders Team 🎉",
-            html: `
+      // Send welcome email
+      await resend.emails.send({
+        from: "Crusharders <noreply@odishabiz.com>",
+        to: data.email,
+        subject: "Welcome to the Crusharders Team 🎉",
+        html: `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,95 +149,73 @@ export async function POST(request) {
 </body>
 </html>
 `,
-            });
-        } catch (error) {
-            console.error("Error sending welcome email:", error);
-        }
-
-        return NextResponse.json({
-            success: true,
-            message: "User created successfully",
-            userId: newUser.id,
-        });
+      });
     } catch (error) {
-        console.error("Create user error:", error);
-
-        // Prisma unique constraint error
-        if (error.code === "P2002") {
-            const target = error.meta?.target || [];
-
-            let message = "Duplicate entry";
-
-            if (target.includes("email")) {
-                message = "Email already exists";
-            } else if (target.includes("employeeId")) {
-                message = "Employee ID already exists";
-            } else if (target.includes("employeeId") && target.includes("organizationId")) {
-                message = "Employee ID already exists in this organization";
-            }
-
-            return NextResponse.json(
-                { success: false, message },
-                { status: 409 }
-            );
-        }
-
-        return NextResponse.json(
-            { success: false, message: error.message || "Failed to create user" },
-            { status: 500 }
-        );
+      console.error("Error sending welcome email:", error);
     }
+
+    return NextResponse.json({
+      success: true,
+      message: "User created successfully",
+      userId: newUser.id,
+    });
+  } catch (error) {
+    console.error("Create user error:", error);
+
+    // Prisma unique constraint error
+    if (error.code === "P2002") {
+      const target = error.meta?.target || [];
+
+      let message = "Duplicate entry";
+
+      if (target.includes("email")) {
+        message = "Email already exists";
+      } else if (target.includes("employeeId")) {
+        message = "Employee ID already exists";
+      } else if (target.includes("employeeId") && target.includes("organizationId")) {
+        message = "Employee ID already exists in this organization";
+      }
+
+      return NextResponse.json({ success: false, message }, { status: 409 });
+    }
+
+    return NextResponse.json(
+      { success: false, message: error.message || "Failed to create user" },
+      { status: 500 }
+    );
+  }
 }
-
-
-
-
-
-
-
-
-
-
 
 export async function GET(request) {
-    try {
+  try {
+    // 1️⃣ Validate token
+    const token = request.cookies.get("auth_token")?.value;
+    if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        // 1️⃣ Validate token
-        const token = request.cookies.get("auth_token")?.value;
-        if (!token)
-            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    const decoded = verifyToken(token);
+    if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
 
-        const decoded = verifyToken(token);
-        if (!decoded)
-            return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    const users = await prisma.user.findMany({
+      include: {
+        organization: true,
+      },
+    });
 
-
-
-
-
-
-        const users = await prisma.user.findMany({
-            include: {
-                organization: true,
-            },
-        });
-
-        return NextResponse.json({
-            success: true,
-            users: users,
-        });
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return new Response(
-            JSON.stringify({
-                success: false,
-                error: "Failed to fetch users",
-            }),
-            {
-                status: 500,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
-    }
+    return NextResponse.json({
+      success: true,
+      users: users,
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: "Failed to fetch users",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 }
-

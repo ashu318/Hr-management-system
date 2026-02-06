@@ -1,12 +1,12 @@
-import SettingsTasksForm from '@/components/setting/settingsTasksForm'
-import React from 'react'
+import SettingsTasksForm from "@/components/setting/settingsTasksForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <SettingsTasksForm />
-        </>
-    )
-}
+  return (
+    <>
+      <SettingsTasksForm />
+    </>
+  );
+};
 
-export default page
+export default page;

@@ -4,12 +4,12 @@
 <--!----------------------------------------------------------------!-->
 */
 #earning-expense-area-chart {
-	.apexcharts-series[seriesName="Expense"] {
-		transform: scaleY(1.025);
-	}
+  .apexcharts-series[seriesName="Expense"] {
+    transform: scaleY(1.025);
+  }
 }
 #session-device-donut {
-	.apexcharts-canvas {
-		margin: auto;
-	}
+  .apexcharts-canvas {
+    margin: auto;
+  }
 }

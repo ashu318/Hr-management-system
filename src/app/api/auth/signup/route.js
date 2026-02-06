@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../../lib/generated/prisma';
+import { PrismaClient } from "../../../../lib/generated/prisma";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -6,52 +6,42 @@ import { Resend } from "resend";
 const prisma = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-
-
 export async function POST(req) {
-    const { email, password, organizationId } = await req.json();
+  const { email, password, organizationId } = await req.json();
 
-    if (!email || !password || !organizationId) {
-        return NextResponse.json(
-            { message: "All fields are required" },
-            { status: 400 }
-        );
-    }
+  if (!email || !password || !organizationId) {
+    return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+  }
 
-    // check if user already exists
-    const existingUser = await prisma.user.findUnique({
-        where: { email },
-    });
+  // check if user already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
 
-    if (existingUser) {
-        return NextResponse.json(
-            { message: "User already exists" },
-            { status: 409 }
-        );
-    }
+  if (existingUser) {
+    return NextResponse.json({ message: "User already exists" }, { status: 409 });
+  }
 
-    // hash password (recommended)
-    const hashedPassword = await bcrypt.hash(password, 10);
+  // hash password (recommended)
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
-        data: {
-            email,
-            password: hashedPassword,
-            role: "EMPLOYEE",          // 👈 default role
-            status: "ACTIVE",
-            organizationId,            // 👈 required by schema
-        },
-    });
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password: hashedPassword,
+      role: "EMPLOYEE", // 👈 default role
+      status: "ACTIVE",
+      organizationId, // 👈 required by schema
+    },
+  });
 
-
-
-    return NextResponse.json({
-        success: true,
-        message: "User created successfully and welcome email sent",
-        user: {
-            id: user.id,
-            email: user.email,
-            role: user.role,
-        },
-    });
+  return NextResponse.json({
+    success: true,
+    message: "User created successfully and welcome email sent",
+    user: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    },
+  });
 }

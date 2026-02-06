@@ -1,10 +1,12 @@
-import SettingsEmailForm from '@/components/setting/settingsEmailForm'
-import React from 'react'
+import SettingsEmailForm from "@/components/setting/settingsEmailForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <><SettingsEmailForm /></>
-    )
-}
+  return (
+    <>
+      <SettingsEmailForm />
+    </>
+  );
+};
 
-export default page
+export default page;

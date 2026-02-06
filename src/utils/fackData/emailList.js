@@ -5,47 +5,47 @@ export const emailList = {
       name: "Total Email",
       count: "50,545",
       icon: "bi-envelope",
-      color: "primary"
+      color: "primary",
     },
     {
       id: 2,
       name: "Email Sent",
       count: "25,000",
       icon: "bi-envelope-plus",
-      color: "warning"
+      color: "warning",
     },
     {
       id: 3,
       name: "Emais Delivered",
       count: "20,354",
       icon: "bi-envelope-check",
-      color: "success"
+      color: "success",
     },
     {
       id: 4,
       name: "Email Opened",
       count: "12,422",
       icon: "bi-envelope-open",
-      color: "indigo"
+      color: "indigo",
     },
     {
       id: 5,
       name: "Email Clicked",
       count: "6,248",
       icon: "bi-envelope-heart",
-      color: "teal"
+      color: "teal",
     },
     {
       id: 6,
       name: "Email Bounce",
       count: "2,047",
       icon: "bi-envelope-slash",
-      color: "danger"
-    }
+      color: "danger",
+    },
   ],
   emails: [
     {
-      id: '1fcb',
+      id: "1fcb",
       user_img: "/images/avatar/2.png",
       user_name: "Archie Cantones",
       user_email: "arcie.tones@gmail.com",
@@ -54,11 +54,11 @@ export const emailList = {
       date: "11 May, 2024",
       is_active: "active",
       active_time: "2 min ago",
-      is_message_read: false
+      is_message_read: false,
     },
 
     {
-      id: '2bcb',
+      id: "2bcb",
       user_img: "",
       user_name: "Holmes Cherryman",
       user_email: "golms.chan@gmail.com",
@@ -67,10 +67,10 @@ export const emailList = {
       date: "12 May, 2024",
       is_active: "always",
       active_time: "5 min ago",
-      is_message_read: false
+      is_message_read: false,
     },
     {
-      id: '3fcb',
+      id: "3fcb",
       user_img: "/images/avatar/4.png",
       user_name: "Malanie Hanvey",
       user_email: "lanie.nveyn@gmail.com",
@@ -79,10 +79,10 @@ export const emailList = {
       date: "12 May, 2024",
       is_active: "active",
       active_time: "7 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '4ecb',
+      id: "4ecb",
       user_img: "",
       user_name: "Kenneth Hune",
       user_email: "nneth.une@gmail.com",
@@ -91,10 +91,10 @@ export const emailList = {
       date: "13 May, 2024",
       is_active: "active",
       active_time: "9 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '5fpc',
+      id: "5fpc",
       user_img: "/images/avatar/6.png",
       user_name: "Valentine Maton",
       user_email: "alenine.aton@gmail.com",
@@ -103,10 +103,10 @@ export const emailList = {
       date: "14 May, 2024",
       is_active: "inactive",
       active_time: "10 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '6plc',
+      id: "6plc",
       user_img: "/images/avatar/3.png",
       user_name: "Bryan Waters",
       user_email: "nneth.une@gmail.com",
@@ -115,10 +115,10 @@ export const emailList = {
       date: "14 May, 2024",
       is_active: "active",
       active_time: "9 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '7dmp',
+      id: "7dmp",
       user_img: "/images/avatar/5.png",
       user_name: "Valentine Maton",
       user_email: "alenine.aton@gmail.com",
@@ -127,10 +127,10 @@ export const emailList = {
       date: "14 May, 2024",
       is_active: "active",
       active_time: "10 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '8sdb',
+      id: "8sdb",
       user_img: "/images/avatar/10.png",
       user_name: "Kenneth Hune",
       user_email: "nneth.une@gmail.com",
@@ -139,10 +139,10 @@ export const emailList = {
       date: "15 May, 2024",
       is_active: "active",
       active_time: "9 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '9ssd',
+      id: "9ssd",
       user_img: "/images/avatar/11.png",
       user_name: "Ursula Sanders",
       user_email: "alenine.aton@gmail.com",
@@ -151,10 +151,10 @@ export const emailList = {
       date: "15 May, 2024",
       is_active: "active",
       active_time: "17 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '10hdd',
+      id: "10hdd",
       user_img: "",
       user_name: "Timothy Boyd",
       user_email: "alenine.aton@gmail.com",
@@ -163,10 +163,10 @@ export const emailList = {
       date: "16 May, 2024",
       is_active: "active",
       active_time: "16 min ago",
-      is_message_read: true
+      is_message_read: true,
     },
     {
-      id: '11mcb',
+      id: "11mcb",
       user_img: "/images/avatar/2.png",
       user_name: "Archie Cantones",
       user_email: "arcie.tones@gmail.com",
@@ -175,11 +175,11 @@ export const emailList = {
       date: "17 May, 2024",
       is_active: "active",
       active_time: "2 min ago",
-      is_message_read: false
+      is_message_read: false,
     },
 
     {
-      id: '12blc',
+      id: "12blc",
       user_img: "",
       user_name: "Holmes Cherryman",
       user_email: "golms.chan@gmail.com",
@@ -188,7 +188,7 @@ export const emailList = {
       date: "18 May, 2024",
       is_active: "always",
       active_time: "5 min ago",
-      is_message_read: false
+      is_message_read: false,
     },
   ],
 
@@ -261,7 +261,7 @@ export const emailList = {
                 <span class="fs-12 d-inline-block text-dark"> Standard encryption (TLS) </span>
               </li>
             </ul>
-          `
+          `,
     },
 
     {
@@ -332,7 +332,7 @@ export const emailList = {
                 <span class="fs-12 d-inline-block text-dark"> Standard encryption (TLS) </span>
               </li>
             </ul>
-          `
+          `,
     },
 
     {
@@ -403,9 +403,7 @@ export const emailList = {
                 <span class="fs-12 d-inline-block text-dark"> Standard encryption (TLS) </span>
               </li>
             </ul>
-          `
+          `,
     },
-
-  ]
-}
-
+  ],
+};

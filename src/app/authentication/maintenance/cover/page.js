@@ -1,6 +1,6 @@
-import MaintenaceForm from '@/components/authentication/MaintenaceForm'
-import Image from 'next/image'
-import React from 'react'
+import MaintenaceForm from "@/components/authentication/MaintenaceForm";
+import Image from "next/image";
+import React from "react";
 
 const page = () => {
   return (
@@ -8,7 +8,14 @@ const page = () => {
       <div className="auth-cover-content-inner">
         <div className="auth-cover-content-wrapper">
           <div className="auth-img">
-            <Image width={600} height={600} sizes='100vw' src="/images/auth/auth-cover-maintenance-bg.svg" alt="img" className="img-fluid" />
+            <Image
+              width={600}
+              height={600}
+              sizes="100vw"
+              src="/images/auth/auth-cover-maintenance-bg.svg"
+              alt="img"
+              className="img-fluid"
+            />
           </div>
         </div>
       </div>
@@ -23,7 +30,7 @@ const page = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;

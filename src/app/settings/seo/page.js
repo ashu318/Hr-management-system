@@ -1,12 +1,12 @@
-import SettingSeoForm from '@/components/setting/settingSeoForm'
-import React from 'react'
+import SettingSeoForm from "@/components/setting/settingSeoForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <>
-            <SettingSeoForm />
-        </>
-    )
-}
+  return (
+    <>
+      <SettingSeoForm />
+    </>
+  );
+};
 
-export default page
+export default page;

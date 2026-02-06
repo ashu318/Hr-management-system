@@ -1,10 +1,8 @@
-import SettingsFinanceForm from '@/components/setting/settingsFinanceForm'
-import React from 'react'
+import SettingsFinanceForm from "@/components/setting/settingsFinanceForm";
+import React from "react";
 
 const page = () => {
-  return (
-    <SettingsFinanceForm />
-  )
-}
+  return <SettingsFinanceForm />;
+};
 
-export default page
+export default page;

@@ -1,6 +1,6 @@
-import RegisterForm from '@/components/authentication/RegisterForm'
-import Image from 'next/image'
-import React from 'react'
+import RegisterForm from "@/components/authentication/RegisterForm";
+import Image from "next/image";
+import React from "react";
 
 const page = () => {
   return (
@@ -19,7 +19,14 @@ const page = () => {
               </div>
               <div className="col-lg-6 bg-primary">
                 <div className="h-100 d-flex align-items-center justify-content-center">
-                  <Image width={499} height={499} sizes='100vw' src="/images/auth/auth-user.png" alt="img" className="img-fluid" />
+                  <Image
+                    width={499}
+                    height={499}
+                    sizes="100vw"
+                    src="/images/auth/auth-user.png"
+                    alt="img"
+                    className="img-fluid"
+                  />
                 </div>
               </div>
             </div>
@@ -27,7 +34,7 @@ const page = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;

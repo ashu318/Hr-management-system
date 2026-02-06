@@ -1,12 +1,12 @@
-import React from 'react'
-import EmailContent from '@/components/emails/EmailContent'
+import React from "react";
+import EmailContent from "@/components/emails/EmailContent";
 
 const page = () => {
   return (
     <>
-         <EmailContent />
+      <EmailContent />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -1,5 +1,5 @@
 import "../assets/scss/theme.scss";
-import 'react-circular-progressbar/dist/styles.css';
+import "react-circular-progressbar/dist/styles.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datetime/css/react-datetime.css";
@@ -7,16 +7,16 @@ import NavigationProvider from "@/contentApi/navigationProvider";
 import SettingSideBarProvider from "@/contentApi/settingSideBarProvider";
 import ThemeCustomizer from "@/components/shared/ThemeCustomizer";
 import { Toaster } from "react-hot-toast";
-import 'react-loading-skeleton/dist/skeleton.css';
+import "react-loading-skeleton/dist/skeleton.css";
 import "./globals.css";
 
 export const metadata = {
   title: "Duralux | Dashboard",
   description: "Duralux is a admin Dashboard create for multipurpose,",
   icons: {
-    icon: "/logo.JPG",                // default favicon
-    shortcut: "/logo.JPG",      // small icon
-    apple: "/logo.JPG",      // iOS icon
+    icon: "/logo.JPG", // default favicon
+    shortcut: "/logo.JPG", // small icon
+    apple: "/logo.JPG", // iOS icon
   },
 };
 
@@ -25,9 +25,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SettingSideBarProvider>
-          <NavigationProvider>
-            {children}
-          </NavigationProvider>
+          <NavigationProvider>{children}</NavigationProvider>
         </SettingSideBarProvider>
         <ThemeCustomizer />
         <Toaster
@@ -64,7 +62,6 @@ export default function RootLayout({ children }) {
             },
           }}
         />
-
       </body>
     </html>
   );

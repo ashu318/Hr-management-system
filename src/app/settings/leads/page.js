@@ -1,11 +1,8 @@
-import SettingsLeadsForm from '@/components/setting/settingsLeadsForm'
-import React from 'react'
+import SettingsLeadsForm from "@/components/setting/settingsLeadsForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <SettingsLeadsForm />
+  return <SettingsLeadsForm />;
+};
 
-    )
-}
-
-export default page
+export default page;

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.15",
@@ -49,5 +50,10 @@
     "sass": "^1.83.1",
     "sweetalert2": "^11.14.1",
     "sweetalert2-react-content": "^5.0.7"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.1.6",
+    "prettier": "^3.8.1"
   }
 }

@@ -60,31 +60,31 @@ $darken: $darken; // new added
 
 // Theme Colors Map
 $theme-colors: (
-	"primary": $primary,
-	"secondary": $secondary,
-	"success": $success,
-	"info": $info,
-	"warning": $warning,
-	"danger": $danger,
-	"light": $light,
-	"dark": $dark,
-	"darken": $darken,
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "darken": $darken,
 );
 
 // Border
 $border-width: 1px;
 $border-widths: (
-	0: 0,
-	1: 1px,
-	2: 2px,
-	3: 3px,
-	4: 4px,
-	5: 5px,
-	6: 6px,
-	7: 7px,
-	8: 8px,
-	9: 9px,
-	10: 10px,
+  0: 0,
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px,
+  6: 6px,
+  7: 7px,
+  8: 8px,
+  9: 9px,
+  10: 10px,
 );
 $border-color: #e5e7eb;
 $border-color-2: #dcdee4;
@@ -153,25 +153,28 @@ $font-weight-bold: 700;
 $font-weight-bolder: 800;
 $font-weight-black: 900;
 $utilities: (
-	"font-weight": (
-		property: font-weight,
-		class: fw,
-		values: (
-			light: $font-weight-light,
-			lighter: $font-weight-lighter,
-			normal: $font-weight-normal,
-			medium: $font-weight-medium,
-			semibold: $font-weight-semibold,
-			bold: $font-weight-bold,
-			bolder: $font-weight-bolder,
-			black: $font-weight-black,
-		),
-	),
+  "font-weight": (
+    property: font-weight,
+    class: fw,
+    values: (
+      light: $font-weight-light,
+      lighter: $font-weight-lighter,
+      normal: $font-weight-normal,
+      medium: $font-weight-medium,
+      semibold: $font-weight-semibold,
+      bold: $font-weight-bold,
+      bolder: $font-weight-bolder,
+      black: $font-weight-black,
+    ),
+  ),
 );
 
 // Breadcrumb
 .breadcrumb-item + .breadcrumb-item::before {
-	content: var(--bs-breadcrumb-divider, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14' stroke='%2364748b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E")) !important;
+  content: var(
+    --bs-breadcrumb-divider,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14' stroke='%2364748b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E")
+  ) !important;
 }
 
 // List-Group

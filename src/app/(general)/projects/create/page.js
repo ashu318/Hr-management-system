@@ -1,7 +1,7 @@
-import React from 'react'
-import PageHeader from '@/components/shared/pageHeader/PageHeader'
-import ProjectCreateContent from '@/components/projectsCreate/ProjectCreateContent'
-import ProjectCreateHeader from '@/components/projectsCreate/ProjectCreateHeader'
+import React from "react";
+import PageHeader from "@/components/shared/pageHeader/PageHeader";
+import ProjectCreateContent from "@/components/projectsCreate/ProjectCreateContent";
+import ProjectCreateHeader from "@/components/projectsCreate/ProjectCreateHeader";
 
 const page = () => {
   return (
@@ -9,14 +9,13 @@ const page = () => {
       <PageHeader>
         <ProjectCreateHeader />
       </PageHeader>
-      <div className='main-content'>
-        <div className='row'>
+      <div className="main-content">
+        <div className="row">
           <ProjectCreateContent />
         </div>
       </div>
-
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

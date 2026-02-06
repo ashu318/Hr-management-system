@@ -1,10 +1,12 @@
-import SettingsLocalizationForm from '@/components/setting/settingsLocalizationForm'
-import React from 'react'
+import SettingsLocalizationForm from "@/components/setting/settingsLocalizationForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <><SettingsLocalizationForm /></>
-    )
-}
+  return (
+    <>
+      <SettingsLocalizationForm />
+    </>
+  );
+};
 
-export default page
+export default page;

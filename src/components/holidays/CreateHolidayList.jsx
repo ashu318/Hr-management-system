@@ -1,26 +1,24 @@
-'use client'
-import React, { useState } from 'react'
-import SelectDropdown from '@/components/shared/SelectDropdown'
-import DatePicker from 'react-datepicker'
-import EventCalendarSmall from '@/components/EventCalendarSmall'
+"use client";
+import React, { useState } from "react";
+import SelectDropdown from "@/components/shared/SelectDropdown";
+import DatePicker from "react-datepicker";
+import EventCalendarSmall from "@/components/EventCalendarSmall";
 import toast from "react-hot-toast";
 
-
 const CreateHolidayList = () => {
-  const [holidayName, setHolidayName] = useState("")
-  const [holidayDate, setHolidayDate] = useState(null)
-  const [holidayType, setHolidayType] = useState(null)
-  const [description, setDescription] = useState("")
-  const [year, setYear] = useState("")
-  const [day, setDay] = useState("")
-  const [loading, setLoading] = useState(false)
-
+  const [holidayName, setHolidayName] = useState("");
+  const [holidayDate, setHolidayDate] = useState(null);
+  const [holidayType, setHolidayType] = useState(null);
+  const [description, setDescription] = useState("");
+  const [year, setYear] = useState("");
+  const [day, setDay] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     if (!holidayName || !holidayDate || !holidayType) {
-      toast.error("Please fill all the fields")
-      return
+      toast.error("Please fill all the fields");
+      return;
     }
 
     const payload = {
@@ -30,8 +28,7 @@ const CreateHolidayList = () => {
       year: Number(year),
       type: holidayType.value,
       description,
-    }
-
+    };
 
     // console.log("The data is get : ", payload)
 
@@ -42,29 +39,28 @@ const CreateHolidayList = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      })
+      });
 
-      const data = await res.json()
-      console.log("Saved:", data)
+      const data = await res.json();
+      console.log("Saved:", data);
       if (res.ok) {
-        toast.success("Holiday created successfully")
+        toast.success("Holiday created successfully");
         // Reset form
-        setHolidayName("")
-        setHolidayDate(null)
-        setHolidayType(null)
-        setDescription("")
-        setYear("")
-        setDay("")
-        return
+        setHolidayName("");
+        setHolidayDate(null);
+        setHolidayType(null);
+        setDescription("");
+        setYear("");
+        setDay("");
+        return;
       }
-
     } catch (err) {
-      console.error(err)
-      toast.error("Something went wrong")
+      console.error(err);
+      toast.error("Something went wrong");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -85,7 +81,6 @@ const CreateHolidayList = () => {
                     value={holidayName}
                     onChange={(e) => setHolidayName(e.target.value)}
                   />
-
                 </div>
               </div>
 
@@ -99,21 +94,20 @@ const CreateHolidayList = () => {
                   <DatePicker
                     selected={holidayDate}
                     onChange={(date) => {
-                      setHolidayDate(date)
+                      setHolidayDate(date);
 
                       if (date) {
-                        setYear(date.getFullYear())
+                        setYear(date.getFullYear());
 
                         const dayName = date.toLocaleDateString("en-US", {
                           weekday: "long",
-                        })
-                        setDay(dayName)
+                        });
+                        setDay(dayName);
                       }
                     }}
                     className="form-control"
                     placeholderText="Select date"
                   />
-
                 </div>
               </div>
 
@@ -136,21 +130,14 @@ const CreateHolidayList = () => {
                 </div>
               </div>
             </div>
-            <div className='row'>
+            <div className="row">
               <div className="col-md-4">
                 {/* Holiday Color */}
                 <div className="mb-4">
                   <label className="form-label">
                     Year <span className="text-danger">*</span>
                   </label>
-                  <input
-                    type="text"
-                    className="form-control bg-gray-200"
-                    value={year}
-                    readOnly
-                  />
-                  
-
+                  <input type="text" className="form-control bg-gray-200" value={year} readOnly />
                 </div>
               </div>
               <div className="col-md-4">
@@ -159,17 +146,10 @@ const CreateHolidayList = () => {
                   <label className="form-label">
                     Day <span className="text-danger">*</span>
                   </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={day}
-                    readOnly
-                  />
-
+                  <input type="text" className="form-control" value={day} readOnly />
                 </div>
               </div>
             </div>
-
 
             {/* Description */}
             <div className="mb-4">
@@ -182,14 +162,12 @@ const CreateHolidayList = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-
             </div>
 
             {/* Save Button */}
             <button className="btn btn-primary w-100" onClick={handleSubmit} disabled={loading}>
               {loading ? "Saving..." : "Save"}
             </button>
-
           </div>
         </div>
       </div>
@@ -199,7 +177,7 @@ const CreateHolidayList = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CreateHolidayList
+export default CreateHolidayList;

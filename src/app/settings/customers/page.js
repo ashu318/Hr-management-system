@@ -1,10 +1,8 @@
-import SettingsCustomersForm from '@/components/setting/settingsCustomersForm'
-import React from 'react'
+import SettingsCustomersForm from "@/components/setting/settingsCustomersForm";
+import React from "react";
 
 const page = () => {
-    return (
-        <SettingsCustomersForm />
-    )
-}
+  return <SettingsCustomersForm />;
+};
 
-export default page
+export default page;

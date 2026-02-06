@@ -1,24 +1,24 @@
-'use client'
-import React, { useState } from 'react'
-import PageHeaderSetting from '@/components/shared/pageHeader/PageHeaderSetting'
-import Footer from '@/components/shared/Footer'
-import { settingOptions } from './settingsEmailForm'
-import SelectDropdown from '@/components/shared/SelectDropdown'
-import { FiCalendar } from 'react-icons/fi'
-import PerfectScrollbar from 'react-perfect-scrollbar'
-import TextAreaTopLabel from '@/components/shared/TextAreaTopLabel'
+"use client";
+import React, { useState } from "react";
+import PageHeaderSetting from "@/components/shared/pageHeader/PageHeaderSetting";
+import Footer from "@/components/shared/Footer";
+import { settingOptions } from "./settingsEmailForm";
+import SelectDropdown from "@/components/shared/SelectDropdown";
+import { FiCalendar } from "react-icons/fi";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import TextAreaTopLabel from "@/components/shared/TextAreaTopLabel";
 
 const decimalSeparator = [
   { value: "dot", label: ". (Dot)" },
   { value: "clone", label: ", (Clone)" },
-]
+];
 const thousandSeparator = [
   { value: "dot", label: ". (Dot)" },
   { value: "clone", label: ", (Clone)" },
   { value: "apostrophe", label: "' (Apostrophe)" },
   { value: "none", label: "None" },
   { value: "space", label: "Space" },
-]
+];
 
 const taxOptions = [
   { value: "no-tax", label: "No Tax", color: "#283c50" },
@@ -26,11 +26,11 @@ const taxOptions = [
   { value: "10-percent", label: "10% + $2", color: "#17c666" },
   { value: "15-percent", label: "15% + $2", color: "#6610f2" },
   { value: "20-percent", label: "20% + $2", color: "#ffa21d" },
-  { value: "25-percent", label: "25% + $2", color: "#ea4d4d" }
-]
+  { value: "25-percent", label: "25% + $2", color: "#ea4d4d" },
+];
 const SettingsFinanceForm = () => {
-  const [selectedOption, setSelectedOption] = useState(null)
-  const options = settingOptions
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = settingOptions;
   return (
     <div className="content-area">
       <PerfectScrollbar>
@@ -60,7 +60,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Thousand Separator [Ex: ./,/'/None/Space]</small>
+                <small className="form-text text-muted">
+                  Thousand Separator [Ex: ./,/'/None/Space]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Default Tax </label>
@@ -90,37 +92,53 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Remove the tax name from item table row [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Remove the tax name from item table row [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Exclude currency symbol from items table Amount </label>
+                <label className="form-label">
+                  Exclude currency symbol from items table Amount{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"yes"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Exclude currency symbol from items table Amount [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Exclude currency symbol from items table Amount [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Remove decimals on numbers/money with zero decimals (2.00 will become 2, 2.25 will stay 2.25) </label>
+                <label className="form-label">
+                  Remove decimals on numbers/money with zero decimals (2.00 will become 2, 2.25 will
+                  stay 2.25){" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"no"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Remove decimals on numbers/money with zero decimals (2.00 will become 2, 2.25 will stay 2.25) [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Remove decimals on numbers/money with zero decimals (2.00 will become 2, 2.25 will
+                  stay 2.25) [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Output total amount to words in invoice/estimate/proposal </label>
+                <label className="form-label">
+                  Output total amount to words in invoice/estimate/proposal{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"yes"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Output total amount to words in invoice/estimate/proposal [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Output total amount to words in invoice/estimate/proposal [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Number words into lowercase </label>
@@ -130,7 +148,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Number words into lowercase [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Number words into lowercase [Ex: Yes/No]
+                </small>
               </div>
               <hr className="my-5" />
               <div className="mb-5">
@@ -143,7 +163,9 @@ const SettingsFinanceForm = () => {
                   <span className="input-group-text">INV-</span>
                   <input type="text" className="form-control" placeholder="Invoice Number Prefix" />
                 </div>
-                <small className="form-text text-muted">Invoice Number Prefix [Ex: INV-/ORD-]</small>
+                <small className="form-text text-muted">
+                  Invoice Number Prefix [Ex: INV-/ORD-]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Invoice due after (days)</label>
@@ -151,29 +173,43 @@ const SettingsFinanceForm = () => {
                   <span className="input-group-text">
                     <FiCalendar size={16} />
                   </span>
-                  <input type="number" className="form-control" placeholder="Invoice due after (days)" />
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="Invoice due after (days)"
+                  />
                 </div>
-                <small className="form-text text-muted">Invoice due after (days) [Ex: 15/30 days]</small>
+                <small className="form-text text-muted">
+                  Invoice due after (days) [Ex: 15/30 days]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Allow staff members to view invoices where they are assigned to </label>
+                <label className="form-label">
+                  Allow staff members to view invoices where they are assigned to{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"yes"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Allow staff members to view invoices where they are assigned to [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Allow staff members to view invoices where they are assigned to [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Require client to be logged in to view invoice </label>
+                <label className="form-label">
+                  Require client to be logged in to view invoice{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"no"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Require client to be logged in to view invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Require client to be logged in to view invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Delete invoice allowed only on last invoice </label>
@@ -183,7 +219,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Delete invoice allowed only on last invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Delete invoice allowed only on last invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label"> Decrement invoice number on delete </label>
@@ -193,17 +231,24 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted"> Decrement invoice number on delete [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  {" "}
+                  Decrement invoice number on delete [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Exclude invoices with draft status from customers area </label>
+                <label className="form-label">
+                  Exclude invoices with draft status from customers area{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"yes"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Exclude invoices with draft status from customers area [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Exclude invoices with draft status from customers area [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Show Sale Agent On Invoice </label>
@@ -213,7 +258,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Show Sale Agent On Invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Show Sale Agent On Invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Show Project Name On Invoice </label>
@@ -223,7 +270,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Show Project Name On Invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Show Project Name On Invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Show Total Paid On Invoice </label>
@@ -233,7 +282,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Show Total Paid On Invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Show Total Paid On Invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Show Credits Applied On Invoice </label>
@@ -243,7 +294,9 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Show Credits Applied On Invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Show Credits Applied On Invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
                 <label className="form-label">Show Amount Due On Invoice </label>
@@ -253,17 +306,23 @@ const SettingsFinanceForm = () => {
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Show Amount Due On Invoice [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Show Amount Due On Invoice [Ex: Yes/No]
+                </small>
               </div>
               <div className="mb-5">
-                <label className="form-label">Attach invoice PDF when sending payment receipt to email </label>
+                <label className="form-label">
+                  Attach invoice PDF when sending payment receipt to email{" "}
+                </label>
                 <SelectDropdown
                   options={options}
                   defaultSelect={"yes"}
                   selectedOption={selectedOption}
                   onSelectOption={(option) => setSelectedOption(option)}
                 />
-                <small className="form-text text-muted">Attach invoice PDF when sending payment receipt to email [Ex: Yes/No]</small>
+                <small className="form-text text-muted">
+                  Attach invoice PDF when sending payment receipt to email [Ex: Yes/No]
+                </small>
               </div>
               <TextAreaTopLabel
                 label={"Predefined Client Note"}
@@ -285,7 +344,9 @@ const SettingsFinanceForm = () => {
 {country_code} {zip_code}
 {phone}
 {email}"
-                info={"Proposal Info Format (PDF and HTML) [Ex: {proposal_to} {address} {city} {state} {country_code} {zip_code} {phone} {email}]"}
+                info={
+                  "Proposal Info Format (PDF and HTML) [Ex: {proposal_to} {address} {city} {state} {country_code} {zip_code} {phone} {email}]"
+                }
               />
             </div>
           </div>
@@ -293,8 +354,7 @@ const SettingsFinanceForm = () => {
         <Footer />
       </PerfectScrollbar>
     </div>
+  );
+};
 
-  )
-}
-
-export default SettingsFinanceForm
+export default SettingsFinanceForm;

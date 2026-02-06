@@ -1,5 +1,5 @@
-import OtpVerifyForm from '@/components/authentication/OtpVerifyForm'
-import React from 'react'
+import OtpVerifyForm from "@/components/authentication/OtpVerifyForm";
+import React from "react";
 
 const page = () => {
   return (
@@ -17,7 +17,7 @@ const page = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;
