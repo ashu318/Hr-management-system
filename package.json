@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -52,8 +51,6 @@
     "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
-    "eslint": "^9.39.2",
-    "eslint-config-next": "16.1.6",
     "prettier": "^3.8.1"
   }
 }
