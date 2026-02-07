@@ -92,3 +92,4 @@ Hr will able to send the bulk email to all the peorson who are active in the sys
 and aftre sending the email from the system all the peron will get the data in the mail and email will receved by indivisual.
 
 From the emplyee view all the empley will get the notifictaion both in the emil and dahbsoard point wise which was sending by the hr/admin.
+  

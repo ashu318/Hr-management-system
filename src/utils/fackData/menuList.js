@@ -17,12 +17,6 @@ export const menuList = [
         path: "/dashboards/analytics",
         subdropdownMenu: false,
       },
-      {
-        id: 3,
-        name: "Holidays",
-        path: "/holidays",
-        subdropdownMenu: false,
-      },
     ],
   },
 
