@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient, Role } from "../../../lib/generated/prisma";
+// import { PrismaClient, Role } from "@/lib/generated/prisma";
 import bcrypt from "bcryptjs";
 import { verifyToken } from "@/lib/jwt";
 import { Resend } from "resend";
@@ -196,10 +197,20 @@ export async function GET(request) {
     if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
 
     const users = await prisma.user.findMany({
-      include: {
-        organization: true,
+      select: {
+        id: true,
+        fullName: true,
+        designation: true,
+        phone: true,
+        organization: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     });
+
 
     return NextResponse.json({
       success: true,

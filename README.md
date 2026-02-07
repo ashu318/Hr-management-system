@@ -72,6 +72,13 @@ once done all the data will be save in teh db i need tgis typesof flow what to d
 the hr will check the leaves and approve or rejecet accordingly
 /leaves/all-leaves
 
+### Reset and Forgot password module
+Here in the reset and pass word pages are public and when the users full the email backedn checks the data and validate and send the email to the registerated email id and the users will open the email and reset thepass
+email serviec si  - - resend here
+
+
+
+
 \\\\NEED TO WOKRIN ON THIS \\\\
 
 ### Department wise perope see
