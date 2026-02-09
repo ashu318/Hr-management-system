@@ -20,7 +20,7 @@ const ListRecentAnnounements = ({ title }) => {
                 className={`card stretch stretch-full ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
             >
                 <CardHeader
-                    title={title}
+                    title="Recent Email's"
                     refresh={handleRefresh}
                     remove={handleDelete}
                     expanded={handleExpand}

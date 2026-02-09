@@ -18,7 +18,7 @@ const CreateAnnouncements = ({ title, className }) => {
         return null;
     }
     return (
-        <div className={className}>
+        <div className={className} >
             <div
                 className={`card stretch stretch-full ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
             >

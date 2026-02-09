@@ -32,7 +32,7 @@ const CustomersTable = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/users");
+        const response = await fetch("/api/users/all-users-details");
 
         if (!response.ok) {
           throw new Error("Failed to fetch users");

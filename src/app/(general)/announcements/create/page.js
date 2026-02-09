@@ -14,7 +14,7 @@ const page = () => {
             </PageHeader>
             <div className="main-content">
                 <div className="row">
-                    <CreateAnnouncements title={"Create Announcement"} className={"col-xxl-8"} />
+                    <CreateAnnouncements title={"Create Email's"} className={"col-xxl-8"} />
                     <ListRecentAnnounements />
                 </div>
             </div>

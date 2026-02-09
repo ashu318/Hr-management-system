@@ -141,6 +141,8 @@ const ProposalCreateContent = () => {
           </div>
         </div>
       </div>
+
+      
       <div className="col-xl-6">
         <div className="card stretch stretch-full">
           <div className="card-body">

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Role } from "../../../lib/generated/prisma";
+import { PrismaClient, Role } from "../../../../lib/generated/prisma";
 // import { PrismaClient, Role } from "@/lib/generated/prisma";
 import bcrypt from "bcryptjs";
 import { verifyToken } from "@/lib/jwt";
@@ -210,7 +210,6 @@ export async function GET(request) {
         },
       },
     });
-
 
     return NextResponse.json({
       success: true,
