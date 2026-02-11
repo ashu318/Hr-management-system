@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/lib/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/lib/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -43,18 +43,24 @@ enum HolidayType {
 }
 
 enum LeaveType {
-  PAID_LEAVE           
-  SICK_LEAVE           
-  CASUAL_LEAVE         
-  MATERNITY_LEAVE      
-  PATERNITY_LEAVE    
-  BEREAVEMENT_LEAVE    
-  OPTIONAL_LEAVE       
+  PAID_LEAVE
+  SICK_LEAVE
+  CASUAL_LEAVE
+  MATERNITY_LEAVE
+  PATERNITY_LEAVE
+  BEREAVEMENT_LEAVE
+  OPTIONAL_LEAVE
 }
+
 enum LeaveStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum AnnouncementSendType {
+  ALL
+  INDIVIDUAL
 }
 
 ///////////////////////////
@@ -63,40 +69,41 @@ enum LeaveStatus {
 model Organization {
   id        String   @id @default(uuid())
   name      String
-  domain    String?   // optional, e.g., company email domain
+  domain    String? // optional, e.g., company email domain
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users     User[]   // 1:N relation to Users
-  holidays  Holiday[]  
+  users         User[] // 1:N relation to Users
+  holidays      Holiday[]
+  announcements Announcement[]
 }
 
 ///////////////////////////
 // USER
 ///////////////////////////
 model User {
-  id            String      @id @default(uuid())
+  id String @id @default(uuid())
 
   // =========================
   // Login & Auth
   // =========================
-  email         String      @unique
-  password      String
-  role          Role
-  status        UserStatus  @default(ACTIVE)
-  lastLoginAt   DateTime?
+  email       String     @unique
+  password    String
+  role        Role
+  status      UserStatus @default(ACTIVE)
+  lastLoginAt DateTime?
 
   // =========================
   // Employee Core Details
   // =========================
-  employeeId    String          // given by HR
-  fullName      String
-  phone         String
-  designation   String
-  department    String?
+  employeeId     String // given by HR
+  fullName       String
+  phone          String
+  designation    String
+  department     String?
   employmentType EmploymentType?
-  workLocation  String?
-  dateOfJoining DateTime
+  workLocation   String?
+  dateOfJoining  DateTime
 
   // =========================
   // Personal Details
@@ -110,12 +117,12 @@ model User {
   // =========================
   // Address Details
   // =========================
-  currentAddress    String?
-  permanentAddress  String?
-  city              String?
-  state             String?
-  country           String?
-  pincode           String?
+  currentAddress   String?
+  permanentAddress String?
+  city             String?
+  state            String?
+  country          String?
+  pincode          String?
 
   // =========================
   // Emergency Contact
@@ -138,24 +145,29 @@ model User {
   // =========================
   // Leave Balance
   // =========================
-  leaveBalances LeaveBalance[]
+  leaveBalances    LeaveBalance[]
   LeaveApplication LeaveApplication[]
+
+  // =========================
+  // Announcements
+  // =========================
+  createdAnnouncements Announcement[]          @relation("CreatedAnnouncements")
+  announcementReceipts AnnouncementRecipient[]
 
   // =========================
   // System & Safety
   // =========================
-  isDeleted     Boolean   @default(false)
-  deletedAt     DateTime?
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
 
   // =========================
   // Reset and Forgot Token
   // =========================
-  resetPasswordToken   String?  
-  resetPasswordExpires BigInt?  // or DateTime
+  resetPasswordToken   String?
+  resetPasswordExpires BigInt? // or DateTime
 
-
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([employeeId, organizationId])
 }
@@ -164,12 +176,12 @@ model User {
 // HOLIDAY
 ///////////////////////////
 model Holiday {
-  id          String        @id @default(uuid())
+  id String @id @default(uuid())
 
-  name        String        // Ganesh Puja
-  date        DateTime      // 2026-09-19
-  day         String        // Friday (store for fast UI)
-  year        Int           // 2026
+  name String // Ganesh Puja
+  date DateTime // 2026-09-19
+  day  String // Friday (store for fast UI)
+  year Int // 2026
 
   type        HolidayType
   description String?
@@ -178,10 +190,10 @@ model Holiday {
   organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId String?
 
-  isDeleted   Boolean       @default(false)
+  isDeleted Boolean @default(false)
 
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([date, organizationId])
 }
@@ -190,36 +202,105 @@ model Holiday {
 // LEAVE BALANCE
 ///////////////////////////
 model LeaveBalance {
-  id        String @id @default(uuid())
+  id String @id @default(uuid())
 
-  user      User   @relation(fields: [userId], references: [id])
-  userId    String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-  leaveType LeaveType   
-  total     Int      
+  leaveType LeaveType
+  total     Int
 
   createdAt DateTime @default(now())
 
   @@unique([userId, leaveType])
 }
 
-
 ///////////////////////////
 // LEAVE APPLICTAIONS
 ///////////////////////////
 model LeaveApplication {
-  id         String     @id @default(uuid())
-  user       User       @relation(fields: [userId], references: [id])
-  userId     String
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-  leaveType  LeaveType
-  startDate  DateTime
-  endDate    DateTime
-  reason     String
-  status LeaveStatus @default(PENDING)
+  leaveType LeaveType
+  startDate DateTime
+  endDate   DateTime
+  reason    String
+  status    LeaveStatus @default(PENDING)
 
-
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
+///////////////////////////
+// ANNOUNCEMENT
+///////////////////////////
+model Announcement {
+  id String @id @default(uuid())
+
+  // =========================
+  // Organization & Creator
+  // =========================
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  createdBy   User   @relation("CreatedAnnouncements", fields: [createdById], references: [id])
+  createdById String
+
+  // =========================
+  // Content
+  // =========================
+  title   String
+  message String
+
+  sendType AnnouncementSendType
+
+  // =========================
+  // Relations
+  // =========================
+  recipients AnnouncementRecipient[]
+
+  // =========================
+  // System
+  // =========================
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([organizationId])
+}
+
+///////////////////////////
+// ANNOUNCEMENT RECIPIENT
+///////////////////////////
+model AnnouncementRecipient {
+  id String @id @default(uuid())
+
+  // =========================
+  // Relations
+  // =========================
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  announcementId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  // =========================
+  // Snapshot Data
+  // =========================
+  email String // email at time of sending
+
+  // =========================
+  // Read Tracking (future)
+  // =========================
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  // =========================
+  // System
+  // =========================
+  createdAt DateTime @default(now())
+
+  @@unique([announcementId, userId])
+  @@index([userId])
+}

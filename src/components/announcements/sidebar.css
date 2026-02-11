@@ -1,0 +1,24 @@
+/* Overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1040;
+}
+
+/* Sidebar Animation */
+.theme-customizer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 1050;
+  transition: right 0.3s ease-in-out;
+}
+
+.theme-customizer-open {
+  right: 0;
+}

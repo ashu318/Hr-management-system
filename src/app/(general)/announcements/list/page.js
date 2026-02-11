@@ -5,6 +5,7 @@ import AnnouncementHeader from "@/components/announcements/AnnouncementHeader";
 import ProjectsTwo from "@/components/widgetsTables/ProjectsTwo";
 import CreateAnnouncements from "@/components/announcements/CreateAnnouncements";
 import ListRecentAnnounements from "@/components/announcements/ListRecentAnnounements";
+import AllAnnouncement from "@/components/announcements/AllAnnouncement";
 
 const page = () => {
   return (
@@ -14,8 +15,7 @@ const page = () => {
       </PageHeader>
       <div className="main-content">
         <div className="row">
-          <CreateAnnouncements title={"Create Email's"} className={"col-xxl-8"} />
-          <ListRecentAnnounements />
+          <AllAnnouncement />
         </div>
       </div>
       <Footer />

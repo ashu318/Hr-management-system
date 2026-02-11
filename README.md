@@ -73,11 +73,9 @@ the hr will check the leaves and approve or rejecet accordingly
 /leaves/all-leaves
 
 ### Reset and Forgot password module
+
 Here in the reset and pass word pages are public and when the users full the email backedn checks the data and validate and send the email to the registerated email id and the users will open the email and reset thepass
-email serviec si  - - resend here
-
-
-
+email serviec si - - resend here
 
 \\\\NEED TO WOKRIN ON THIS \\\\
 
@@ -92,4 +90,3 @@ Hr will able to send the bulk email to all the peorson who are active in the sys
 and aftre sending the email from the system all the peron will get the data in the mail and email will receved by indivisual.
 
 From the emplyee view all the empley will get the notifictaion both in the emil and dahbsoard point wise which was sending by the hr/admin.
-  

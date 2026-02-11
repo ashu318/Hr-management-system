@@ -198,6 +198,27 @@ exports.Prisma.LeaveApplicationScalarFieldEnum = {
   updatedAt: "updatedAt",
 };
 
+exports.Prisma.AnnouncementScalarFieldEnum = {
+  id: "id",
+  organizationId: "organizationId",
+  createdById: "createdById",
+  title: "title",
+  message: "message",
+  sendType: "sendType",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+};
+
+exports.Prisma.AnnouncementRecipientScalarFieldEnum = {
+  id: "id",
+  announcementId: "announcementId",
+  userId: "userId",
+  email: "email",
+  isRead: "isRead",
+  readAt: "readAt",
+  createdAt: "createdAt",
+};
+
 exports.Prisma.SortOrder = {
   asc: "asc",
   desc: "desc",
@@ -257,12 +278,19 @@ exports.LeaveStatus = exports.$Enums.LeaveStatus = {
   REJECTED: "REJECTED",
 };
 
+exports.AnnouncementSendType = exports.$Enums.AnnouncementSendType = {
+  ALL: "ALL",
+  INDIVIDUAL: "INDIVIDUAL",
+};
+
 exports.Prisma.ModelName = {
   Organization: "Organization",
   User: "User",
   Holiday: "Holiday",
   LeaveBalance: "LeaveBalance",
   LeaveApplication: "LeaveApplication",
+  Announcement: "Announcement",
+  AnnouncementRecipient: "AnnouncementRecipient",
 };
 
 /**

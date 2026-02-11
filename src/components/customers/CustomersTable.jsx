@@ -59,13 +59,8 @@ const CustomersTable = () => {
     <>
       <div className="container">
         <div className="row g-4 justify-content-center">
-
           {/* 1️⃣ Loading state */}
-          {loading &&
-            Array.from({ length: 8 }).map((_, index) => (
-              <Loaders key={index} />
-            ))
-          }
+          {loading && Array.from({ length: 8 }).map((_, index) => <Loaders key={index} />)}
 
           {/* 2️⃣ No users found */}
           {!loading && alluser.length === 0 && (
@@ -78,22 +73,17 @@ const CustomersTable = () => {
           )}
 
           {/* 3️⃣ Users list */}
-          {!loading && alluser.length > 0 &&
+          {!loading &&
+            alluser.length > 0 &&
             alluser.map((user) => (
-              <div
-                key={user.id}
-                className="col-xl-3 col-lg-4 col-md-6 col-sm-10"
-              >
+              <div key={user.id} className="col-xl-3 col-lg-4 col-md-6 col-sm-10">
                 <div className="profile-card">
                   {/* Header */}
                   <div className="profile-header"></div>
 
                   {/* Avatar */}
                   <div className="profile-avatar">
-                    <img
-                      src="https://i.pravatar.cc/150"
-                      alt={user.fullName}
-                    />
+                    <img src="https://i.pravatar.cc/150" alt={user.fullName} />
                   </div>
 
                   {/* Body */}
@@ -110,12 +100,9 @@ const CustomersTable = () => {
                   </div>
                 </div>
               </div>
-            ))
-          }
-
+            ))}
         </div>
       </div>
-
     </>
   );
 };

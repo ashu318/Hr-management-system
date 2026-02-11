@@ -369,8 +369,6 @@ export const menuList = [
     ],
   },
 
-
-
   {
     id: 10,
     name: "authentication",
@@ -596,5 +594,24 @@ export const menuList = [
       },
     ],
   },
-
+  {
+    id: 14,
+    name: "Activity Management",
+    path: "#",
+    icon: "feather-activity",
+    dropdownMenu: [
+      {
+        id: 1,
+        name: "Share Update",
+        path: "/announcements/create",
+        subdropdownMenu: false,
+      },
+      {
+        id: 2,
+        name: "Announcements List",
+        path: "/announcements/LIST",
+        subdropdownMenu: false,
+      },
+    ],
+  },
 ];

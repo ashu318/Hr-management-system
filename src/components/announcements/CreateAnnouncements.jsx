@@ -10,31 +10,30 @@ import Image from "next/image";
 import CreateForm from "./CreateForm";
 
 const CreateAnnouncements = ({ title, className }) => {
-    const data = projectsData.projectsStats;
-    const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
-        useCardTitleActions();
+  const data = projectsData.projectsStats;
+  const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
+    useCardTitleActions();
 
-    if (isRemoved) {
-        return null;
-    }
-    return (
-        <div className={className} >
-            <div
-                className={`card stretch stretch-full ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
-            >
-                <CardHeader
-                    title={title}
-                    refresh={handleRefresh}
-                    remove={handleDelete}
-                    expanded={handleExpand}
-                />
-                <CreateForm />
+  if (isRemoved) {
+    return null;
+  }
+  return (
+    <div className={className}>
+      <div
+        className={`card stretch stretch-full ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
+      >
+        <CardHeader
+          title={title}
+          refresh={handleRefresh}
+          remove={handleDelete}
+          expanded={handleExpand}
+        />
+        <CreateForm />
 
-
-                <CardLoader refreshKey={refreshKey} />
-            </div>
-        </div>
-    );
+        <CardLoader refreshKey={refreshKey} />
+      </div>
+    </div>
+  );
 };
 
 export default CreateAnnouncements;
