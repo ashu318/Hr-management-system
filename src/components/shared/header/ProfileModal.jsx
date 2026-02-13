@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   FiActivity,
   FiBell,
@@ -10,6 +10,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const activePosition = ["Active", "Always", "Bussy", "Inactive", "Disabled", "Cutomization"];
 const subscriptionsList = [
@@ -21,7 +22,14 @@ const subscriptionsList = [
   "Subscriptions",
 ];
 const ProfileModal = () => {
+
+
+
+
   const router = useRouter();
+
+  const [usersName, setUsersName] = useState("");
+  const [usersEmail, setUsersEmail] = useState("");
   const handleLogout = async () => {
     await fetch("/api/auth/logout", {
       method: "POST",
@@ -31,6 +39,30 @@ const ProfileModal = () => {
     router.push("/authentication/login/minimal");
     router.refresh(); // clears cached data
   };
+
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await fetch("/api/auth/my-profile");
+      if (!response.ok) {
+        throw new Error("Failed to fetch user info");
+      }
+      const data = await response.json();
+      setUsersName(data.user.fullName);
+      setUsersEmail(data.user.email);
+      console.log("The usr info is : ", data);
+      return data.user;
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+
   return (
     <div className="dropdown nxl-h-item">
       <a href="#" data-bs-toggle="dropdown" role="button" data-bs-auto-close="outside">
@@ -54,9 +86,9 @@ const ProfileModal = () => {
             />
             <div>
               <h6 className="text-dark mb-0">
-                Alexandra Della <span className="badge bg-soft-success text-success ms-1">PRO</span>
+                {usersName || "Alexandra Della"} <span className="badge bg-soft-success text-success ms-1">PRO</span>
               </h6>
-              <span className="fs-12 fw-medium text-muted">alex.della@outlook.com</span>
+              <span className="fs-12 fw-medium text-muted">{usersEmail || "alex.della@outlook.com"}</span>
             </div>
           </div>
         </div>
@@ -118,12 +150,12 @@ const ProfileModal = () => {
           </div>
         </div>
         <div className="dropdown-divider"></div>
-        <a href="#" className="dropdown-item">
+        <Link href="/profile/me" className="dropdown-item">
           <i>
             <FiUser />
           </i>
           <span>Profile Details</span>
-        </a>
+        </Link>
         <a href="#" className="dropdown-item">
           <i>
             <FiActivity />
@@ -136,12 +168,12 @@ const ProfileModal = () => {
           </i>
           <span>Billing Details</span>
         </a>
-        <a href="#" className="dropdown-item">
+        <Link href="/announcements/list" className="dropdown-item">
           <i>
             <FiBell />
           </i>
           <span>Notifications</span>
-        </a>
+        </Link>
         <a href="#" className="dropdown-item">
           <i>
             <FiSettings />

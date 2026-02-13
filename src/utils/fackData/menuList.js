@@ -609,7 +609,7 @@ export const menuList = [
       {
         id: 2,
         name: "Announcements List",
-        path: "/announcements/LIST",
+        path: "/announcements/list",
         subdropdownMenu: false,
       },
     ],

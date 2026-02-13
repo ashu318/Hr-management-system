@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 
-const prisma = new PrismaClient();
 
 export async function GET(request) {
   try {
@@ -17,7 +16,17 @@ export async function GET(request) {
       return NextResponse.json({ message: "Restricted Access - Admin Only" }, { status: 401 });
     }
 
+    const userId = decoded.userId;
+
+    console.log("THE USERS ID", userId);
+    console.log("THE ORG ID", decoded.organizationId);
+
+
+
+
+
     const announcements = await prisma.announcement.findMany();
+
 
     return NextResponse.json(
       {
@@ -37,3 +46,8 @@ export async function GET(request) {
     );
   }
 }
+
+
+
+
+

@@ -1,9 +1,8 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 
-const prisma = new PrismaClient();
 
 export async function GET(request) {
   try {
@@ -19,15 +18,31 @@ export async function GET(request) {
     }
 
     const userId = decoded.userId;
+    console.log("THE USER ID", userId);
+    console.log("THE ORG ID", decoded.organizationId);
+
 
     const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: { organization: true },
+      where: {
+        id: userId, // ✅ MUST be unique field
+      },
     });
+
+
+    const formattedUser = {
+      ...user,
+      password: undefined, // remove
+      resetPasswordToken: undefined, // remove
+      resetPasswordExpires: user.resetPasswordExpires
+        ? user.resetPasswordExpires.toString()
+        : null,
+    };
+
+    // console.log("The user is ", user);
 
     return NextResponse.json({
       success: true,
-      user: user,
+      user: formattedUser,
     });
   } catch (error) {
     console.error("Error fetching users:", error);

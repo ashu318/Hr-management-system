@@ -1,11 +1,11 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 import { BsGlobeAsiaAustralia } from "react-icons/bs";
 
-const prisma = new PrismaClient();
+
 
 export async function GET(request) {
   try {

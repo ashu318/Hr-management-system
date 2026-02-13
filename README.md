@@ -72,6 +72,13 @@ once done all the data will be save in teh db i need tgis typesof flow what to d
 the hr will check the leaves and approve or rejecet accordingly
 /leaves/all-leaves
 
+
+13/02/26:---
+1.Wokring on the Chat btn the hr and emplye in that email (Commneting system)
+
+
+
+
 ### Reset and Forgot password module
 
 Here in the reset and pass word pages are public and when the users full the email backedn checks the data and validate and send the email to the registerated email id and the users will open the email and reset thepass
@@ -84,9 +91,30 @@ email serviec si - - resend here
 Thei is one page showing the cards for details perope
 and on click in the data its getting in to the data finding the peorple assocuoated iwthe that
 
-### Bulk email Sender
+### Annaouncemt Module
 
 Hr will able to send the bulk email to all the peorson who are active in the system
 and aftre sending the email from the system all the peron will get the data in the mail and email will receved by indivisual.
 
 From the emplyee view all the empley will get the notifictaion both in the emil and dahbsoard point wise which was sending by the hr/admin.
+
+2.In the email notifiaxcation  (fetch the name and email of the admin and showin the ui)
+3.Chaeck the leve statsyu and approved and reject and calece the leave(dashborad)
+
+
+
+
+POST ANNAOUNMET:
+In the post form the form submit with all the data to the api  "/api/announcements"
+in the backedn extracting all the data and validate the type .
+extract the users based on the type and creaet the list and send the email accointluy
+
+
+GET ANNOUCEMENT HR:
+In the create Announcemt page , side bas showin the getanoouncemts for the admin/hr only which dioplay the latest 4 or 5 records foir announcemets (having both sending type {Indivisual or All})
+API = "/api/announcements"
+
+
+GET ANNOUNCEMT FOR INDIVISUAL USER :
+In the announcemt list page hit one api "/api/users/all-announcements" which is get th
+

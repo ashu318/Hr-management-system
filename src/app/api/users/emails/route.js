@@ -1,12 +1,11 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
-import { PrismaClient, Role } from "@/lib/generated/prisma";
-// import { PrismaClient, Role } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
+import { Role } from "@/lib/generated/prisma";
 import bcrypt from "bcryptjs";
 import { verifyToken } from "@/lib/jwt";
 import { Resend } from "resend";
 
-const prisma = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET(request) {
