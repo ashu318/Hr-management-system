@@ -18,6 +18,7 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import LeavesSidebar from "@/components/leaves/LeaveSidebar";
 import ViewmoreSection from "./ViewmoreSection";
+import { useAnnouncementStore } from '@/store/announcementStore'
 import toast from "react-hot-toast";
 
 const actions = [
@@ -132,34 +133,18 @@ const AllAnnouncement = () => {
     []
   );
 
-  // helper functsions
 
-  // function to fetch and set the data to the tabel
-  const [announcements, setAnnouncements] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [viewMoreOpen, setViewMoreOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
 
+  const { announcements, loading, fetchAnnouncements } = useAnnouncementStore()
+
   useEffect(() => {
-    const fetchLeaves = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/users/all-announcements");
-        const data = await res.json();
+    fetchAnnouncements()
+  }, [])
 
-        setAnnouncements(data.announcements || []);
-        console.log("Received leaves:", data.announcements);
-      } catch (err) {
-        console.error("Error fetching leaves:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchLeaves();
-  }, []);
-  // function to fetch and set the data to the tabel
 
   return (
     <>

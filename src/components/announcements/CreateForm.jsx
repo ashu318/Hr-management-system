@@ -8,105 +8,32 @@ import Loading from "@/components/shared/Loading";
 import toast from "react-hot-toast";
 import { propsalRelatedOptions } from "@/utils/options";
 import taskAssigneeOptions from "@/utils/options";
+import { useAnnouncementFormStore } from "@/store/useAnnouncementFormStore"
 
 const CreateForm = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [emailOptions, setEmailOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const {
+    subject,
+    mailBody,
+    sendToAll,
+    selectedEmail,
+    emailOptions,
+    loading,
+    fetchEmails,
+    sendEmail,
+    setSubject,
+    setMailBody,
+    setSendToAll,
+    setSelectedEmail,
+  } = useAnnouncementFormStore();
 
-  const [subject, setSubject] = useState("");
-  const [mailBody, setMailBody] = useState("");
-
-  // 1️⃣ Radio / Toggle state (All vs Individual)
-  const [sendToAll, setSendToAll] = useState(false);
 
   // 📥 Fetch emails from API
   useEffect(() => {
-    const fetchEmails = async () => {
-      try {
-        setLoading(true);
-
-        const response = await fetch("/api/users/emails");
-        if (!response.ok) throw new Error("Failed to fetch emails");
-
-        const data = await response.json();
-
-        // 🔥 Map API data → SelectDropdown format
-        const options = data.emails.map((email) => ({
-          value: email,
-          label: email,
-          icon: "feather-mail",
-        }));
-
-        setEmailOptions(options);
-
-        // Optional: set first email as default
-        if (options.length > 0) {
-          setSelectedOption(options[0]);
-        }
-      } catch (error) {
-        // console.error(error);
-        toast.error("Failed to load emails");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchEmails();
   }, []);
 
-  const sendEmail = async () => {
-    // Validation
-    if (!subject.trim() || !mailBody.trim()) {
-      toast.error("Subject and message are required");
-      return;
-    }
 
-    if (!sendToAll && !selectedOption) {
-      toast.error("Please select a user email");
-      return;
-    }
 
-    setLoading(true);
-
-    // ✅ Build payload properly
-    const payload = {
-      subject: subject.trim(),
-      mailBody: mailBody.trim(),
-      sendType: sendToAll ? "ALL" : "INDIVIDUAL",
-      emails: sendToAll ? [] : [selectedOption.value],
-    };
-
-    // console.log("Sending payload:", payload);
-
-    try {
-      const res = await fetch("/api/announcements", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data?.message || "Failed to send email");
-        return;
-      }
-
-      toast.success("Email sent successfully");
-
-      // Reset
-      setSubject("");
-      setMailBody("");
-      setSelectedOption(null);
-      setSendToAll(false);
-    } catch (err) {
-      // console.error(err);
-      toast.error("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -141,9 +68,9 @@ const CreateForm = () => {
             ) : (
               <SelectDropdown
                 options={emailOptions}
-                selectedOption={selectedOption}
+                selectedOption={selectedEmail}
                 placeholder="Select user email"
-                onSelectOption={setSelectedOption}
+                onSelectOption={setSelectedEmail}
                 searchable
               />
             )}

@@ -8,11 +8,12 @@ import useImageUpload from "@/hooks/useImageUpload";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import InputTopLabel from "@/components/shared/InputTopLabel";
 import ProfileDetailsSkeleton from "@/components/loaders/ProfileLoader";
+import { useUserStore } from "@/store/useUserStore";
+
 
 const ProfileInfo = () => {
-  const { handleImageUpload, uploadedImage } = useImageUpload();
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { user, loading, fetchUser } = useUserStore();
+
 
   // helper function
   const getEmployeeStatus = (dateOfJoining) => {
@@ -48,30 +49,16 @@ const ProfileInfo = () => {
       className: "bg-soft-info text-info",
     };
   };
+
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  console.log("The user in the prifile section is  , ", user);
+
   // helper function
 
-  // fetching the userts infor
-  const fetchUserInfo = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/auth/my-profile");
-      if (!response.ok) {
-        throw new Error("Failed to fetch user info");
-      }
-      const data = await response.json();
-      setUser(data.user);
-      return data.user;
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-  // fetching the userts infor
 
   return (
     <div className="content-area">
@@ -99,8 +86,8 @@ const ProfileInfo = () => {
                   {/* Name & Employee ID */}
                   <div>
                     <h4 className="fw-bold mb-1 text-dark">
-                      {/* {user?.fullName || "—"} */}
-                      Shitansu kumar Gochhayat
+                      {user?.fullName || "—"}
+                      {/* Shitansu kumar Gochhayat */}
                     </h4>
                     {/* <span className="text-muted fs-14">
                                         <strong>{user?.employeeId || "—"}</strong>

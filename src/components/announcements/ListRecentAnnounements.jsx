@@ -7,6 +7,7 @@ import ImageGroup from "@/components/shared/ImageGroup";
 import CardLoader from "@/components/shared/CardLoader";
 import useCardTitleActions from "@/hooks/useCardTitleActions";
 import LeavesBalance from "@/components/loaders/LeavesBalanceLoaders";
+import { useAnnouncementStore } from "@/store/announcementStore"
 import toast from "react-hot-toast";
 
 const ListRecentAnnounements = ({ title }) => {
@@ -18,9 +19,9 @@ const ListRecentAnnounements = ({ title }) => {
   }
 
   // Fecth Announcements list
-  const [announcements, setAnnouncements] = useState([]);
+  // const [announcements, setAnnouncements] = useState([]);
   const COLORS = ["primary", "success", "warning", "info", "danger"];
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const team_memberss = [
     {
       id: 1,
@@ -44,52 +45,81 @@ const ListRecentAnnounements = ({ title }) => {
     },
   ];
 
-  const formatAnnouncementForUI = (announcement, index) => {
+  // const formatAnnouncementForUI = (announcement, index) => {
+  //   const dateObj = new Date(announcement.createdAt);
+
+  //   return {
+  //     id: announcement.id,
+  //     title: announcement.title,
+  //     message: announcement.message,
+
+  //     date: {
+  //       day: dateObj.getDate(),
+  //       month: dateObj.toLocaleString("en-US", { month: "short" }),
+  //       time: dateObj.toLocaleTimeString("en-US", {
+  //         hour: "2-digit",
+  //         minute: "2-digit",
+  //       }),
+  //     },
+
+  //     createdAt: dateObj.getDate(),
+  //     color: COLORS[index % COLORS.length], // ✅ now works
+  //     team_members: team_memberss,
+  //   };
+  // };
+
+  // const fetchRecentEmails = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch("/api/announcements");
+  //     const data = await response.json();
+
+  //     if (!response.ok) {
+  //       toast.error(data.message || "Something went wrong");
+  //       return;
+  //     }
+
+  //     const formatted = data.announcements.map(formatAnnouncementForUI);
+  //     setAnnouncements(formatted);
+  //   } catch (error) {
+  //     toast.error("Something went wrong");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchRecentEmails();
+  // }, []);
+
+
+
+
+  const { recentAnnouncements, fetchRecentAnnouncements, loading } = useAnnouncementStore()
+
+  useEffect(() => {
+    fetchRecentAnnouncements();
+  }, [])
+
+
+  const formattedAnnouncements = recentAnnouncements.map((announcement, index) => {
     const dateObj = new Date(announcement.createdAt);
 
     return {
       id: announcement.id,
       title: announcement.title,
-      message: announcement.message,
-
       date: {
-        day: dateObj.getDate(),
         month: dateObj.toLocaleString("en-US", { month: "short" }),
         time: dateObj.toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
         }),
       },
-
       createdAt: dateObj.getDate(),
-      color: COLORS[index % COLORS.length], // ✅ now works
+      color: COLORS[index % COLORS.length],
       team_members: team_memberss,
     };
-  };
-
-  const fetchRecentEmails = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("/api/announcements");
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.message || "Something went wrong");
-        return;
-      }
-
-      const formatted = data.announcements.map(formatAnnouncementForUI);
-      setAnnouncements(formatted);
-    } catch (error) {
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRecentEmails();
-  }, []);
+  });
 
   return (
     <div className="col-xxl-4">
@@ -102,12 +132,12 @@ const ListRecentAnnounements = ({ title }) => {
           remove={handleDelete}
           expanded={handleExpand}
         />
-        {isLoading ? (
+        {loading ? (
           <LeavesBalance rows={4} />
         ) : (
           <>
             <div className="card-body">
-              {announcements.map(({ date, id, team_members, color, title, createdAt }) => {
+              {formattedAnnouncements.map(({ date, id, team_members, color, title, createdAt }) => {
                 return (
                   <div key={id} className="p-3 border border-dashed rounded-3 schedule-card">
                     <div className="d-flex justify-content-between">

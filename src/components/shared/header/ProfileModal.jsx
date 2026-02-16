@@ -10,6 +10,8 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/useUserStore";
+import UserDropdownSkeleton from "@/components/loaders/UserDropdownSkeletonHeader";
 import Link from "next/link";
 
 const activePosition = ["Active", "Always", "Bussy", "Inactive", "Disabled", "Cutomization"];
@@ -23,13 +25,13 @@ const subscriptionsList = [
 ];
 const ProfileModal = () => {
 
-
-
-
+  const { user, fetchUser, loading } = useUserStore();
   const router = useRouter();
 
-  const [usersName, setUsersName] = useState("");
-  const [usersEmail, setUsersEmail] = useState("");
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const handleLogout = async () => {
     await fetch("/api/auth/logout", {
       method: "POST",
@@ -40,28 +42,9 @@ const ProfileModal = () => {
     router.refresh(); // clears cached data
   };
 
-
-  const fetchUserInfo = async () => {
-    try {
-      const response = await fetch("/api/auth/my-profile");
-      if (!response.ok) {
-        throw new Error("Failed to fetch user info");
-      }
-      const data = await response.json();
-      setUsersName(data.user.fullName);
-      setUsersEmail(data.user.email);
-      console.log("The usr info is : ", data);
-      return data.user;
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
+  if (loading) {
+    return <UserDropdownSkeleton />;
+  }
 
   return (
     <div className="dropdown nxl-h-item">
@@ -86,9 +69,9 @@ const ProfileModal = () => {
             />
             <div>
               <h6 className="text-dark mb-0">
-                {usersName || "Alexandra Della"} <span className="badge bg-soft-success text-success ms-1">PRO</span>
+                {user?.fullName || "Alexandra Della"}<span className="badge bg-soft-success text-success ms-1">PRO</span>
               </h6>
-              <span className="fs-12 fw-medium text-muted">{usersEmail || "alex.della@outlook.com"}</span>
+              <span className="fs-12 fw-medium text-muted">{user?.email || "alex.della@outlook.com"}</span>
             </div>
           </div>
         </div>
