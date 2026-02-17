@@ -4,76 +4,154 @@ import { Role } from "@/lib/generated/prisma";
 import bcrypt from "bcryptjs";
 import { verifyToken } from "@/lib/jwt";
 import { Resend } from "resend";
+import cloudinary from "@/lib/cloudinary";
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
-    const data = await request.json();
 
-    // console.log("Received user data:", data);
+    // const data = await request.json();
+    const formData = await request.formData(); // ✅ CORRECT
+
+    // Extract all fields properly
+    const data = {
+      email: formData.get("email"),
+      employeeId: formData.get("employeeId"),
+      fullName: formData.get("fullName"),
+      phone: formData.get("phone"),
+      designation: formData.get("designation"),
+      department: formData.get("department"),
+      employmentType: formData.get("employmentType"),
+      workLocation: formData.get("workLocation"),
+      dateOfJoining: formData.get("dateOfJoining"),
+
+      gender: formData.get("gender"),
+      dateOfBirth: formData.get("dateOfBirth"),
+      fatherName: formData.get("fatherName"),
+      motherName: formData.get("motherName"),
+      spouseName: formData.get("spouseName"),
+
+      bankName: formData.get("bankName"),
+      accountNo: formData.get("accountNo"),
+      ifscCode: formData.get("ifscCode"),
+      panNumber: formData.get("panNumber"),
+      uanNo: formData.get("uanNo"),
+      esicNo: formData.get("esicNo"),
+
+      currentAddress: formData.get("currentAddress"),
+      permanentAddress: formData.get("permanentAddress"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      country: formData.get("country"),
+      pincode: formData.get("pincode"),
+
+      emergencyContactName: formData.get("emergencyContactName"),
+      emergencyContactPhone: formData.get("emergencyContactPhone"),
+      emergencyContactRelation: formData.get("emergencyContactRelation"),
+
+      reportingManagerName: formData.get("reportingManagerName"),
+    };
+
+
+    // Profile image uploade  and Process to store in the db
+    const file = formData.get("profileImage");
+
+    let profileImageUrl = null;
+    let profileImagePublicId = null;
+
+    if (file && file.size > 0) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const uploadResult = await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              folder: "hrms/profile-images",
+              resource_type: "image",
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          )
+          .end(buffer);
+      });
+
+      profileImageUrl = uploadResult.secure_url;
+      profileImagePublicId = uploadResult.public_id;
+
+      // console.log("Uploaded to Cloudinary:", profileImageUrl);
+    }
 
     // 🔐 Default password
     const hashedPassword = await bcrypt.hash("1111", 10);
 
-    const newUser = await prisma.user.create({
-      data: {
-        // =====================
-        // Auth
-        // =====================
-        email: data.email,
-        password: hashedPassword,
-        role: Role.EMPLOYEE,
+    // 💰 Create Financial Details
+    const newUser = await prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          email: data.email,
+          password: hashedPassword,
+          role: Role.EMPLOYEE,
 
-        // =====================
-        // Employee Core
-        // =====================
-        employeeId: data.employeeId,
-        fullName: data.fullName,
-        phone: data.phone,
-        designation: data.designation,
-        department: data.department || null,
-        employmentType: data.employmentType || null,
-        workLocation: data.workLocation || null,
-        dateOfJoining: new Date(data.dateOfJoining),
+          profileImageUrl: profileImageUrl,          // ✅ ADD THIS
+          profileImagePublicId: profileImagePublicId, // ✅ ADD THIS
 
-        // =====================
-        // Personal Details
-        // =====================
-        gender: data.gender || null,
-        dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
-        fatherName: data.fatherName || null,
-        motherName: data.motherName || null,
+          employeeId: data.employeeId,
+          fullName: data.fullName,
+          phone: data.phone,
+          designation: data.designation,
+          department: data.department || null,
+          employmentType: data.employmentType || null,
+          workLocation: data.workLocation || null,
+          dateOfJoining: new Date(data.dateOfJoining),
 
-        // =====================
-        // Address
-        // =====================
-        currentAddress: data.currentAddress || null,
-        permanentAddress: data.permanentAddress || null,
-        city: data.city || null,
-        state: data.state || null,
-        country: data.country || null,
-        pincode: data.pincode || null,
+          gender: data.gender || null,
+          dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
+          fatherName: data.fatherName || null,
+          motherName: data.motherName || null,
 
-        // =====================
-        // Emergency Contact
-        // =====================
-        emergencyContactName: data.emergencyContactName || null,
-        emergencyContactPhone: data.emergencyContactPhone || null,
-        emergencyContactRelation: data.emergencyContactRelation || null,
+          currentAddress: data.currentAddress || null,
+          permanentAddress: data.permanentAddress || null,
+          city: data.city || null,
+          state: data.state || null,
+          country: data.country || null,
+          pincode: data.pincode || null,
 
-        // =====================
-        // Reporting Manager
-        // =====================
-        reportingManagerName: data.reportingManagerName || null,
+          emergencyContactName: data.emergencyContactName || null,
+          emergencyContactPhone: data.emergencyContactPhone || null,
+          emergencyContactRelation: data.emergencyContactRelation || null,
 
-        // =====================
-        // Organization
-        // =====================
-        organizationId: "ctsl_2026",
-      },
+          reportingManagerName: data.reportingManagerName || null,
+
+          organizationId: "ctsl_2026",
+        },
+      });
+
+      await tx.financialDetails.create({
+        data: {
+          bankName: data.bankName || null,
+          accountNo: data.accountNo || null,
+          ifscCode: data.ifscCode || null,
+          panNumber: data.panNumber || null,
+          uanNo: data.uanNo || null,
+          esicNo: data.esicNo || null,
+          userId: user.id,
+        },
+      });
+
+      await tx.payrollSettings.create({
+        data: {
+          userId: user.id,
+        },
+      });
+
+      return user;
     });
+
 
     try {
       // Send welcome email
@@ -82,83 +160,83 @@ export async function POST(request) {
         to: data.email,
         subject: "Welcome to the Crusharders Team 🎉",
         html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome to Crusharders</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Welcome to Crusharders</title>
+    </head>
 
-<body style="margin:0;padding:0;background-color:#eef1f7;font-family:'Segoe UI',Roboto,Arial,sans-serif;">
+    <body style="margin:0;padding:0;background-color:#eef1f7;font-family:'Segoe UI',Roboto,Arial,sans-serif;">
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
-    <tr>
-      <td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+        <tr>
+          <td align="center">
 
-        <table width="620" cellpadding="0" cellspacing="0"
-          style="background:#ffffff;border-radius:14px;overflow:hidden;
-          box-shadow:0 12px 30px rgba(0,0,0,0.1);">
+            <table width="620" cellpadding="0" cellspacing="0"
+              style="background:#ffffff;border-radius:14px;overflow:hidden;
+              box-shadow:0 12px 30px rgba(0,0,0,0.1);">
 
-          <!-- Header -->
-          <tr>
-            <td style="background:#3454d1;padding:35px;text-align:center;">
-              <img
-                src="https://crushaderstech.com/images/logo/logo.webp"
-                alt="Crusharders Logo"
-                width="140"
-                style="display:block;margin:0 auto 10px;"
-              />
-              <p style="margin:0;color:#dbe2ff;font-size:14px;">
-                Welcome to Crusharders
-              </p>
-            </td>
-          </tr>
+              <!-- Header -->
+              <tr>
+                <td style="background:#3454d1;padding:35px;text-align:center;">
+                  <img
+                    src="https://crushaderstech.com/images/logo/logo.webp"
+                    alt="Crusharders Logo"
+                    width="140"
+                    style="display:block;margin:0 auto 10px;"
+                  />
+                  <p style="margin:0;color:#dbe2ff;font-size:14px;">
+                    Welcome to Crusharders
+                  </p>
+                </td>
+              </tr>
 
-          <!-- Body -->
-          <tr>
-            <td style="padding:40px 45px;color:#2c2c2c;font-size:15px;line-height:1.6;">
-              <h2 style="margin-top:0;">
-                Hey ${data.fullName}, Welcome to Crusharders!
-              </h2>
+              <!-- Body -->
+              <tr>
+                <td style="padding:40px 45px;color:#2c2c2c;font-size:15px;line-height:1.6;">
+                  <h2 style="margin-top:0;">
+                    Hey ${data.fullName}, Welcome to Crusharders!
+                  </h2>
 
-              <p>We’re excited to have you on board.</p>
-              <p>Your account has been successfully created.</p>
-              <p>If you have any questions, feel free to reach out to the team.</p>
+                  <p>We’re excited to have you on board.</p>
+                  <p>Your account has been successfully created.</p>
+                  <p>If you have any questions, feel free to reach out to the team.</p>
 
-              <br/>
-              <p>
-                — <strong>Crusharders Team</strong>
-              </p>
-            </td>
-          </tr>
+                  <br/>
+                  <p>
+                    — <strong>Crusharders Team</strong>
+                  </p>
+                </td>
+              </tr>
 
-          <!-- Footer -->
-          <tr>
-            <td style="background:#f5f7fc;padding:15px;text-align:center;
-              font-size:12px;color:#777;">
-              © ${new Date().getFullYear()} Crusharders. All rights reserved.
-            </td>
-          </tr>
+              <!-- Footer -->
+              <tr>
+                <td style="background:#f5f7fc;padding:15px;text-align:center;
+                  font-size:12px;color:#777;">
+                  © ${new Date().getFullYear()} Crusharders. All rights reserved.
+                </td>
+              </tr>
 
-        </table>
+            </table>
 
-      </td>
-    </tr>
-  </table>
+          </td>
+        </tr>
+      </table>
 
-</body>
-</html>
-`,
+    </body>
+    </html>
+    `,
       });
     } catch (error) {
       console.error("Error sending welcome email:", error);
     }
 
+
     return NextResponse.json({
       success: true,
       message: "User created successfully",
-      userId: newUser.id,
     });
   } catch (error) {
     console.error("Create user error:", error);
@@ -187,6 +265,30 @@ export async function POST(request) {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export async function GET(request) {
   try {
     // 1️⃣ Validate token
@@ -202,6 +304,7 @@ export async function GET(request) {
         fullName: true,
         designation: true,
         phone: true,
+        profileImageUrl: true,
         organization: {
           select: {
             id: true,

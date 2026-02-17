@@ -7,9 +7,6 @@ import ProposalEditContent from "@/components/proposalEditCreate/ProposalEditCon
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <h5 className="m-b-10 text-capitalize">Add your employee !</h5>
-      </PageHeader>
       <div className="main-content">
         <div className="row">
           <ProposalEditContent />

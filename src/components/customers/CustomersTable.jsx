@@ -83,7 +83,7 @@ const CustomersTable = () => {
 
                   {/* Avatar */}
                   <div className="profile-avatar">
-                    <img src="https://i.pravatar.cc/150" alt={user.fullName} />
+                    <img src={user.profileImageUrl || "https://i.pravatar.cc/150"} alt={user.fullName} />
                   </div>
 
                   {/* Body */}

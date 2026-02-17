@@ -109,6 +109,7 @@ model User {
   // Personal Details
   // =========================
   profileImageUrl String?
+  profileImagePublicId String?   // 🔥 ADD THIS
   gender          Gender?
   dateOfBirth     DateTime?
   fatherName      String?
@@ -159,6 +160,13 @@ model User {
   // =========================
   isDeleted Boolean   @default(false)
   deletedAt DateTime?
+
+  // =========================
+  // Finance and Payroll
+  // =========================
+  financialDetails FinancialDetails?
+  payrollSettings  PayrollSettings?
+  spouseName       String?
 
   // =========================
   // Reset and Forgot Token
@@ -303,4 +311,43 @@ model AnnouncementRecipient {
 
   @@unique([announcementId, userId])
   @@index([userId])
+}
+
+///////////////////////////
+// FINANCIAL DETAILS
+///////////////////////////
+model FinancialDetails {
+  id        String @id @default(uuid())
+
+  bankName   String?
+  accountNo  String?
+  ifscCode   String?
+  panNumber  String?
+  uanNo      String?
+  esicNo     String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+///////////////////////////
+// PAYROLL DETAILS
+///////////////////////////
+model PayrollSettings {
+  id String @id @default(uuid())
+
+  overtime   Boolean @default(false)
+  conveyance Boolean @default(false)
+  medical    Boolean @default(false)
+  pf         Boolean @default(false)
+  es         Boolean @default(false)
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
