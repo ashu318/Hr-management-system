@@ -153,6 +153,10 @@ export async function POST(request) {
     });
 
 
+    // console.log("The new uers is created :", newUser);
+
+
+
     try {
       // Send welcome email
       await resend.emails.send({
@@ -303,7 +307,9 @@ export async function GET(request) {
         id: true,
         fullName: true,
         designation: true,
-        phone: true,
+        email: true,
+        department: true,
+        employeeId: true,
         profileImageUrl: true,
         organization: {
           select: {

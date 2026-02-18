@@ -85,6 +85,85 @@ const previtems = [
   },
 ];
 
+const departmentOptions = [
+  { value: "Development", label: "Development" },
+  { value: "HR", label: "HR" },
+  { value: "Sales", label: "Sales" },
+  { value: "SEO", label: "SEO" },
+  { value: "SMO", label: "SMO" },
+  { value: "Graphic Design", label: " Graphic Design" },
+  { value: "Lead Generation", label: "Lead Generation" },
+  { value: "Accounting", label: "Accounting" },
+];
+
+const designationOptions = {
+  Development: [
+    { value: "Frontend Developer", label: "Frontend Developer" },
+    { value: "Backend Developer", label: "Backend Developer" },
+    { value: "Full Stack Developer", label: "Full Stack Developer" },
+    { value: "Software Engineer", label: "Software Engineer" },
+    { value: "Senior Developer", label: "Senior Developer" },
+    { value: "Tech Lead", label: "Tech Lead" },
+    { value: "QA Engineer", label: "QA Engineer" },
+    { value: "DevOps Engineer", label: "DevOps Engineer" },
+  ],
+
+  HR: [
+    { value: "HR Executive", label: "HR Executive" },
+    { value: "HR Manager", label: "HR Manager" },
+    { value: "Recruiter", label: "Recruiter" },
+    { value: "Talent Acquisition Specialist", label: "Talent Acquisition Specialist" },
+    { value: "HR Business Partner", label: "HR Business Partner" },
+  ],
+
+  Sales: [
+    { value: "Sales Executive", label: "Sales Executive" },
+    { value: "Sales Manager", label: "Sales Manager" },
+    { value: "Business Development Executive", label: "Business Development Executive" },
+    { value: "Business Development Manager", label: "Business Development Manager" },
+    { value: "Account Manager", label: "Account Manager" },
+  ],
+
+  SEO: [
+    { value: "SEO Executive", label: "SEO Executive" },
+    { value: "SEO Analyst", label: "SEO Analyst" },
+    { value: "Senior SEO Specialist", label: "Senior SEO Specialist" },
+    { value: "SEO Manager", label: "SEO Manager" },
+  ],
+
+  SMO: [
+    { value: "SMO Executive", label: "SMO Executive" },
+    { value: "Social Media Executive", label: "Social Media Executive" },
+    { value: "Social Media Manager", label: "Social Media Manager" },
+    { value: "Content Strategist", label: "Content Strategist" },
+  ],
+
+  "Graphic Design": [
+    { value: "Graphic Designer", label: "Graphic Designer" },
+    { value: "Senior Graphic Designer", label: "Senior Graphic Designer" },
+    { value: "UI/UX Designer", label: "UI/UX Designer" },
+    { value: "Visual Designer", label: "Visual Designer" },
+    { value: "Creative Head", label: "Creative Head" },
+  ],
+
+  "Lead Generation": [
+    { value: "Lead Generation Executive", label: "Lead Generation Executive" },
+    { value: "Lead Generation Specialist", label: "Lead Generation Specialist" },
+    { value: "Inside Sales Executive", label: "Inside Sales Executive" },
+    { value: "Email Marketing Executive", label: "Email Marketing Executive" },
+  ],
+
+  Accounting: [
+    { value: "Accountant", label: "Accountant" },
+    { value: "Senior Accountant", label: "Senior Accountant" },
+    { value: "Accounts Executive", label: "Accounts Executive" },
+    { value: "Finance Manager", label: "Finance Manager" },
+    { value: "Billing Executive", label: "Billing Executive" },
+  ],
+};
+
+
+
 
 
 // Default selected values
@@ -149,6 +228,9 @@ const ProposalEditContent = () => {
   const { countries, states, cities, loading, error, fetchStates, fetchCities } = useLocationData();
   const [loadings, setLoadings] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedDesignation, setSelectedDesignation] = useState(null);
+
 
   // Dropdown selected values with defaults
   const [selectedEmploymentType, setSelectedEmploymentType] = useState(defaultEmploymentType);
@@ -273,6 +355,27 @@ const ProposalEditContent = () => {
     setSelectedRelationship(option);
     setFormData(prev => ({ ...prev, emergencyContactRelation: option?.value || "" }));
   };
+
+  const handleDepartmentChange = (option) => {
+    setSelectedDepartment(option);
+    setSelectedDesignation(null);
+
+    setFormData((prev) => ({
+      ...prev,
+      department: option.value,
+      designation: "", // reset designation when department changes
+    }));
+  };
+
+  const handleDesignationChange = (option) => {
+    setSelectedDesignation(option);
+
+    setFormData((prev) => ({
+      ...prev,
+      designation: option.value,
+    }));
+  };
+
 
 
 
@@ -635,32 +738,36 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Designation <span className="text-danger">*</span></label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Software Engineer"
-                            name="designation"
-                            value={formData.designation}
-                            onChange={handleChange}
-                            required
+                          <label className="form-label">Department <span className="text-danger">*</span></label>
+                          <SelectDropdown
+                            options={departmentOptions}
+                            defaultSelect="Select Department"
+                            selectedOption={selectedDepartment}
+                            onSelectOption={handleDepartmentChange}
+                            searchable={true}
+                            placeholder="Search department..."
                           />
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Department <span className="text-danger">*</span></label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Technical Team"
-                            name="department"
-                            value={formData.department}
-                            onChange={handleChange}
-                            required
+                          <label className="form-label">Designation <span className="text-danger">*</span></label>
+                          <SelectDropdown
+                            options={
+                              selectedDepartment
+                                ? designationOptions[selectedDepartment.value]
+                                : []
+                            }
+                            defaultSelect="Select Designation"
+                            selectedOption={selectedDesignation}
+                            onSelectOption={handleDesignationChange}
+                            searchable={true}
+                            placeholder="Search designation..."
+                            disabled={!selectedDepartment} // 🔥 disable until department selected
                           />
                         </div>
                       </div>
+
                       <div className="col-md-4">
                         <div className="mb-4">
                           <label className="form-label">Employment Type <span className="text-danger">*</span></label>
