@@ -17,18 +17,30 @@ export async function GET(request) {
     if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
 
     const userId = decoded.userId; // make sure your token has userId
+    const currentYear = new Date().getFullYear();
 
+    // 2️⃣ Fetch Leave Balances (Current Year Only)
     const leaveBalances = await prisma.leaveBalance.findMany({
-      where: { userId },
+      where: {
+        userId,
+        year: currentYear,
+      },
       select: {
         leaveType: true,
-        total: true,
+        allocated: true,
+        used: true,
+        remaining: true,
+        year: true,
+      },
+      orderBy: {
+        leaveType: "asc",
       },
     });
 
+
     return NextResponse.json({
       success: true,
-      leaveBalances: leaveBalances,
+      leaveBalances
     });
   } catch (error) {
     console.error("Error fetching users:", error);

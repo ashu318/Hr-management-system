@@ -37,23 +37,36 @@ export async function POST(request) {
     // 📅 Calculate days
     const dayCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
-    // 🔍 Fetch leave balance
+    console.log("DAY COUNT", dayCount);
+    console.log("THE FRONTEND DATA", leaveType, startDate, endDate, reason);
+
+
+
+    // // 🔍 Fetch leave balance
     const leaveBalance = await prisma.leaveBalance.findUnique({
       where: {
-        userId_leaveType: {
+        userId_leaveType_year: {
           userId,
           leaveType,
+          year: start.getFullYear(),
         },
       },
     });
+
+    console.log("LEAVE BALANCE", leaveBalance);
+
 
     if (!leaveBalance) {
       return NextResponse.json({ message: "Leave type not assigned to user" }, { status: 400 });
     }
 
-    if (dayCount > leaveBalance.total) {
-      return NextResponse.json({ message: "Insufficient leave balance" }, { status: 400 });
+    if (dayCount > leaveBalance.remaining) {
+      return NextResponse.json(
+        { message: "Insufficient leave balance" },
+        { status: 400 }
+      );
     }
+
 
     // 🔥 Transaction
     const [application] = await prisma.$transaction([
@@ -69,16 +82,27 @@ export async function POST(request) {
       }),
       prisma.leaveBalance.update({
         where: {
-          userId_leaveType: {
+          userId_leaveType_year: {
             userId,
             leaveType,
+            year: start.getFullYear(),
           },
         },
         data: {
-          total: { decrement: dayCount },
+          used: {
+            increment: dayCount,
+          },
+          remaining: {
+            decrement: dayCount,
+          },
         },
       }),
+
     ]);
+
+
+    console.log("LEAVE APPLICATION", application);
+
 
     return NextResponse.json(
       {
@@ -93,6 +117,11 @@ export async function POST(request) {
     return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
   }
 }
+
+
+
+
+
 
 export async function GET(request) {
   try {
@@ -114,6 +143,9 @@ export async function GET(request) {
       where: {
         userId,
       },
+      orderBy: {
+        createdAt: "desc", // newest first
+      },
     });
 
     return NextResponse.json(
@@ -129,3 +161,13 @@ export async function GET(request) {
     return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
   }
 }
+
+
+
+
+
+
+
+
+
+

@@ -162,6 +162,17 @@ const designationOptions = {
   ],
 };
 
+const bloodOptions = [
+  { value: "A+", label: "A+" },
+  { value: "B+", label: "B+" },
+  { value: "O+", label: "O+" },
+  { value: "AB+", label: "AB+" },
+  { value: "A-", label: "A-" },
+  { value: "B-", label: "B-" },
+  { value: "O-", label: "O-" },
+  { value: "AB-", label: "AB-" },
+];
+
 
 
 
@@ -238,6 +249,7 @@ const ProposalEditContent = () => {
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const [selectedState, setSelectedState] = useState(defaultState);
   const [selectedCity, setSelectedCity] = useState(defaultCity);
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState(null);
   const [selectedRelationship, setSelectedRelationship] = useState(defaultRelationship);
 
   // Checkbox states
@@ -374,6 +386,11 @@ const ProposalEditContent = () => {
       ...prev,
       designation: option.value,
     }));
+  };
+
+  const handleBloodGroupChange = (option) => {
+    setSelectedBloodGroup(option);
+    setFormData(prev => ({ ...prev, bloodGroup: option?.value || "" }));
   };
 
 
@@ -871,6 +888,19 @@ const ProposalEditContent = () => {
                             name="spouseName"
                             value={formData.spouseName}
                             onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="mb-4">
+                          <label className="form-label">Blood Group <span className="text-danger">*</span></label>
+                          <SelectDropdown
+                            options={bloodOptions}
+                            defaultSelect="Select Blood Group"
+                            selectedOption={selectedBloodGroup}
+                            onSelectOption={handleBloodGroupChange}
+                            searchable={true}
+                            placeholder="Search Blood Group..."
                           />
                         </div>
                       </div>

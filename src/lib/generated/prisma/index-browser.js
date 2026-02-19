@@ -150,6 +150,7 @@ exports.Prisma.UserScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   fatherName: 'fatherName',
   motherName: 'motherName',
+  bloodGroup: 'bloodGroup',
   currentAddress: 'currentAddress',
   permanentAddress: 'permanentAddress',
   city: 'city',
@@ -188,7 +189,10 @@ exports.Prisma.LeaveBalanceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   leaveType: 'leaveType',
-  total: 'total',
+  allocated: 'allocated',
+  used: 'used',
+  remaining: 'remaining',
+  year: 'year',
   createdAt: 'createdAt'
 };
 

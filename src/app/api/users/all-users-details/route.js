@@ -12,8 +12,25 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request) {
   try {
 
+    // 🔐 Auth
+    const token = request.cookies.get("auth_token")?.value;
+    if (!token) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded?.userId) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    }
+
+    const userId = decoded.userId;
+    const organizationId = decoded.organizationId;
+
+
+
     // const data = await request.json();
     const formData = await request.formData(); // ✅ CORRECT
+    // console.log("FORM DATA", formData);
 
     // Extract all fields properly
     const data = {
@@ -29,6 +46,7 @@ export async function POST(request) {
 
       gender: formData.get("gender"),
       dateOfBirth: formData.get("dateOfBirth"),
+      bloodGroup: formData.get("bloodGroup"),
       fatherName: formData.get("fatherName"),
       motherName: formData.get("motherName"),
       spouseName: formData.get("spouseName"),
@@ -113,6 +131,9 @@ export async function POST(request) {
           dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
           fatherName: data.fatherName || null,
           motherName: data.motherName || null,
+          spouseName: data.spouseName || null,
+          bloodGroup: data.bloodGroup || null,
+
 
           currentAddress: data.currentAddress || null,
           permanentAddress: data.permanentAddress || null,
@@ -127,7 +148,7 @@ export async function POST(request) {
 
           reportingManagerName: data.reportingManagerName || null,
 
-          organizationId: "ctsl_2026",
+          organizationId: organizationId,
         },
       });
 
@@ -149,11 +170,74 @@ export async function POST(request) {
         },
       });
 
+      const currentYear = new Date().getFullYear();
+      await tx.leaveBalance.createMany({
+        data: [
+          {
+            userId: user.id,
+            leaveType: "PAID_LEAVE",
+            allocated: 20,
+            used: 0,
+            remaining: 20,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "SICK_LEAVE",
+            allocated: 10,
+            used: 0,
+            remaining: 10,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "CASUAL_LEAVE",
+            allocated: 10,
+            used: 0,
+            remaining: 10,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "BEREAVEMENT_LEAVE",
+            allocated: 5,
+            used: 0,
+            remaining: 5,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "OPTIONAL_LEAVE",
+            allocated: 2,
+            used: 0,
+            remaining: 2,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "PATERNITY_LEAVE",
+            allocated: 2,
+            used: 0,
+            remaining: 2,
+            year: currentYear,
+          },
+          {
+            userId: user.id,
+            leaveType: "MATERNITY_LEAVE",
+            allocated: 2,
+            used: 0,
+            remaining: 2,
+            year: currentYear,
+          },
+
+        ],
+      })
+
       return user;
     });
 
 
-    // console.log("The new uers is created :", newUser);
+    console.log("The new uers is created :", newUser);
 
 
 
@@ -268,24 +352,6 @@ export async function POST(request) {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -18,8 +18,8 @@ export async function GET(request) {
     }
 
     const userId = decoded.userId;
-    console.log("THE USER ID", userId);
-    console.log("THE ORG ID", decoded.organizationId);
+    // console.log("THE USER ID", userId);
+    // console.log("THE ORG ID", decoded.organizationId);
 
 
     const user = await prisma.user.findUnique({

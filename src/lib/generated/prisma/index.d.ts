@@ -3013,6 +3013,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     fatherName: string | null
     motherName: string | null
+    bloodGroup: string | null
     currentAddress: string | null
     permanentAddress: string | null
     city: string | null
@@ -3054,6 +3055,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     fatherName: string | null
     motherName: string | null
+    bloodGroup: string | null
     currentAddress: string | null
     permanentAddress: string | null
     city: string | null
@@ -3095,6 +3097,7 @@ export namespace Prisma {
     dateOfBirth: number
     fatherName: number
     motherName: number
+    bloodGroup: number
     currentAddress: number
     permanentAddress: number
     city: number
@@ -3146,6 +3149,7 @@ export namespace Prisma {
     dateOfBirth?: true
     fatherName?: true
     motherName?: true
+    bloodGroup?: true
     currentAddress?: true
     permanentAddress?: true
     city?: true
@@ -3187,6 +3191,7 @@ export namespace Prisma {
     dateOfBirth?: true
     fatherName?: true
     motherName?: true
+    bloodGroup?: true
     currentAddress?: true
     permanentAddress?: true
     city?: true
@@ -3228,6 +3233,7 @@ export namespace Prisma {
     dateOfBirth?: true
     fatherName?: true
     motherName?: true
+    bloodGroup?: true
     currentAddress?: true
     permanentAddress?: true
     city?: true
@@ -3356,6 +3362,7 @@ export namespace Prisma {
     dateOfBirth: Date | null
     fatherName: string | null
     motherName: string | null
+    bloodGroup: string | null
     currentAddress: string | null
     permanentAddress: string | null
     city: string | null
@@ -3416,6 +3423,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     fatherName?: boolean
     motherName?: boolean
+    bloodGroup?: boolean
     currentAddress?: boolean
     permanentAddress?: boolean
     city?: boolean
@@ -3465,6 +3473,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     fatherName?: boolean
     motherName?: boolean
+    bloodGroup?: boolean
     currentAddress?: boolean
     permanentAddress?: boolean
     city?: boolean
@@ -3507,6 +3516,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     fatherName?: boolean
     motherName?: boolean
+    bloodGroup?: boolean
     currentAddress?: boolean
     permanentAddress?: boolean
     city?: boolean
@@ -3549,6 +3559,7 @@ export namespace Prisma {
     dateOfBirth?: boolean
     fatherName?: boolean
     motherName?: boolean
+    bloodGroup?: boolean
     currentAddress?: boolean
     permanentAddress?: boolean
     city?: boolean
@@ -3569,7 +3580,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designation" | "department" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "profileImagePublicId" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "spouseName" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designation" | "department" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "profileImagePublicId" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "bloodGroup" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "spouseName" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     leaveBalances?: boolean | User$leaveBalancesArgs<ExtArgs>
@@ -3619,6 +3630,7 @@ export namespace Prisma {
       dateOfBirth: Date | null
       fatherName: string | null
       motherName: string | null
+      bloodGroup: string | null
       currentAddress: string | null
       permanentAddress: string | null
       city: string | null
@@ -4087,6 +4099,7 @@ export namespace Prisma {
     readonly dateOfBirth: FieldRef<"User", 'DateTime'>
     readonly fatherName: FieldRef<"User", 'String'>
     readonly motherName: FieldRef<"User", 'String'>
+    readonly bloodGroup: FieldRef<"User", 'String'>
     readonly currentAddress: FieldRef<"User", 'String'>
     readonly permanentAddress: FieldRef<"User", 'String'>
     readonly city: FieldRef<"User", 'String'>
@@ -5855,18 +5868,27 @@ export namespace Prisma {
   }
 
   export type LeaveBalanceAvgAggregateOutputType = {
-    total: number | null
+    allocated: number | null
+    used: number | null
+    remaining: number | null
+    year: number | null
   }
 
   export type LeaveBalanceSumAggregateOutputType = {
-    total: number | null
+    allocated: number | null
+    used: number | null
+    remaining: number | null
+    year: number | null
   }
 
   export type LeaveBalanceMinAggregateOutputType = {
     id: string | null
     userId: string | null
     leaveType: $Enums.LeaveType | null
-    total: number | null
+    allocated: number | null
+    used: number | null
+    remaining: number | null
+    year: number | null
     createdAt: Date | null
   }
 
@@ -5874,7 +5896,10 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     leaveType: $Enums.LeaveType | null
-    total: number | null
+    allocated: number | null
+    used: number | null
+    remaining: number | null
+    year: number | null
     createdAt: Date | null
   }
 
@@ -5882,25 +5907,37 @@ export namespace Prisma {
     id: number
     userId: number
     leaveType: number
-    total: number
+    allocated: number
+    used: number
+    remaining: number
+    year: number
     createdAt: number
     _all: number
   }
 
 
   export type LeaveBalanceAvgAggregateInputType = {
-    total?: true
+    allocated?: true
+    used?: true
+    remaining?: true
+    year?: true
   }
 
   export type LeaveBalanceSumAggregateInputType = {
-    total?: true
+    allocated?: true
+    used?: true
+    remaining?: true
+    year?: true
   }
 
   export type LeaveBalanceMinAggregateInputType = {
     id?: true
     userId?: true
     leaveType?: true
-    total?: true
+    allocated?: true
+    used?: true
+    remaining?: true
+    year?: true
     createdAt?: true
   }
 
@@ -5908,7 +5945,10 @@ export namespace Prisma {
     id?: true
     userId?: true
     leaveType?: true
-    total?: true
+    allocated?: true
+    used?: true
+    remaining?: true
+    year?: true
     createdAt?: true
   }
 
@@ -5916,7 +5956,10 @@ export namespace Prisma {
     id?: true
     userId?: true
     leaveType?: true
-    total?: true
+    allocated?: true
+    used?: true
+    remaining?: true
+    year?: true
     createdAt?: true
     _all?: true
   }
@@ -6011,7 +6054,10 @@ export namespace Prisma {
     id: string
     userId: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated: number
+    used: number
+    remaining: number
+    year: number
     createdAt: Date
     _count: LeaveBalanceCountAggregateOutputType | null
     _avg: LeaveBalanceAvgAggregateOutputType | null
@@ -6038,7 +6084,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     leaveType?: boolean
-    total?: boolean
+    allocated?: boolean
+    used?: boolean
+    remaining?: boolean
+    year?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveBalance"]>
@@ -6047,7 +6096,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     leaveType?: boolean
-    total?: boolean
+    allocated?: boolean
+    used?: boolean
+    remaining?: boolean
+    year?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveBalance"]>
@@ -6056,7 +6108,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     leaveType?: boolean
-    total?: boolean
+    allocated?: boolean
+    used?: boolean
+    remaining?: boolean
+    year?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveBalance"]>
@@ -6065,11 +6120,14 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     leaveType?: boolean
-    total?: boolean
+    allocated?: boolean
+    used?: boolean
+    remaining?: boolean
+    year?: boolean
     createdAt?: boolean
   }
 
-  export type LeaveBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "leaveType" | "total" | "createdAt", ExtArgs["result"]["leaveBalance"]>
+  export type LeaveBalanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "leaveType" | "allocated" | "used" | "remaining" | "year" | "createdAt", ExtArgs["result"]["leaveBalance"]>
   export type LeaveBalanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6089,7 +6147,10 @@ export namespace Prisma {
       id: string
       userId: string
       leaveType: $Enums.LeaveType
-      total: number
+      allocated: number
+      used: number
+      remaining: number
+      year: number
       createdAt: Date
     }, ExtArgs["result"]["leaveBalance"]>
     composites: {}
@@ -6518,7 +6579,10 @@ export namespace Prisma {
     readonly id: FieldRef<"LeaveBalance", 'String'>
     readonly userId: FieldRef<"LeaveBalance", 'String'>
     readonly leaveType: FieldRef<"LeaveBalance", 'LeaveType'>
-    readonly total: FieldRef<"LeaveBalance", 'Int'>
+    readonly allocated: FieldRef<"LeaveBalance", 'Int'>
+    readonly used: FieldRef<"LeaveBalance", 'Int'>
+    readonly remaining: FieldRef<"LeaveBalance", 'Int'>
+    readonly year: FieldRef<"LeaveBalance", 'Int'>
     readonly createdAt: FieldRef<"LeaveBalance", 'DateTime'>
   }
     
@@ -12550,6 +12614,7 @@ export namespace Prisma {
     dateOfBirth: 'dateOfBirth',
     fatherName: 'fatherName',
     motherName: 'motherName',
+    bloodGroup: 'bloodGroup',
     currentAddress: 'currentAddress',
     permanentAddress: 'permanentAddress',
     city: 'city',
@@ -12594,7 +12659,10 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     leaveType: 'leaveType',
-    total: 'total',
+    allocated: 'allocated',
+    used: 'used',
+    remaining: 'remaining',
+    year: 'year',
     createdAt: 'createdAt'
   };
 
@@ -12980,6 +13048,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
     fatherName?: StringNullableFilter<"User"> | string | null
     motherName?: StringNullableFilter<"User"> | string | null
+    bloodGroup?: StringNullableFilter<"User"> | string | null
     currentAddress?: StringNullableFilter<"User"> | string | null
     permanentAddress?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
@@ -13028,6 +13097,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrderInput | SortOrder
     fatherName?: SortOrderInput | SortOrder
     motherName?: SortOrderInput | SortOrder
+    bloodGroup?: SortOrderInput | SortOrder
     currentAddress?: SortOrderInput | SortOrder
     permanentAddress?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
@@ -13080,6 +13150,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
     fatherName?: StringNullableFilter<"User"> | string | null
     motherName?: StringNullableFilter<"User"> | string | null
+    bloodGroup?: StringNullableFilter<"User"> | string | null
     currentAddress?: StringNullableFilter<"User"> | string | null
     permanentAddress?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
@@ -13128,6 +13199,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrderInput | SortOrder
     fatherName?: SortOrderInput | SortOrder
     motherName?: SortOrderInput | SortOrder
+    bloodGroup?: SortOrderInput | SortOrder
     currentAddress?: SortOrderInput | SortOrder
     permanentAddress?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
@@ -13177,6 +13249,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     fatherName?: StringNullableWithAggregatesFilter<"User"> | string | null
     motherName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bloodGroup?: StringNullableWithAggregatesFilter<"User"> | string | null
     currentAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
     permanentAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -13292,7 +13365,10 @@ export namespace Prisma {
     id?: StringFilter<"LeaveBalance"> | string
     userId?: StringFilter<"LeaveBalance"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveBalance"> | $Enums.LeaveType
-    total?: IntFilter<"LeaveBalance"> | number
+    allocated?: IntFilter<"LeaveBalance"> | number
+    used?: IntFilter<"LeaveBalance"> | number
+    remaining?: IntFilter<"LeaveBalance"> | number
+    year?: IntFilter<"LeaveBalance"> | number
     createdAt?: DateTimeFilter<"LeaveBalance"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -13301,29 +13377,38 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     leaveType?: SortOrder
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
   export type LeaveBalanceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId_leaveType?: LeaveBalanceUserIdLeaveTypeCompoundUniqueInput
+    userId_leaveType_year?: LeaveBalanceUserIdLeaveTypeYearCompoundUniqueInput
     AND?: LeaveBalanceWhereInput | LeaveBalanceWhereInput[]
     OR?: LeaveBalanceWhereInput[]
     NOT?: LeaveBalanceWhereInput | LeaveBalanceWhereInput[]
     userId?: StringFilter<"LeaveBalance"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveBalance"> | $Enums.LeaveType
-    total?: IntFilter<"LeaveBalance"> | number
+    allocated?: IntFilter<"LeaveBalance"> | number
+    used?: IntFilter<"LeaveBalance"> | number
+    remaining?: IntFilter<"LeaveBalance"> | number
+    year?: IntFilter<"LeaveBalance"> | number
     createdAt?: DateTimeFilter<"LeaveBalance"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "userId_leaveType">
+  }, "id" | "userId_leaveType_year">
 
   export type LeaveBalanceOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     leaveType?: SortOrder
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
     createdAt?: SortOrder
     _count?: LeaveBalanceCountOrderByAggregateInput
     _avg?: LeaveBalanceAvgOrderByAggregateInput
@@ -13339,7 +13424,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"LeaveBalance"> | string
     userId?: StringWithAggregatesFilter<"LeaveBalance"> | string
     leaveType?: EnumLeaveTypeWithAggregatesFilter<"LeaveBalance"> | $Enums.LeaveType
-    total?: IntWithAggregatesFilter<"LeaveBalance"> | number
+    allocated?: IntWithAggregatesFilter<"LeaveBalance"> | number
+    used?: IntWithAggregatesFilter<"LeaveBalance"> | number
+    remaining?: IntWithAggregatesFilter<"LeaveBalance"> | number
+    year?: IntWithAggregatesFilter<"LeaveBalance"> | number
     createdAt?: DateTimeWithAggregatesFilter<"LeaveBalance"> | Date | string
   }
 
@@ -13807,6 +13895,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -13854,6 +13943,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -13901,6 +13991,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13948,6 +14039,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13995,6 +14087,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -14036,6 +14129,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14076,6 +14170,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14196,7 +14291,10 @@ export namespace Prisma {
   export type LeaveBalanceCreateInput = {
     id?: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLeaveBalancesInput
   }
@@ -14205,14 +14303,20 @@ export namespace Prisma {
     id?: string
     userId: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
   }
 
   export type LeaveBalanceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLeaveBalancesNestedInput
   }
@@ -14221,7 +14325,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14229,14 +14336,20 @@ export namespace Prisma {
     id?: string
     userId: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
   }
 
   export type LeaveBalanceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14244,7 +14357,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14927,6 +15043,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     fatherName?: SortOrder
     motherName?: SortOrder
+    bloodGroup?: SortOrder
     currentAddress?: SortOrder
     permanentAddress?: SortOrder
     city?: SortOrder
@@ -14972,6 +15089,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     fatherName?: SortOrder
     motherName?: SortOrder
+    bloodGroup?: SortOrder
     currentAddress?: SortOrder
     permanentAddress?: SortOrder
     city?: SortOrder
@@ -15013,6 +15131,7 @@ export namespace Prisma {
     dateOfBirth?: SortOrder
     fatherName?: SortOrder
     motherName?: SortOrder
+    bloodGroup?: SortOrder
     currentAddress?: SortOrder
     permanentAddress?: SortOrder
     city?: SortOrder
@@ -15231,28 +15350,38 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type LeaveBalanceUserIdLeaveTypeCompoundUniqueInput = {
+  export type LeaveBalanceUserIdLeaveTypeYearCompoundUniqueInput = {
     userId: string
     leaveType: $Enums.LeaveType
+    year: number
   }
 
   export type LeaveBalanceCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     leaveType?: SortOrder
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
     createdAt?: SortOrder
   }
 
   export type LeaveBalanceAvgOrderByAggregateInput = {
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
   }
 
   export type LeaveBalanceMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     leaveType?: SortOrder
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15260,12 +15389,18 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     leaveType?: SortOrder
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
     createdAt?: SortOrder
   }
 
   export type LeaveBalanceSumOrderByAggregateInput = {
-    total?: SortOrder
+    allocated?: SortOrder
+    used?: SortOrder
+    remaining?: SortOrder
+    year?: SortOrder
   }
 
   export type EnumLeaveTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16475,6 +16610,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -16521,6 +16657,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -16664,6 +16801,7 @@ export namespace Prisma {
     dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
     fatherName?: StringNullableFilter<"User"> | string | null
     motherName?: StringNullableFilter<"User"> | string | null
+    bloodGroup?: StringNullableFilter<"User"> | string | null
     currentAddress?: StringNullableFilter<"User"> | string | null
     permanentAddress?: StringNullableFilter<"User"> | string | null
     city?: StringNullableFilter<"User"> | string | null
@@ -16775,14 +16913,20 @@ export namespace Prisma {
   export type LeaveBalanceCreateWithoutUserInput = {
     id?: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
   }
 
   export type LeaveBalanceUncheckedCreateWithoutUserInput = {
     id?: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
   }
 
@@ -16998,7 +17142,10 @@ export namespace Prisma {
     id?: StringFilter<"LeaveBalance"> | string
     userId?: StringFilter<"LeaveBalance"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveBalance"> | $Enums.LeaveType
-    total?: IntFilter<"LeaveBalance"> | number
+    allocated?: IntFilter<"LeaveBalance"> | number
+    used?: IntFilter<"LeaveBalance"> | number
+    remaining?: IntFilter<"LeaveBalance"> | number
+    year?: IntFilter<"LeaveBalance"> | number
     createdAt?: DateTimeFilter<"LeaveBalance"> | Date | string
   }
 
@@ -17223,6 +17370,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17269,6 +17417,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17331,6 +17480,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17377,6 +17527,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17423,6 +17574,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17469,6 +17621,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17531,6 +17684,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17577,6 +17731,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17648,6 +17803,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17694,6 +17850,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17815,6 +17972,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17861,6 +18019,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17950,6 +18109,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -17996,6 +18156,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18091,6 +18252,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18137,6 +18299,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18183,6 +18346,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18229,6 +18393,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18291,6 +18456,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18337,6 +18503,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18383,6 +18550,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18429,6 +18597,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18491,6 +18660,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18537,6 +18707,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18583,6 +18754,7 @@ export namespace Prisma {
     dateOfBirth?: Date | string | null
     fatherName?: string | null
     motherName?: string | null
+    bloodGroup?: string | null
     currentAddress?: string | null
     permanentAddress?: string | null
     city?: string | null
@@ -18646,6 +18818,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18692,6 +18865,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18738,6 +18912,7 @@ export namespace Prisma {
     dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18831,7 +19006,10 @@ export namespace Prisma {
   export type LeaveBalanceCreateManyUserInput = {
     id?: string
     leaveType: $Enums.LeaveType
-    total: number
+    allocated?: number
+    used?: number
+    remaining?: number
+    year?: number
     createdAt?: Date | string
   }
 
@@ -18868,21 +19046,30 @@ export namespace Prisma {
   export type LeaveBalanceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeaveBalanceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeaveBalanceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
-    total?: IntFieldUpdateOperationsInput | number
+    allocated?: IntFieldUpdateOperationsInput | number
+    used?: IntFieldUpdateOperationsInput | number
+    remaining?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

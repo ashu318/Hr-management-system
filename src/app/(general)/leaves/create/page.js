@@ -6,12 +6,8 @@ import LeavesHeader from "@/components/leaves/LeavesHeader";
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <LeavesHeader />
-      </PageHeader>
       <div className="main-content">
         <div className="row">
-          {/* <PaymentTable /> */}
           <CreateLeaves />
         </div>
       </div>

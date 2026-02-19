@@ -223,6 +223,7 @@ const leaveTypeOptions = [
   { label: "Maternity Leave", value: "MATERNITY_LEAVE", color: "#41b2c4" },
   { label: "Paternity Leave", value: "PATERNITY_LEAVE", color: "#ffa21d" },
   { label: "Optional Leave", value: "OPTIONAL_LEAVE", color: "#6610f2" },
+  { label: "Bereavement Leave", value: "BEREAVEMENT_LEAVE", color: "#ea4d4d" }
 ];
 
 export {

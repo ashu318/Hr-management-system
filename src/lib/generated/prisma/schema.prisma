@@ -114,6 +114,7 @@ model User {
   dateOfBirth          DateTime?
   fatherName           String?
   motherName           String?
+  bloodGroup           String?
 
   // =========================
   // Address Details
@@ -216,11 +217,14 @@ model LeaveBalance {
   userId String
 
   leaveType LeaveType
-  total     Int
+  allocated Int       @default(0)
+  used      Int       @default(0)
+  remaining Int       @default(0)
+  year      Int       @default(2025)
 
   createdAt DateTime @default(now())
 
-  @@unique([userId, leaveType])
+  @@unique([userId, leaveType, year])
 }
 
 ///////////////////////////
