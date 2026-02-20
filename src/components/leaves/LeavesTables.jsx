@@ -65,6 +65,12 @@ const LeavesTables = () => {
       case "MATERNITY_LEAVE":
         return "text-warning border-warning";
 
+      case "PATERNITY_LEAVE":
+        return "text-info border-info";
+
+      case "BEREAVEMENT_LEAVE":
+        return "text-info border-info";
+
       case "OPTIONAL_LEAVE":
         return "text-info border-info";
 

@@ -196,7 +196,12 @@ const CreateLeaves = () => {
                   <img
                     src={user?.profileImageUrl || "https://via.placeholder.com/150"}
                     alt="Employee"
-                    className="w-100 h-100 object-fit-cover"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center"
+                    }}
                   />
                 </div>
 
@@ -205,8 +210,6 @@ const CreateLeaves = () => {
                   className="position-absolute start-100 translate-middle p-1 bg-success border border-2 border-white rounded-circle"
                   style={{ top: "67px" }}
                 ></span>
-
-
               </div>
 
               {/* Details */}

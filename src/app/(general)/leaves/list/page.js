@@ -12,7 +12,6 @@ const page = () => {
           <LeavesTables />
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };

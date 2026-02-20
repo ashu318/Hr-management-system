@@ -50,15 +50,40 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
     PAID_LEAVE: { label: "Paid Leave", max: 7, color: "#0d6efd" },
     SICK_LEAVE: { label: "Sick Leave", max: 5, color: "#dc3545" },
     CASUAL_LEAVE: { label: "Casual Leave", max: 3, color: "#198754" },
-    // MATERNITY_LEAVE: { label: "Maternity Leave", max: 90, color: "#6f42c1" },
+    MATERNITY_LEAVE: { label: "Maternity Leave", max: 90, color: "#6f42c1" },
+    PATERNITY_LEAVE: { label: "Paternity Leave", max: 3, color: "#ffc107" },
     BEREAVEMENT_LEAVE: { label: "Bereavement Leave", max: 1, color: "#fd7e14" },
     OPTIONAL_LEAVE: { label: "Optional Leave", max: 3, color: "#20c997" },
   };
 
+
+
+
+  // card haeders logic calculataion
+  const totalAllocated = allLeaveBalances.reduce(
+    (sum, leave) => sum + leave.allocated,
+    0
+  );
+
+  const totalUsed = allLeaveBalances.reduce(
+    (sum, leave) => sum + leave.used,
+    0
+  );
+
+  const totalRemaining = allLeaveBalances.reduce(
+    (sum, leave) => sum + leave.remaining,
+    0
+  );
+
+  const totalPercentage =
+    totalAllocated > 0
+      ? Math.round((totalUsed / totalAllocated) * 100)
+      : 0;
+
   return (
-    <div className="col-xxl-4">
+    <div className="col-xxl-4" >
       <div
-        className={`card stretch stretch-full ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
+        className={`card stretch stretch-full p-0 ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
       >
         {isLoading ? (
           <LeavesBalance rows={4} />
@@ -66,10 +91,10 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
           <>
             {/* Card Header */}
             <div
-              className="rounded-4 p-4 mb-4"
+              className="rounded-3 p-4 mb-4"
               style={{
-                background: "linear-gradient(145deg, #4361ee 0%, #3a0ca3 100%)",
-                boxShadow: "0 10px 30px rgba(67, 97, 238, 0.2)"
+                background: "linear-gradient(145deg, #3f5fe0 0%, #243ea8 100%)",
+                boxShadow: "0 10px 30px rgba(52, 84, 209, 0.25)"
               }}
             >
               <div className="d-flex align-items-center justify-content-between mb-3">
@@ -79,14 +104,14 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                 </span>
 
                 <span className="badge bg-white bg-opacity-20 text-dark px-3 py-1 rounded-pill fw-normal">
-                  17/45 Used
+                  {totalUsed}/{totalAllocated} Used
                 </span>
               </div>
 
               <div className="d-flex align-items-end justify-content-between">
                 <div>
                   <div className="display-3 fw-bold text-white mb-1">
-                    28
+                    {totalRemaining}
                   </div>
                   <div className="text-white text-opacity-75 small">
                     days remaining
@@ -95,7 +120,7 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
 
                 <div className="text-end">
                   <div className="h2 fw-bold text-white mb-1">
-                    38%
+                    {totalPercentage}%
                   </div>
                   <div className="text-white text-opacity-75 small">
                     utilized
@@ -103,12 +128,12 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                 </div>
               </div>
 
-              {/* Static Progress Bar */}
+              {/* Progress Bar */}
               <div className="mt-4">
                 <div className="d-flex align-items-center justify-content-between mb-2">
                   <span className="small text-white text-opacity-75">Progress</span>
                   <span className="small text-white fw-medium">
-                    17/45 days
+                    {totalUsed}/{totalAllocated} days
                   </span>
                 </div>
 
@@ -119,15 +144,13 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                   <div
                     className="progress-bar bg-success"
                     style={{
-                      width: "38%",
+                      width: `${totalPercentage}%`,
                       borderRadius: "10px",
                       boxShadow: "0 2px 10px rgba(255,255,255,0.3)"
                     }}
                   />
                 </div>
               </div>
-
-
             </div>
 
             {/* Progress section of leaves */}
@@ -136,14 +159,14 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                 const config = LEAVE_CONFIG[leave.leaveType];
                 if (!config) return null;
 
-                const used = leave.total; // from DB
-                const remaining = config.max - used;
-                const percentage = Math.round((used / config.max) * 100);
-                const displayRemaining = remaining < 0 ? 0 : remaining;
+                const used = leave.used;
+                const allocated = leave.allocated;
+                const remaining = leave.remaining;
+                const percentage =
+                  allocated > 0 ? Math.round((used / allocated) * 100) : 0;
 
                 return (
                   <div key={index} className="position-relative">
-                    {/* Main Card */}
                     <div
                       className="hstack justify-content-between text-dark rounded-4 ps-3 pt-2"
                       style={{
@@ -154,7 +177,6 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                     >
                       {/* LEFT SIDE */}
                       <div className="hstack gap-3">
-                        {/* Icon Box */}
                         <div
                           className="d-flex align-items-center justify-content-center"
                           style={{
@@ -171,7 +193,6 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                           {config.label.charAt(0)}
                         </div>
 
-                        {/* Label Section */}
                         <div>
                           <div className="fw-semibold fs-6">{config.label}</div>
                           <div className="d-flex align-items-center gap-2 mt-1">
@@ -179,18 +200,18 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                               className="small"
                               style={{ color: config.color, fontWeight: 500 }}
                             >
-                              {displayRemaining} left
+                              {remaining} left
                             </span>
                             <span className="small text-muted">•</span>
                             <span className="small text-muted">
-                              {used}/{config.max}
+                              {used}/{allocated}
                             </span>
                           </div>
                         </div>
                       </div>
 
                       {/* RIGHT SIDE - Circular Progress */}
-                      <div className="position-relative" >
+                      <div className="position-relative">
                         <div
                           className="d-flex align-items-center justify-content-center rounded-circle bg-white"
                           style={{
@@ -249,8 +270,6 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
                         )}
                       </div>
                     </div>
-
-
                   </div>
                 );
               })}

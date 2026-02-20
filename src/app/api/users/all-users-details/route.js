@@ -23,6 +23,14 @@ export async function POST(request) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });
     }
 
+    // ✅ ROLE CHECK (Very Important)
+    if (decoded.role !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Access denied. Admins only." },
+        { status: 403 }
+      );
+    }
+
     const userId = decoded.userId;
     const organizationId = decoded.organizationId;
 
