@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, memo } from "react";
 import {
   FiAlertOctagon,
   FiArchive,
@@ -11,6 +11,7 @@ import {
   FiTrash2,
 } from "react-icons/fi";
 import Dropdown from "@/components/shared/Dropdown";
+import SelectDropdown from "@/components/shared/SelectDropdown";
 import { paymentTableData } from "@/utils/fackData/paymentTableData";
 import Table from "@/components/shared/table/Table";
 import Link from "next/link";
@@ -29,6 +30,9 @@ const actions = [
 ];
 
 const AllLeavesData = () => {
+
+
+
   // helper functsions
   const toTitleCase = (text = "") =>
     text
@@ -36,24 +40,58 @@ const AllLeavesData = () => {
       .split("_")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  const LEAVE_STATUS_MAP = {
-    PENDING: {
-      content: "Pending",
-      color: "bg-soft-warning text-warning",
+
+  const STATUS_OPTIONS = [
+    {
+      label: "Pending",
+      value: "PENDING",
+      color: "#f59e0b", // yellow
     },
-    APPROVED: {
-      content: "Approved",
-      color: "bg-soft-success text-success",
+    {
+      label: "Approved",
+      value: "APPROVED",
+      color: "#22c55e", // green
     },
-    REJECTED: {
-      content: "Rejected",
-      color: "bg-soft-danger text-danger",
+    {
+      label: "Rejected",
+      value: "REJECTED",
+      color: "#ef4444", // red
     },
+  ];
+  const leaveTypeBadgeClass = (leaveType) => {
+    switch (leaveType) {
+      case "CASUAL_LEAVE":
+        return "text-primary border-primary";
+
+      case "PAID_LEAVE":
+        return "text-success border-success";
+
+      case "SICK_LEAVE":
+        return "text-danger border-danger";
+
+      case "MATERNITY_LEAVE":
+        return "text-warning border-warning";
+
+      case "PATERNITY_LEAVE":
+        return "text-info border-info";
+
+      case "BEREAVEMENT_LEAVE":
+        return "text-dark border-dark";
+
+      case "OPTIONAL_LEAVE":
+        return "text-danger border-danger";
+
+      default:
+        return "text-secondary border-secondary";
+    }
   };
 
   // helper functsions
 
-  const columns = [
+
+
+
+  const columns = useMemo(() => [
     {
       id: "employee",
       header: "Employee",
@@ -63,7 +101,7 @@ const AllLeavesData = () => {
         return (
           <div className="hstack gap-3">
             <div className="avatar-image avatar-md">
-              <img src="https://i.pravatar.cc/150" alt={user.fullName} className="img-fluid" />
+              <img src={user.profileImageUrl} alt={user.profileImageUrl} className="img-fluid" style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%" }} />
             </div>
             <div>
               <span className="text-truncate-1-line fw-bold">{user.fullName}</span>
@@ -79,7 +117,17 @@ const AllLeavesData = () => {
       meta: {
         className: "fw-bold text-dark",
       },
-      cell: ({ row }) => toTitleCase(row.original.leaveType),
+      cell: ({ row }) => {
+        const leaveType = row.original.leaveType;
+
+        return (
+          <span
+            className={`badge border border-dashed ${leaveTypeBadgeClass(leaveType)}`}
+          >
+            {toTitleCase(leaveType?.replaceAll("_", " "))}
+          </span>
+        );
+      },
     },
     {
       accessorKey: "startDate",
@@ -93,13 +141,19 @@ const AllLeavesData = () => {
     },
     {
       accessorKey: "status",
-      id: "status",
       header: () => "Status",
       cell: ({ row }) => {
-        const status = row.original.status;
-        const badge = LEAVE_STATUS_MAP[status];
+        const leave = row.original;
 
-        return <div className={`badge ${badge?.color}`}>{badge?.content}</div>;
+        return (
+          <SelectDropdown
+            options={STATUS_OPTIONS}
+            defaultSelect={leave.status}   // ✅ STRING
+            onSelectOption={(option) =>
+              updateLeaveStatus(leave.id, option.value)
+            }
+          />
+        );
       },
     },
     {
@@ -110,49 +164,84 @@ const AllLeavesData = () => {
     {
       accessorKey: "reason",
       header: "Actions",
-      cell: (info) => (
+      cell: ({ row }) => (
         <div className="hstack gap-2 justify-content-end">
           <button
             className="avatar-text avatar-md"
             onClick={() => {
-              // setSelectedLeave(row.original)
+              setSelectedLeave(row.original);
               setSidebarOpen(true);
             }}
           >
             <FiEye />
           </button>
-          <Dropdown
-            dropdownItems={actions}
-            triggerIcon={<FiMoreHorizontal />}
-            triggerClass="avatar-md"
-            triggerPosition={"0,21"}
-          />
         </div>
       ),
     },
-  ];
+  ], []);
 
   // function to fetch and set the data to the tabel
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedLeave, setSelectedLeave] = useState(null);
+
+
+
+
+  const fetchLeaves = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/leaves/all-employee-leaves");
+      const data = await res.json();
+
+      console.log("Received leaves:", data.leaveApplications);
+      setData(data.leaveApplications || []);
+    } catch (err) {
+      console.error("Error fetching leaves:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateLeaveStatus = async (leaveId, newStatus) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to mark this leave as ${newStatus}?`
+    );
+
+    if (!confirmed) return;
+
+
+    console.log("The requested Leave Id is :", leaveId);
+
+    try {
+      const res = await fetch(`/api/leaves/${leaveId}/status`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+
+      // 🔥 Update Local State (No Refetch Needed)
+      setData((prev) =>
+        prev.map((item) =>
+          item.id === leaveId ? { ...item, status: newStatus } : item
+        )
+      );
+
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   useEffect(() => {
-    const fetchLeaves = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/leaves/all-employee-leaves");
-        const data = await res.json();
-
-        console.log("Received leaves:", data.leaveApplications);
-        setData(data.leaveApplications || []);
-      } catch (err) {
-        console.error("Error fetching leaves:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchLeaves();
   }, []);
   // function to fetch and set the data to the tabel
@@ -161,7 +250,16 @@ const AllLeavesData = () => {
     <>
       <Table data={data} columns={columns} loading={loading} />
 
-      {sidebarOpen && <LeavesSidebar onClose={() => setSidebarOpen(false)} />}
+      {sidebarOpen && selectedLeave && (
+        <LeavesSidebar
+          data={selectedLeave}
+          onClose={() => {
+            setSidebarOpen(false);
+            setSelectedLeave(null);
+          }}
+          onStatusUpdated={fetchLeaves}
+        />
+      )}
     </>
   );
 };

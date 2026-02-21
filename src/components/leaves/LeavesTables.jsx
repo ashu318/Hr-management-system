@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   FiAlertOctagon,
   FiArchive,
@@ -69,10 +69,10 @@ const LeavesTables = () => {
         return "text-info border-info";
 
       case "BEREAVEMENT_LEAVE":
-        return "text-info border-info";
+        return "text-dark border-dark";
 
       case "OPTIONAL_LEAVE":
-        return "text-info border-info";
+        return "text-danger border-danger";
 
       default:
         return "text-secondary border-secondary";
@@ -81,7 +81,7 @@ const LeavesTables = () => {
 
   // helper functsions
 
-  const columns = [
+  const columns = useMemo(() => [
     {
       id: "employee",
       header: "Employee",
@@ -91,11 +91,14 @@ const LeavesTables = () => {
         return (
           <div className="hstack gap-3">
             <div className="avatar-image avatar-md">
-              <img src="https://i.pravatar.cc/150" className="img-fluid" />
-            </div>
+              <img
+                src={row.original.user?.profileImageUrl || "/avatar.png"}
+                alt="profile"
+                style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%" }}
+              />            </div>
             <div>
-              <span className="text-truncate-1-line fw-bold">Shitansu Kumar ...</span>
-              <small className="fs-12 fw-normal text-muted d-block">john_doe@gmail.com</small>
+              <span className="text-truncate-1-line fw-bold">{row.original.user.fullName}</span>
+              <small className="fs-12 fw-normal text-muted d-block">{row.original.user.email}</small>
             </div>
           </div>
         );
@@ -145,32 +148,27 @@ const LeavesTables = () => {
     {
       accessorKey: "reason",
       header: "Actions",
-      cell: (info) => (
+      cell: ({ row }) => (
         <div className="hstack gap-2 justify-content-end">
           <button
             className="avatar-text avatar-md"
             onClick={() => {
-              // setSelectedLeave(row.original)
+              setSelectedLeave(row.original);
               setSidebarOpen(true);
             }}
           >
             <FiEye />
           </button>
-          <Dropdown
-            dropdownItems={actions}
-            triggerIcon={<FiMoreHorizontal />}
-            triggerClass="avatar-md"
-            triggerPosition={"0,21"}
-          />
         </div>
       ),
     },
-  ];
+  ], []);
 
   // function to fetch and set the data to the tabel
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedLeave, setSelectedLeave] = useState(null);
 
   useEffect(() => {
     const fetchLeaves = async () => {
@@ -196,7 +194,16 @@ const LeavesTables = () => {
     <>
       <Table data={data} columns={columns} loading={loading} />
 
-      {sidebarOpen && <LeavesSidebar onClose={() => setSidebarOpen(false)} />}
+      {sidebarOpen && selectedLeave && (
+        <LeavesSidebar
+          data={selectedLeave}
+          currentUserId={selectedLeave?.user?.id}
+          onClose={() => {
+            setSidebarOpen(false);
+            setSelectedLeave(null);
+          }}
+        />
+      )}
     </>
   );
 };

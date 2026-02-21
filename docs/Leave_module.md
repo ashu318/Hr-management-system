@@ -51,3 +51,23 @@
 
 
 
+
+## UPDATE THE LEAVE STATUS BY THE ADMIN/HR
+    Onec the ADMIN/HR Will open the All Leave Applictaion Tab , seeing all the requested Aplicataion by all the uses.
+    Check The leave and Maked as {Approved , Rejected , Pending}
+
+    FRONTEND:--
+        -For Admin Only list all the applictions
+        -And Onselecting the Status from the dropdown
+        -will `PATCH` Request will hit with the {leaveId}
+        -Update the status aftre , Getting the responce from the API
+
+    BACKEND:--
+        -The backend fetches and returns all leave Applicataion Records for that uses with all the validation:
+        -Token Varificataion
+        -Get the `UserId` From the Token After Decoded
+        -Fetch `leaveApplication.findUnique` 
+        -Update `leaveApplication.update`
+        -Sending the responce to the frontend update Leave `leave: updatedLeave`.
+
+

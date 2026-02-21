@@ -7,15 +7,11 @@ import Footer from "@/components/shared/Footer";
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <LeadsHeader />
-      </PageHeader>
       <div className="main-content">
         <div className="row">
           <AllLeavesData />
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -67,6 +67,12 @@ export type FinancialDetails = $Result.DefaultSelection<Prisma.$FinancialDetails
  * ////////////////////////
  */
 export type PayrollSettings = $Result.DefaultSelection<Prisma.$PayrollSettingsPayload>
+/**
+ * Model LeaveComment
+ * ////////////////////////
+ * ////////////////////////
+ */
+export type LeaveComment = $Result.DefaultSelection<Prisma.$LeaveCommentPayload>
 
 /**
  * Enums
@@ -386,6 +392,16 @@ export class PrismaClient<
     * ```
     */
   get payrollSettings(): Prisma.PayrollSettingsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leaveComment`: Exposes CRUD operations for the **LeaveComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeaveComments
+    * const leaveComments = await prisma.leaveComment.findMany()
+    * ```
+    */
+  get leaveComment(): Prisma.LeaveCommentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -835,7 +851,8 @@ export namespace Prisma {
     Announcement: 'Announcement',
     AnnouncementRecipient: 'AnnouncementRecipient',
     FinancialDetails: 'FinancialDetails',
-    PayrollSettings: 'PayrollSettings'
+    PayrollSettings: 'PayrollSettings',
+    LeaveComment: 'LeaveComment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -854,7 +871,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings"
+      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1524,6 +1541,80 @@ export namespace Prisma {
           }
         }
       }
+      LeaveComment: {
+        payload: Prisma.$LeaveCommentPayload<ExtArgs>
+        fields: Prisma.LeaveCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeaveCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeaveCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.LeaveCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeaveCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          findMany: {
+            args: Prisma.LeaveCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>[]
+          }
+          create: {
+            args: Prisma.LeaveCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          createMany: {
+            args: Prisma.LeaveCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeaveCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.LeaveCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          update: {
+            args: Prisma.LeaveCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.LeaveCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeaveCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeaveCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.LeaveCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeaveCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.LeaveCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeaveComment>
+          }
+          groupBy: {
+            args: Prisma.LeaveCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeaveCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeaveCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<LeaveCommentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1629,6 +1720,7 @@ export namespace Prisma {
     announcementRecipient?: AnnouncementRecipientOmit
     financialDetails?: FinancialDetailsOmit
     payrollSettings?: PayrollSettingsOmit
+    leaveComment?: LeaveCommentOmit
   }
 
   /* Types for Logging */
@@ -1762,6 +1854,7 @@ export namespace Prisma {
     LeaveApplication: number
     createdAnnouncements: number
     announcementReceipts: number
+    leaveComments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1769,6 +1862,7 @@ export namespace Prisma {
     LeaveApplication?: boolean | UserCountOutputTypeCountLeaveApplicationArgs
     createdAnnouncements?: boolean | UserCountOutputTypeCountCreatedAnnouncementsArgs
     announcementReceipts?: boolean | UserCountOutputTypeCountAnnouncementReceiptsArgs
+    leaveComments?: boolean | UserCountOutputTypeCountLeaveCommentsArgs
   }
 
   // Custom InputTypes
@@ -1808,6 +1902,44 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAnnouncementReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnnouncementRecipientWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLeaveCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeaveCommentWhereInput
+  }
+
+
+  /**
+   * Count Type LeaveApplicationCountOutputType
+   */
+
+  export type LeaveApplicationCountOutputType = {
+    comments: number
+  }
+
+  export type LeaveApplicationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comments?: boolean | LeaveApplicationCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LeaveApplicationCountOutputType without action
+   */
+  export type LeaveApplicationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveApplicationCountOutputType
+     */
+    select?: LeaveApplicationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LeaveApplicationCountOutputType without action
+   */
+  export type LeaveApplicationCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeaveCommentWhereInput
   }
 
 
@@ -3449,6 +3581,7 @@ export namespace Prisma {
     announcementReceipts?: boolean | User$announcementReceiptsArgs<ExtArgs>
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
+    leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3589,6 +3722,7 @@ export namespace Prisma {
     announcementReceipts?: boolean | User$announcementReceiptsArgs<ExtArgs>
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
+    leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3608,6 +3742,7 @@ export namespace Prisma {
       announcementReceipts: Prisma.$AnnouncementRecipientPayload<ExtArgs>[]
       financialDetails: Prisma.$FinancialDetailsPayload<ExtArgs> | null
       payrollSettings: Prisma.$PayrollSettingsPayload<ExtArgs> | null
+      leaveComments: Prisma.$LeaveCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4050,6 +4185,7 @@ export namespace Prisma {
     announcementReceipts<T extends User$announcementReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$announcementReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnnouncementRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     financialDetails<T extends User$financialDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$financialDetailsArgs<ExtArgs>>): Prisma__FinancialDetailsClient<$Result.GetResult<Prisma.$FinancialDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payrollSettings<T extends User$payrollSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$payrollSettingsArgs<ExtArgs>>): Prisma__PayrollSettingsClient<$Result.GetResult<Prisma.$PayrollSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    leaveComments<T extends User$leaveCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$leaveCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4645,6 +4781,30 @@ export namespace Prisma {
      */
     include?: PayrollSettingsInclude<ExtArgs> | null
     where?: PayrollSettingsWhereInput
+  }
+
+  /**
+   * User.leaveComments
+   */
+  export type User$leaveCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    where?: LeaveCommentWhereInput
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    cursor?: LeaveCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeaveCommentScalarFieldEnum | LeaveCommentScalarFieldEnum[]
   }
 
   /**
@@ -7195,6 +7355,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    comments?: boolean | LeaveApplication$commentsArgs<ExtArgs>
+    _count?: boolean | LeaveApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveApplication"]>
 
   export type LeaveApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7238,6 +7400,8 @@ export namespace Prisma {
   export type LeaveApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "leaveType" | "startDate" | "endDate" | "reason" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["leaveApplication"]>
   export type LeaveApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    comments?: boolean | LeaveApplication$commentsArgs<ExtArgs>
+    _count?: boolean | LeaveApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LeaveApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7250,6 +7414,7 @@ export namespace Prisma {
     name: "LeaveApplication"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      comments: Prisma.$LeaveCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7656,6 +7821,7 @@ export namespace Prisma {
   export interface Prisma__LeaveApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    comments<T extends LeaveApplication$commentsArgs<ExtArgs> = {}>(args?: Subset<T, LeaveApplication$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8087,6 +8253,30 @@ export namespace Prisma {
      * Limit how many LeaveApplications to delete.
      */
     limit?: number
+  }
+
+  /**
+   * LeaveApplication.comments
+   */
+  export type LeaveApplication$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    where?: LeaveCommentWhereInput
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    cursor?: LeaveCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeaveCommentScalarFieldEnum | LeaveCommentScalarFieldEnum[]
   }
 
   /**
@@ -12569,6 +12759,1072 @@ export namespace Prisma {
 
 
   /**
+   * Model LeaveComment
+   */
+
+  export type AggregateLeaveComment = {
+    _count: LeaveCommentCountAggregateOutputType | null
+    _min: LeaveCommentMinAggregateOutputType | null
+    _max: LeaveCommentMaxAggregateOutputType | null
+  }
+
+  export type LeaveCommentMinAggregateOutputType = {
+    id: string | null
+    leaveId: string | null
+    userId: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type LeaveCommentMaxAggregateOutputType = {
+    id: string | null
+    leaveId: string | null
+    userId: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type LeaveCommentCountAggregateOutputType = {
+    id: number
+    leaveId: number
+    userId: number
+    message: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LeaveCommentMinAggregateInputType = {
+    id?: true
+    leaveId?: true
+    userId?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type LeaveCommentMaxAggregateInputType = {
+    id?: true
+    leaveId?: true
+    userId?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type LeaveCommentCountAggregateInputType = {
+    id?: true
+    leaveId?: true
+    userId?: true
+    message?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LeaveCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeaveComment to aggregate.
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeaveComments to fetch.
+     */
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeaveCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeaveComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeaveComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeaveComments
+    **/
+    _count?: true | LeaveCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeaveCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeaveCommentMaxAggregateInputType
+  }
+
+  export type GetLeaveCommentAggregateType<T extends LeaveCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeaveComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeaveComment[P]>
+      : GetScalarType<T[P], AggregateLeaveComment[P]>
+  }
+
+
+
+
+  export type LeaveCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeaveCommentWhereInput
+    orderBy?: LeaveCommentOrderByWithAggregationInput | LeaveCommentOrderByWithAggregationInput[]
+    by: LeaveCommentScalarFieldEnum[] | LeaveCommentScalarFieldEnum
+    having?: LeaveCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeaveCommentCountAggregateInputType | true
+    _min?: LeaveCommentMinAggregateInputType
+    _max?: LeaveCommentMaxAggregateInputType
+  }
+
+  export type LeaveCommentGroupByOutputType = {
+    id: string
+    leaveId: string
+    userId: string
+    message: string
+    createdAt: Date
+    _count: LeaveCommentCountAggregateOutputType | null
+    _min: LeaveCommentMinAggregateOutputType | null
+    _max: LeaveCommentMaxAggregateOutputType | null
+  }
+
+  type GetLeaveCommentGroupByPayload<T extends LeaveCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeaveCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeaveCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeaveCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], LeaveCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeaveCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leaveId?: boolean
+    userId?: boolean
+    message?: boolean
+    createdAt?: boolean
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leaveComment"]>
+
+  export type LeaveCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leaveId?: boolean
+    userId?: boolean
+    message?: boolean
+    createdAt?: boolean
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leaveComment"]>
+
+  export type LeaveCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leaveId?: boolean
+    userId?: boolean
+    message?: boolean
+    createdAt?: boolean
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leaveComment"]>
+
+  export type LeaveCommentSelectScalar = {
+    id?: boolean
+    leaveId?: boolean
+    userId?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }
+
+  export type LeaveCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "leaveId" | "userId" | "message" | "createdAt", ExtArgs["result"]["leaveComment"]>
+  export type LeaveCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LeaveCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LeaveCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    leave?: boolean | LeaveApplicationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LeaveCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeaveComment"
+    objects: {
+      leave: Prisma.$LeaveApplicationPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      leaveId: string
+      userId: string
+      message: string
+      createdAt: Date
+    }, ExtArgs["result"]["leaveComment"]>
+    composites: {}
+  }
+
+  type LeaveCommentGetPayload<S extends boolean | null | undefined | LeaveCommentDefaultArgs> = $Result.GetResult<Prisma.$LeaveCommentPayload, S>
+
+  type LeaveCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeaveCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeaveCommentCountAggregateInputType | true
+    }
+
+  export interface LeaveCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeaveComment'], meta: { name: 'LeaveComment' } }
+    /**
+     * Find zero or one LeaveComment that matches the filter.
+     * @param {LeaveCommentFindUniqueArgs} args - Arguments to find a LeaveComment
+     * @example
+     * // Get one LeaveComment
+     * const leaveComment = await prisma.leaveComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeaveCommentFindUniqueArgs>(args: SelectSubset<T, LeaveCommentFindUniqueArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeaveComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeaveCommentFindUniqueOrThrowArgs} args - Arguments to find a LeaveComment
+     * @example
+     * // Get one LeaveComment
+     * const leaveComment = await prisma.leaveComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeaveCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, LeaveCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeaveComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentFindFirstArgs} args - Arguments to find a LeaveComment
+     * @example
+     * // Get one LeaveComment
+     * const leaveComment = await prisma.leaveComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeaveCommentFindFirstArgs>(args?: SelectSubset<T, LeaveCommentFindFirstArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeaveComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentFindFirstOrThrowArgs} args - Arguments to find a LeaveComment
+     * @example
+     * // Get one LeaveComment
+     * const leaveComment = await prisma.leaveComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeaveCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, LeaveCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeaveComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeaveComments
+     * const leaveComments = await prisma.leaveComment.findMany()
+     * 
+     * // Get first 10 LeaveComments
+     * const leaveComments = await prisma.leaveComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leaveCommentWithIdOnly = await prisma.leaveComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeaveCommentFindManyArgs>(args?: SelectSubset<T, LeaveCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeaveComment.
+     * @param {LeaveCommentCreateArgs} args - Arguments to create a LeaveComment.
+     * @example
+     * // Create one LeaveComment
+     * const LeaveComment = await prisma.leaveComment.create({
+     *   data: {
+     *     // ... data to create a LeaveComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeaveCommentCreateArgs>(args: SelectSubset<T, LeaveCommentCreateArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeaveComments.
+     * @param {LeaveCommentCreateManyArgs} args - Arguments to create many LeaveComments.
+     * @example
+     * // Create many LeaveComments
+     * const leaveComment = await prisma.leaveComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeaveCommentCreateManyArgs>(args?: SelectSubset<T, LeaveCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeaveComments and returns the data saved in the database.
+     * @param {LeaveCommentCreateManyAndReturnArgs} args - Arguments to create many LeaveComments.
+     * @example
+     * // Create many LeaveComments
+     * const leaveComment = await prisma.leaveComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeaveComments and only return the `id`
+     * const leaveCommentWithIdOnly = await prisma.leaveComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeaveCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, LeaveCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeaveComment.
+     * @param {LeaveCommentDeleteArgs} args - Arguments to delete one LeaveComment.
+     * @example
+     * // Delete one LeaveComment
+     * const LeaveComment = await prisma.leaveComment.delete({
+     *   where: {
+     *     // ... filter to delete one LeaveComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeaveCommentDeleteArgs>(args: SelectSubset<T, LeaveCommentDeleteArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeaveComment.
+     * @param {LeaveCommentUpdateArgs} args - Arguments to update one LeaveComment.
+     * @example
+     * // Update one LeaveComment
+     * const leaveComment = await prisma.leaveComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeaveCommentUpdateArgs>(args: SelectSubset<T, LeaveCommentUpdateArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeaveComments.
+     * @param {LeaveCommentDeleteManyArgs} args - Arguments to filter LeaveComments to delete.
+     * @example
+     * // Delete a few LeaveComments
+     * const { count } = await prisma.leaveComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeaveCommentDeleteManyArgs>(args?: SelectSubset<T, LeaveCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeaveComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeaveComments
+     * const leaveComment = await prisma.leaveComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeaveCommentUpdateManyArgs>(args: SelectSubset<T, LeaveCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeaveComments and returns the data updated in the database.
+     * @param {LeaveCommentUpdateManyAndReturnArgs} args - Arguments to update many LeaveComments.
+     * @example
+     * // Update many LeaveComments
+     * const leaveComment = await prisma.leaveComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeaveComments and only return the `id`
+     * const leaveCommentWithIdOnly = await prisma.leaveComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeaveCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, LeaveCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeaveComment.
+     * @param {LeaveCommentUpsertArgs} args - Arguments to update or create a LeaveComment.
+     * @example
+     * // Update or create a LeaveComment
+     * const leaveComment = await prisma.leaveComment.upsert({
+     *   create: {
+     *     // ... data to create a LeaveComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeaveComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeaveCommentUpsertArgs>(args: SelectSubset<T, LeaveCommentUpsertArgs<ExtArgs>>): Prisma__LeaveCommentClient<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeaveComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentCountArgs} args - Arguments to filter LeaveComments to count.
+     * @example
+     * // Count the number of LeaveComments
+     * const count = await prisma.leaveComment.count({
+     *   where: {
+     *     // ... the filter for the LeaveComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeaveCommentCountArgs>(
+      args?: Subset<T, LeaveCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeaveCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeaveComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeaveCommentAggregateArgs>(args: Subset<T, LeaveCommentAggregateArgs>): Prisma.PrismaPromise<GetLeaveCommentAggregateType<T>>
+
+    /**
+     * Group by LeaveComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeaveCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeaveCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeaveCommentGroupByArgs['orderBy'] }
+        : { orderBy?: LeaveCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeaveCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeaveCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeaveComment model
+   */
+  readonly fields: LeaveCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeaveComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeaveCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    leave<T extends LeaveApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LeaveApplicationDefaultArgs<ExtArgs>>): Prisma__LeaveApplicationClient<$Result.GetResult<Prisma.$LeaveApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeaveComment model
+   */
+  interface LeaveCommentFieldRefs {
+    readonly id: FieldRef<"LeaveComment", 'String'>
+    readonly leaveId: FieldRef<"LeaveComment", 'String'>
+    readonly userId: FieldRef<"LeaveComment", 'String'>
+    readonly message: FieldRef<"LeaveComment", 'String'>
+    readonly createdAt: FieldRef<"LeaveComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeaveComment findUnique
+   */
+  export type LeaveCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which LeaveComment to fetch.
+     */
+    where: LeaveCommentWhereUniqueInput
+  }
+
+  /**
+   * LeaveComment findUniqueOrThrow
+   */
+  export type LeaveCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which LeaveComment to fetch.
+     */
+    where: LeaveCommentWhereUniqueInput
+  }
+
+  /**
+   * LeaveComment findFirst
+   */
+  export type LeaveCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which LeaveComment to fetch.
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeaveComments to fetch.
+     */
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeaveComments.
+     */
+    cursor?: LeaveCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeaveComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeaveComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeaveComments.
+     */
+    distinct?: LeaveCommentScalarFieldEnum | LeaveCommentScalarFieldEnum[]
+  }
+
+  /**
+   * LeaveComment findFirstOrThrow
+   */
+  export type LeaveCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which LeaveComment to fetch.
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeaveComments to fetch.
+     */
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeaveComments.
+     */
+    cursor?: LeaveCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeaveComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeaveComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeaveComments.
+     */
+    distinct?: LeaveCommentScalarFieldEnum | LeaveCommentScalarFieldEnum[]
+  }
+
+  /**
+   * LeaveComment findMany
+   */
+  export type LeaveCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which LeaveComments to fetch.
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeaveComments to fetch.
+     */
+    orderBy?: LeaveCommentOrderByWithRelationInput | LeaveCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeaveComments.
+     */
+    cursor?: LeaveCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeaveComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeaveComments.
+     */
+    skip?: number
+    distinct?: LeaveCommentScalarFieldEnum | LeaveCommentScalarFieldEnum[]
+  }
+
+  /**
+   * LeaveComment create
+   */
+  export type LeaveCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LeaveComment.
+     */
+    data: XOR<LeaveCommentCreateInput, LeaveCommentUncheckedCreateInput>
+  }
+
+  /**
+   * LeaveComment createMany
+   */
+  export type LeaveCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeaveComments.
+     */
+    data: LeaveCommentCreateManyInput | LeaveCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeaveComment createManyAndReturn
+   */
+  export type LeaveCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeaveComments.
+     */
+    data: LeaveCommentCreateManyInput | LeaveCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeaveComment update
+   */
+  export type LeaveCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LeaveComment.
+     */
+    data: XOR<LeaveCommentUpdateInput, LeaveCommentUncheckedUpdateInput>
+    /**
+     * Choose, which LeaveComment to update.
+     */
+    where: LeaveCommentWhereUniqueInput
+  }
+
+  /**
+   * LeaveComment updateMany
+   */
+  export type LeaveCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeaveComments.
+     */
+    data: XOR<LeaveCommentUpdateManyMutationInput, LeaveCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which LeaveComments to update
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * Limit how many LeaveComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeaveComment updateManyAndReturn
+   */
+  export type LeaveCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update LeaveComments.
+     */
+    data: XOR<LeaveCommentUpdateManyMutationInput, LeaveCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which LeaveComments to update
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * Limit how many LeaveComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeaveComment upsert
+   */
+  export type LeaveCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LeaveComment to update in case it exists.
+     */
+    where: LeaveCommentWhereUniqueInput
+    /**
+     * In case the LeaveComment found by the `where` argument doesn't exist, create a new LeaveComment with this data.
+     */
+    create: XOR<LeaveCommentCreateInput, LeaveCommentUncheckedCreateInput>
+    /**
+     * In case the LeaveComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeaveCommentUpdateInput, LeaveCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * LeaveComment delete
+   */
+  export type LeaveCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+    /**
+     * Filter which LeaveComment to delete.
+     */
+    where: LeaveCommentWhereUniqueInput
+  }
+
+  /**
+   * LeaveComment deleteMany
+   */
+  export type LeaveCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeaveComments to delete
+     */
+    where?: LeaveCommentWhereInput
+    /**
+     * Limit how many LeaveComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeaveComment without action
+   */
+  export type LeaveCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeaveComment
+     */
+    select?: LeaveCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeaveComment
+     */
+    omit?: LeaveCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaveCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12740,6 +13996,17 @@ export namespace Prisma {
   };
 
   export type PayrollSettingsScalarFieldEnum = (typeof PayrollSettingsScalarFieldEnum)[keyof typeof PayrollSettingsScalarFieldEnum]
+
+
+  export const LeaveCommentScalarFieldEnum: {
+    id: 'id',
+    leaveId: 'leaveId',
+    userId: 'userId',
+    message: 'message',
+    createdAt: 'createdAt'
+  };
+
+  export type LeaveCommentScalarFieldEnum = (typeof LeaveCommentScalarFieldEnum)[keyof typeof LeaveCommentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13074,6 +14341,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientListRelationFilter
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
+    leaveComments?: LeaveCommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13123,6 +14391,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientOrderByRelationAggregateInput
     financialDetails?: FinancialDetailsOrderByWithRelationInput
     payrollSettings?: PayrollSettingsOrderByWithRelationInput
+    leaveComments?: LeaveCommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13176,6 +14445,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientListRelationFilter
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
+    leaveComments?: LeaveCommentListRelationFilter
   }, "id" | "email" | "employeeId_organizationId">
 
   export type UserOrderByWithAggregationInput = {
@@ -13445,6 +14715,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LeaveApplication"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveApplication"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comments?: LeaveCommentListRelationFilter
   }
 
   export type LeaveApplicationOrderByWithRelationInput = {
@@ -13458,6 +14729,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    comments?: LeaveCommentOrderByRelationAggregateInput
   }
 
   export type LeaveApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -13474,6 +14746,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LeaveApplication"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveApplication"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comments?: LeaveCommentListRelationFilter
   }, "id">
 
   export type LeaveApplicationOrderByWithAggregationInput = {
@@ -13806,6 +15079,64 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"PayrollSettings"> | Date | string
   }
 
+  export type LeaveCommentWhereInput = {
+    AND?: LeaveCommentWhereInput | LeaveCommentWhereInput[]
+    OR?: LeaveCommentWhereInput[]
+    NOT?: LeaveCommentWhereInput | LeaveCommentWhereInput[]
+    id?: StringFilter<"LeaveComment"> | string
+    leaveId?: StringFilter<"LeaveComment"> | string
+    userId?: StringFilter<"LeaveComment"> | string
+    message?: StringFilter<"LeaveComment"> | string
+    createdAt?: DateTimeFilter<"LeaveComment"> | Date | string
+    leave?: XOR<LeaveApplicationScalarRelationFilter, LeaveApplicationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LeaveCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    leaveId?: SortOrder
+    userId?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    leave?: LeaveApplicationOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LeaveCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LeaveCommentWhereInput | LeaveCommentWhereInput[]
+    OR?: LeaveCommentWhereInput[]
+    NOT?: LeaveCommentWhereInput | LeaveCommentWhereInput[]
+    leaveId?: StringFilter<"LeaveComment"> | string
+    userId?: StringFilter<"LeaveComment"> | string
+    message?: StringFilter<"LeaveComment"> | string
+    createdAt?: DateTimeFilter<"LeaveComment"> | Date | string
+    leave?: XOR<LeaveApplicationScalarRelationFilter, LeaveApplicationWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LeaveCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    leaveId?: SortOrder
+    userId?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+    _count?: LeaveCommentCountOrderByAggregateInput
+    _max?: LeaveCommentMaxOrderByAggregateInput
+    _min?: LeaveCommentMinOrderByAggregateInput
+  }
+
+  export type LeaveCommentScalarWhereWithAggregatesInput = {
+    AND?: LeaveCommentScalarWhereWithAggregatesInput | LeaveCommentScalarWhereWithAggregatesInput[]
+    OR?: LeaveCommentScalarWhereWithAggregatesInput[]
+    NOT?: LeaveCommentScalarWhereWithAggregatesInput | LeaveCommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LeaveComment"> | string
+    leaveId?: StringWithAggregatesFilter<"LeaveComment"> | string
+    userId?: StringWithAggregatesFilter<"LeaveComment"> | string
+    message?: StringWithAggregatesFilter<"LeaveComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LeaveComment"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -13920,6 +15251,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13968,6 +15300,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -14016,6 +15349,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14064,6 +15398,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14374,6 +15709,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutLeaveApplicationInput
+    comments?: LeaveCommentCreateNestedManyWithoutLeaveInput
   }
 
   export type LeaveApplicationUncheckedCreateInput = {
@@ -14386,6 +15722,7 @@ export namespace Prisma {
     status?: $Enums.LeaveStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    comments?: LeaveCommentUncheckedCreateNestedManyWithoutLeaveInput
   }
 
   export type LeaveApplicationUpdateInput = {
@@ -14398,6 +15735,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLeaveApplicationNestedInput
+    comments?: LeaveCommentUpdateManyWithoutLeaveNestedInput
   }
 
   export type LeaveApplicationUncheckedUpdateInput = {
@@ -14410,6 +15748,7 @@ export namespace Prisma {
     status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: LeaveCommentUncheckedUpdateManyWithoutLeaveNestedInput
   }
 
   export type LeaveApplicationCreateManyInput = {
@@ -14767,6 +16106,60 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LeaveCommentCreateInput = {
+    id?: string
+    message: string
+    createdAt?: Date | string
+    leave: LeaveApplicationCreateNestedOneWithoutCommentsInput
+    user: UserCreateNestedOneWithoutLeaveCommentsInput
+  }
+
+  export type LeaveCommentUncheckedCreateInput = {
+    id?: string
+    leaveId: string
+    userId: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type LeaveCommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leave?: LeaveApplicationUpdateOneRequiredWithoutCommentsNestedInput
+    user?: UserUpdateOneRequiredWithoutLeaveCommentsNestedInput
+  }
+
+  export type LeaveCommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leaveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentCreateManyInput = {
+    id?: string
+    leaveId: string
+    userId: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type LeaveCommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leaveId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15005,6 +16398,12 @@ export namespace Prisma {
     isNot?: PayrollSettingsWhereInput | null
   }
 
+  export type LeaveCommentListRelationFilter = {
+    every?: LeaveCommentWhereInput
+    some?: LeaveCommentWhereInput
+    none?: LeaveCommentWhereInput
+  }
+
   export type LeaveBalanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -15014,6 +16413,10 @@ export namespace Prisma {
   }
 
   export type AnnouncementRecipientOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LeaveCommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15631,6 +17034,35 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type LeaveApplicationScalarRelationFilter = {
+    is?: LeaveApplicationWhereInput
+    isNot?: LeaveApplicationWhereInput
+  }
+
+  export type LeaveCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    leaveId?: SortOrder
+    userId?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeaveCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    leaveId?: SortOrder
+    userId?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeaveCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    leaveId?: SortOrder
+    userId?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -15815,6 +17247,13 @@ export namespace Prisma {
     connect?: PayrollSettingsWhereUniqueInput
   }
 
+  export type LeaveCommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
+    createMany?: LeaveCommentCreateManyUserInputEnvelope
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+  }
+
   export type LeaveBalanceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<LeaveBalanceCreateWithoutUserInput, LeaveBalanceUncheckedCreateWithoutUserInput> | LeaveBalanceCreateWithoutUserInput[] | LeaveBalanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LeaveBalanceCreateOrConnectWithoutUserInput | LeaveBalanceCreateOrConnectWithoutUserInput[]
@@ -15853,6 +17292,13 @@ export namespace Prisma {
     create?: XOR<PayrollSettingsCreateWithoutUserInput, PayrollSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: PayrollSettingsCreateOrConnectWithoutUserInput
     connect?: PayrollSettingsWhereUniqueInput
+  }
+
+  export type LeaveCommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
+    createMany?: LeaveCommentCreateManyUserInputEnvelope
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -15971,6 +17417,20 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollSettingsUpdateToOneWithWhereWithoutUserInput, PayrollSettingsUpdateWithoutUserInput>, PayrollSettingsUncheckedUpdateWithoutUserInput>
   }
 
+  export type LeaveCommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
+    upsert?: LeaveCommentUpsertWithWhereUniqueWithoutUserInput | LeaveCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LeaveCommentCreateManyUserInputEnvelope
+    set?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    disconnect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    delete?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    update?: LeaveCommentUpdateWithWhereUniqueWithoutUserInput | LeaveCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LeaveCommentUpdateManyWithWhereWithoutUserInput | LeaveCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
+  }
+
   export type LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<LeaveBalanceCreateWithoutUserInput, LeaveBalanceUncheckedCreateWithoutUserInput> | LeaveBalanceCreateWithoutUserInput[] | LeaveBalanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LeaveBalanceCreateOrConnectWithoutUserInput | LeaveBalanceCreateOrConnectWithoutUserInput[]
@@ -16047,6 +17507,20 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollSettingsUpdateToOneWithWhereWithoutUserInput, PayrollSettingsUpdateWithoutUserInput>, PayrollSettingsUncheckedUpdateWithoutUserInput>
   }
 
+  export type LeaveCommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
+    upsert?: LeaveCommentUpsertWithWhereUniqueWithoutUserInput | LeaveCommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LeaveCommentCreateManyUserInputEnvelope
+    set?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    disconnect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    delete?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    update?: LeaveCommentUpdateWithWhereUniqueWithoutUserInput | LeaveCommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LeaveCommentUpdateManyWithWhereWithoutUserInput | LeaveCommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
+  }
+
   export type OrganizationCreateNestedOneWithoutHolidaysInput = {
     create?: XOR<OrganizationCreateWithoutHolidaysInput, OrganizationUncheckedCreateWithoutHolidaysInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutHolidaysInput
@@ -16099,6 +17573,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type LeaveCommentCreateNestedManyWithoutLeaveInput = {
+    create?: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput> | LeaveCommentCreateWithoutLeaveInput[] | LeaveCommentUncheckedCreateWithoutLeaveInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutLeaveInput | LeaveCommentCreateOrConnectWithoutLeaveInput[]
+    createMany?: LeaveCommentCreateManyLeaveInputEnvelope
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+  }
+
+  export type LeaveCommentUncheckedCreateNestedManyWithoutLeaveInput = {
+    create?: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput> | LeaveCommentCreateWithoutLeaveInput[] | LeaveCommentUncheckedCreateWithoutLeaveInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutLeaveInput | LeaveCommentCreateOrConnectWithoutLeaveInput[]
+    createMany?: LeaveCommentCreateManyLeaveInputEnvelope
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+  }
+
   export type EnumLeaveStatusFieldUpdateOperationsInput = {
     set?: $Enums.LeaveStatus
   }
@@ -16109,6 +17597,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLeaveApplicationInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeaveApplicationInput, UserUpdateWithoutLeaveApplicationInput>, UserUncheckedUpdateWithoutLeaveApplicationInput>
+  }
+
+  export type LeaveCommentUpdateManyWithoutLeaveNestedInput = {
+    create?: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput> | LeaveCommentCreateWithoutLeaveInput[] | LeaveCommentUncheckedCreateWithoutLeaveInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutLeaveInput | LeaveCommentCreateOrConnectWithoutLeaveInput[]
+    upsert?: LeaveCommentUpsertWithWhereUniqueWithoutLeaveInput | LeaveCommentUpsertWithWhereUniqueWithoutLeaveInput[]
+    createMany?: LeaveCommentCreateManyLeaveInputEnvelope
+    set?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    disconnect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    delete?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    update?: LeaveCommentUpdateWithWhereUniqueWithoutLeaveInput | LeaveCommentUpdateWithWhereUniqueWithoutLeaveInput[]
+    updateMany?: LeaveCommentUpdateManyWithWhereWithoutLeaveInput | LeaveCommentUpdateManyWithWhereWithoutLeaveInput[]
+    deleteMany?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
+  }
+
+  export type LeaveCommentUncheckedUpdateManyWithoutLeaveNestedInput = {
+    create?: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput> | LeaveCommentCreateWithoutLeaveInput[] | LeaveCommentUncheckedCreateWithoutLeaveInput[]
+    connectOrCreate?: LeaveCommentCreateOrConnectWithoutLeaveInput | LeaveCommentCreateOrConnectWithoutLeaveInput[]
+    upsert?: LeaveCommentUpsertWithWhereUniqueWithoutLeaveInput | LeaveCommentUpsertWithWhereUniqueWithoutLeaveInput[]
+    createMany?: LeaveCommentCreateManyLeaveInputEnvelope
+    set?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    disconnect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    delete?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    connect?: LeaveCommentWhereUniqueInput | LeaveCommentWhereUniqueInput[]
+    update?: LeaveCommentUpdateWithWhereUniqueWithoutLeaveInput | LeaveCommentUpdateWithWhereUniqueWithoutLeaveInput[]
+    updateMany?: LeaveCommentUpdateManyWithWhereWithoutLeaveInput | LeaveCommentUpdateManyWithWhereWithoutLeaveInput[]
+    deleteMany?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutAnnouncementsInput = {
@@ -16239,6 +17755,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPayrollSettingsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPayrollSettingsInput, UserUpdateWithoutPayrollSettingsInput>, UserUncheckedUpdateWithoutPayrollSettingsInput>
+  }
+
+  export type LeaveApplicationCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<LeaveApplicationCreateWithoutCommentsInput, LeaveApplicationUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: LeaveApplicationCreateOrConnectWithoutCommentsInput
+    connect?: LeaveApplicationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLeaveCommentsInput = {
+    create?: XOR<UserCreateWithoutLeaveCommentsInput, UserUncheckedCreateWithoutLeaveCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLeaveCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LeaveApplicationUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<LeaveApplicationCreateWithoutCommentsInput, LeaveApplicationUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: LeaveApplicationCreateOrConnectWithoutCommentsInput
+    upsert?: LeaveApplicationUpsertWithoutCommentsInput
+    connect?: LeaveApplicationWhereUniqueInput
+    update?: XOR<XOR<LeaveApplicationUpdateToOneWithWhereWithoutCommentsInput, LeaveApplicationUpdateWithoutCommentsInput>, LeaveApplicationUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLeaveCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutLeaveCommentsInput, UserUncheckedCreateWithoutLeaveCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLeaveCommentsInput
+    upsert?: UserUpsertWithoutLeaveCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeaveCommentsInput, UserUpdateWithoutLeaveCommentsInput>, UserUncheckedUpdateWithoutLeaveCommentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16634,6 +18178,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -16681,6 +18226,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -16949,6 +18495,7 @@ export namespace Prisma {
     status?: $Enums.LeaveStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    comments?: LeaveCommentCreateNestedManyWithoutLeaveInput
   }
 
   export type LeaveApplicationUncheckedCreateWithoutUserInput = {
@@ -16960,6 +18507,7 @@ export namespace Prisma {
     status?: $Enums.LeaveStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    comments?: LeaveCommentUncheckedCreateNestedManyWithoutLeaveInput
   }
 
   export type LeaveApplicationCreateOrConnectWithoutUserInput = {
@@ -17086,6 +18634,30 @@ export namespace Prisma {
   export type PayrollSettingsCreateOrConnectWithoutUserInput = {
     where: PayrollSettingsWhereUniqueInput
     create: XOR<PayrollSettingsCreateWithoutUserInput, PayrollSettingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type LeaveCommentCreateWithoutUserInput = {
+    id?: string
+    message: string
+    createdAt?: Date | string
+    leave: LeaveApplicationCreateNestedOneWithoutCommentsInput
+  }
+
+  export type LeaveCommentUncheckedCreateWithoutUserInput = {
+    id?: string
+    leaveId: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type LeaveCommentCreateOrConnectWithoutUserInput = {
+    where: LeaveCommentWhereUniqueInput
+    create: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type LeaveCommentCreateManyUserInputEnvelope = {
+    data: LeaveCommentCreateManyUserInput | LeaveCommentCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type OrganizationUpsertWithoutUsersInput = {
@@ -17293,6 +18865,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LeaveCommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: LeaveCommentWhereUniqueInput
+    update: XOR<LeaveCommentUpdateWithoutUserInput, LeaveCommentUncheckedUpdateWithoutUserInput>
+    create: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type LeaveCommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: LeaveCommentWhereUniqueInput
+    data: XOR<LeaveCommentUpdateWithoutUserInput, LeaveCommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LeaveCommentUpdateManyWithWhereWithoutUserInput = {
+    where: LeaveCommentScalarWhereInput
+    data: XOR<LeaveCommentUpdateManyMutationInput, LeaveCommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LeaveCommentScalarWhereInput = {
+    AND?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
+    OR?: LeaveCommentScalarWhereInput[]
+    NOT?: LeaveCommentScalarWhereInput | LeaveCommentScalarWhereInput[]
+    id?: StringFilter<"LeaveComment"> | string
+    leaveId?: StringFilter<"LeaveComment"> | string
+    userId?: StringFilter<"LeaveComment"> | string
+    message?: StringFilter<"LeaveComment"> | string
+    createdAt?: DateTimeFilter<"LeaveComment"> | Date | string
+  }
+
   export type OrganizationCreateWithoutHolidaysInput = {
     id?: string
     name: string
@@ -17394,6 +18993,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeaveBalancesInput = {
@@ -17441,6 +19041,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeaveBalancesInput = {
@@ -17504,6 +19105,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeaveBalancesInput = {
@@ -17551,6 +19153,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLeaveApplicationInput = {
@@ -17598,6 +19201,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeaveApplicationInput = {
@@ -17645,11 +19249,36 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeaveApplicationInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutLeaveApplicationInput, UserUncheckedCreateWithoutLeaveApplicationInput>
+  }
+
+  export type LeaveCommentCreateWithoutLeaveInput = {
+    id?: string
+    message: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLeaveCommentsInput
+  }
+
+  export type LeaveCommentUncheckedCreateWithoutLeaveInput = {
+    id?: string
+    userId: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type LeaveCommentCreateOrConnectWithoutLeaveInput = {
+    where: LeaveCommentWhereUniqueInput
+    create: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput>
+  }
+
+  export type LeaveCommentCreateManyLeaveInputEnvelope = {
+    data: LeaveCommentCreateManyLeaveInput | LeaveCommentCreateManyLeaveInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutLeaveApplicationInput = {
@@ -17708,6 +19337,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeaveApplicationInput = {
@@ -17755,6 +19385,23 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type LeaveCommentUpsertWithWhereUniqueWithoutLeaveInput = {
+    where: LeaveCommentWhereUniqueInput
+    update: XOR<LeaveCommentUpdateWithoutLeaveInput, LeaveCommentUncheckedUpdateWithoutLeaveInput>
+    create: XOR<LeaveCommentCreateWithoutLeaveInput, LeaveCommentUncheckedCreateWithoutLeaveInput>
+  }
+
+  export type LeaveCommentUpdateWithWhereUniqueWithoutLeaveInput = {
+    where: LeaveCommentWhereUniqueInput
+    data: XOR<LeaveCommentUpdateWithoutLeaveInput, LeaveCommentUncheckedUpdateWithoutLeaveInput>
+  }
+
+  export type LeaveCommentUpdateManyWithWhereWithoutLeaveInput = {
+    where: LeaveCommentScalarWhereInput
+    data: XOR<LeaveCommentUpdateManyMutationInput, LeaveCommentUncheckedUpdateManyWithoutLeaveInput>
   }
 
   export type OrganizationCreateWithoutAnnouncementsInput = {
@@ -17827,6 +19474,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedAnnouncementsInput = {
@@ -17874,6 +19522,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedAnnouncementsInput = {
@@ -17996,6 +19645,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedAnnouncementsInput = {
@@ -18043,6 +19693,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AnnouncementRecipientUpsertWithWhereUniqueWithoutAnnouncementInput = {
@@ -18133,6 +19784,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAnnouncementReceiptsInput = {
@@ -18180,6 +19832,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAnnouncementReceiptsInput = {
@@ -18276,6 +19929,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnnouncementReceiptsInput = {
@@ -18323,6 +19977,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFinancialDetailsInput = {
@@ -18370,6 +20025,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFinancialDetailsInput = {
@@ -18417,6 +20073,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFinancialDetailsInput = {
@@ -18480,6 +20137,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFinancialDetailsInput = {
@@ -18527,6 +20185,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPayrollSettingsInput = {
@@ -18574,6 +20233,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPayrollSettingsInput = {
@@ -18621,6 +20281,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPayrollSettingsInput = {
@@ -18684,6 +20345,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPayrollSettingsInput = {
@@ -18731,6 +20393,279 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type LeaveApplicationCreateWithoutCommentsInput = {
+    id?: string
+    leaveType: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    reason: string
+    status?: $Enums.LeaveStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLeaveApplicationInput
+  }
+
+  export type LeaveApplicationUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    userId: string
+    leaveType: $Enums.LeaveType
+    startDate: Date | string
+    endDate: Date | string
+    reason: string
+    status?: $Enums.LeaveStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeaveApplicationCreateOrConnectWithoutCommentsInput = {
+    where: LeaveApplicationWhereUniqueInput
+    create: XOR<LeaveApplicationCreateWithoutCommentsInput, LeaveApplicationUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserCreateWithoutLeaveCommentsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutUsersInput
+    leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLeaveCommentsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLeaveCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLeaveCommentsInput, UserUncheckedCreateWithoutLeaveCommentsInput>
+  }
+
+  export type LeaveApplicationUpsertWithoutCommentsInput = {
+    update: XOR<LeaveApplicationUpdateWithoutCommentsInput, LeaveApplicationUncheckedUpdateWithoutCommentsInput>
+    create: XOR<LeaveApplicationCreateWithoutCommentsInput, LeaveApplicationUncheckedCreateWithoutCommentsInput>
+    where?: LeaveApplicationWhereInput
+  }
+
+  export type LeaveApplicationUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: LeaveApplicationWhereInput
+    data: XOR<LeaveApplicationUpdateWithoutCommentsInput, LeaveApplicationUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type LeaveApplicationUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLeaveApplicationNestedInput
+  }
+
+  export type LeaveApplicationUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutLeaveCommentsInput = {
+    update: XOR<UserUpdateWithoutLeaveCommentsInput, UserUncheckedUpdateWithoutLeaveCommentsInput>
+    create: XOR<UserCreateWithoutLeaveCommentsInput, UserUncheckedCreateWithoutLeaveCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLeaveCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLeaveCommentsInput, UserUncheckedUpdateWithoutLeaveCommentsInput>
+  }
+
+  export type UserUpdateWithoutLeaveCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLeaveCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyOrganizationInput = {
@@ -18842,6 +20777,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -18889,6 +20825,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -19043,6 +20980,13 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type LeaveCommentCreateManyUserInput = {
+    id?: string
+    leaveId: string
+    message: string
+    createdAt?: Date | string
+  }
+
   export type LeaveBalanceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
@@ -19082,6 +21026,7 @@ export namespace Prisma {
     status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: LeaveCommentUpdateManyWithoutLeaveNestedInput
   }
 
   export type LeaveApplicationUncheckedUpdateWithoutUserInput = {
@@ -19093,6 +21038,7 @@ export namespace Prisma {
     status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: LeaveCommentUncheckedUpdateManyWithoutLeaveNestedInput
   }
 
   export type LeaveApplicationUncheckedUpdateManyWithoutUserInput = {
@@ -19162,6 +21108,55 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leave?: LeaveApplicationUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type LeaveCommentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leaveId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leaveId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentCreateManyLeaveInput = {
+    id?: string
+    userId: string
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type LeaveCommentUpdateWithoutLeaveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLeaveCommentsNestedInput
+  }
+
+  export type LeaveCommentUncheckedUpdateWithoutLeaveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeaveCommentUncheckedUpdateManyWithoutLeaveInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

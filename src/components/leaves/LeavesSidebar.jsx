@@ -1,13 +1,20 @@
-
 "use client";
-import React, { useEffect } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { FiX, FiEye } from "react-icons/fi";
-import dayjs from "dayjs";
-// import "./sidebar.css";
 
-const LeavesSidebar = ({ data, onClose }) => {
-  // Close on ESC key
+import React, { useEffect, useState, useRef } from "react";
+import dayjs from "dayjs";
+import { FiX, FiSend } from "react-icons/fi";
+import SidebarHeader from "./SidebarHeader";
+import CommentMessages from "./CommentMessages";
+
+const LeavesSidebar = ({ data, onClose, currentUserId }) => {
+  const [comments, setComments] = useState([]);
+  const [message, setMessage] = useState("");
+  const scrollRef = useRef(null);
+  const sidebarRef = useRef(null);
+
+  // =============================
+  // Close on ESC
+  // =============================
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
@@ -15,6 +22,89 @@ const LeavesSidebar = ({ data, onClose }) => {
     document.addEventListener("keydown", handleEsc);
     return () => document.removeEventListener("keydown", handleEsc);
   }, [onClose]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
+  // =============================
+  // Fetch Comments (GET)
+  // =============================
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!data?.id) return;
+
+      try {
+        const res = await fetch(`/api/leaves/${data.id}/comments`);
+        const result = await res.json();
+
+        if (res.ok) {
+          setComments(result.comments || []);
+          scrollToBottom();
+        } else {
+          console.error(result.message);
+        }
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, [data?.id]);
+
+  // =============================
+  // Send Comment (POST)
+  // =============================
+  const handleSend = async () => {
+    if (!data?.id || !message.trim()) return;
+
+    try {
+      const res = await fetch(`/api/leaves/${data.id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message || "Failed to send message");
+      }
+
+      // Add new comment instantly
+      setComments((prev) => [...prev, result.comment]);
+      setMessage("");
+      scrollToBottom();
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  // =============================
+  // Auto Scroll
+  // =============================
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop =
+          scrollRef.current.scrollHeight;
+      }
+    }, 100);
+  };
 
   return (
     <>
@@ -22,90 +112,71 @@ const LeavesSidebar = ({ data, onClose }) => {
       <div className="sidebar-overlay" onClick={onClose}></div>
 
       {/* Sidebar */}
-      <div className="theme-customizer theme-customizer-open email-sidebar">
+      <div ref={sidebarRef} className="theme-customizer theme-customizer-open email-sidebar" style={{ width: "400px" }}>
         <div className="customizer-sidebar-wrapper d-flex flex-column h-100">
           {/* Header */}
-          <div className="px-4 py-4 border-bottom">
-            <h5 className="mb-0 fw-bold">Announcement Preview</h5>
+          <div className="p-4 border-bottom d-flex justify-content-between align-items-center">
+            <h5 className="mb-0 fw-bold">Comment's Preview</h5>
+            <button className="avatar-text avatar-md" onClick={onClose}>
+              <FiX />
+            </button>
           </div>
 
-          {/* Body */}
-          <div className="flex-grow-1 overflow-hidden">
-            <PerfectScrollbar>
-              <div className="p-4">
-                {/* Sender Section */}
-                <div className="d-flex align-items-center gap-3 mb-4">
-                  <div className="avatar-image avatar-md">
-                    <img
-                      src="https://i.pravatar.cc/150"
-                      alt="User"
-                      className="img-fluid rounded-circle"
-                    />
-                  </div>
-                  <div>
-                    <div className="fw-bold text-dark">{data?.createdById || "Admin"}</div>
-                    <small className="text-muted">{data?.email || "no-reply@company.com"}</small>
-                  </div>
-                </div>
+          <SidebarHeader
+            avatar={data?.user?.profileImageUrl}
+            name={data?.user?.fullName || "User"}
+          />
 
-                {/* Title */}
-                <div className="mb-3">
-                  <h4 className="fw-bold email-title">{data?.title}</h4>
-                </div>
+          {/* Messages */}
+          <div
+            ref={scrollRef}
+            className="flex-grow-1 p-3"
+            style={{
+              overflowY: "auto",
+            }}
+          >
+            {comments.length === 0 && (
+              <p className="text-muted text-center mt-4">
+                No comments yet.
+              </p>
+            )}
 
-                {/* Meta Info */}
-                <div className="d-flex align-items-center gap-2 flex-wrap mb-4">
-                  {/* Send Type Badge */}
-                  <span
-                    className={`badge ${data?.sendType === "ALL"
-                        ? "bg-soft-primary text-primary"
-                        : "bg-soft-success text-success"
-                      }`}
-                  >
-                    {data?.sendType === "ALL" ? "All Employees" : "Individual"}
-                  </span>
 
-                  {/* Created Date Badge */}
-                  <span className="badge text-success border border-success border-dashed">
-                    {dayjs(data?.createdAt).format("DD MMM, YYYY hh:mm A")}
-                  </span>
-                </div>
+            {comments.map((item) => {
+              const isReply = item.userId === currentUserId; // your logged-in user id
 
-                {/* Email Styled Message Body */}
-                <div className="email-body p-4 rounded border bg-light-subtle dark:bg-dark-subtle">
-                  {/* Greeting */}
-                  <p className="mb-0 fw-semibold">
-                    Dear {data?.sendType === "ALL" ? "All" : "Team"},
-                  </p>
+              return (
+                <CommentMessages
+                  key={item.id}
+                  avatar={item.user?.profileImageUrl}
+                  name={item.user?.fullName || "User"}
+                  time={dayjs(item.createdAt).format("DD MMM YYYY hh:mm A")}
+                  message={item.message}
+                  isReply={isReply}
+                  isInitialNote={item.isInitialNote}
+                />
+              );
+            })}
 
-                  <p className="mb-3">Greetings of the day!</p>
 
-                  {/* Main Message */}
-                  <div className="mb-4">
-                    <p className="mb-0 text-muted lh-lg" style={{ whiteSpace: "pre-line" }}>
-                      {data?.message}
-                    </p>
-                  </div>
 
-                  {/* Closing */}
-                  <p className="mb-0">Thanks & Regards,</p>
-                  <p className="fw-semibold mb-1">{data?.createdByName || "Admin Team"}</p>
-                  <img
-                    src="/company-logo.webp"
-                    alt="CRS Fares Logo"
-                    className="img-fluid"
-                    style={{ maxHeight: "40px", objectFit: "contain" }}
-                  />
-                </div>
-              </div>
-            </PerfectScrollbar>
           </div>
 
-          {/* Footer Close Button */}
-          <div className="p-2 border-top text-end">
-            <button type="button" className="btn btn-primary btn-sm" onClick={onClose}>
-              <FiX size={16} className="me-2" />
-              Close
+          {/* Input */}
+          <div className="p-3 border-top d-flex gap-2">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Type your message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSend();
+              }}
+            />
+
+            <button className="btn btn-primary" onClick={handleSend}>
+              <FiSend />
             </button>
           </div>
         </div>

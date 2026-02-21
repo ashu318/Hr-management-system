@@ -254,6 +254,14 @@ exports.Prisma.PayrollSettingsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LeaveCommentScalarFieldEnum = {
+  id: 'id',
+  leaveId: 'leaveId',
+  userId: 'userId',
+  message: 'message',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -327,7 +335,8 @@ exports.Prisma.ModelName = {
   Announcement: 'Announcement',
   AnnouncementRecipient: 'AnnouncementRecipient',
   FinancialDetails: 'FinancialDetails',
-  PayrollSettings: 'PayrollSettings'
+  PayrollSettings: 'PayrollSettings',
+  LeaveComment: 'LeaveComment'
 };
 
 /**

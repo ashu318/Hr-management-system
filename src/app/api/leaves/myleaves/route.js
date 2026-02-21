@@ -143,8 +143,18 @@ export async function GET(request) {
       where: {
         userId,
       },
+      include: {
+        user: {
+          select: {
+            id: true,
+            fullName: true,
+            email:true,
+            profileImageUrl: true,
+          },
+        },
+      },
       orderBy: {
-        createdAt: "desc", // newest first
+        createdAt: "desc",
       },
     });
 

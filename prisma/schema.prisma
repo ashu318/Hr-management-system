@@ -108,13 +108,13 @@ model User {
   // =========================
   // Personal Details
   // =========================
-  profileImageUrl String?
-  profileImagePublicId String?   // 🔥 ADD THIS
-  gender          Gender?
-  dateOfBirth     DateTime?
-  fatherName      String?
-  motherName      String?
-  bloodGroup      String?
+  profileImageUrl      String?
+  profileImagePublicId String? // 🔥 ADD THIS
+  gender               Gender?
+  dateOfBirth          DateTime?
+  fatherName           String?
+  motherName           String?
+  bloodGroup           String?
 
   // =========================
   // Address Details
@@ -175,8 +175,9 @@ model User {
   resetPasswordToken   String?
   resetPasswordExpires BigInt? // or DateTime
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  leaveComments LeaveComment[]
 
   @@unique([employeeId, organizationId])
 }
@@ -217,11 +218,10 @@ model LeaveBalance {
   userId String
 
   leaveType LeaveType
-  allocated Int @default(0)
-  used      Int @default(0)
-  remaining Int @default(0)
-  year      Int @default(2025)     
-
+  allocated Int       @default(0)
+  used      Int       @default(0)
+  remaining Int       @default(0)
+  year      Int       @default(2025)
 
   createdAt DateTime @default(now())
 
@@ -241,6 +241,8 @@ model LeaveApplication {
   endDate   DateTime
   reason    String
   status    LeaveStatus @default(PENDING)
+
+  comments LeaveComment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -322,14 +324,14 @@ model AnnouncementRecipient {
 // FINANCIAL DETAILS
 ///////////////////////////
 model FinancialDetails {
-  id        String @id @default(uuid())
+  id String @id @default(uuid())
 
-  bankName   String?
-  accountNo  String?
-  ifscCode   String?
-  panNumber  String?
-  uanNo      String?
-  esicNo     String?
+  bankName  String?
+  accountNo String?
+  ifscCode  String?
+  panNumber String?
+  uanNo     String?
+  esicNo    String?
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
@@ -355,4 +357,24 @@ model PayrollSettings {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+///////////////////////////
+// COMMENTS DETAILS
+///////////////////////////
+model LeaveComment {
+  id String @id @default(uuid())
+
+  leave   LeaveApplication @relation(fields: [leaveId], references: [id], onDelete: Cascade)
+  leaveId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  message String
+
+  createdAt DateTime @default(now())
+
+  @@index([leaveId])
+  @@index([userId])
 }

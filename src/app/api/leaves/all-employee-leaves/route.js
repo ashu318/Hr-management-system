@@ -18,7 +18,7 @@ export async function GET(request) {
     }
 
     // 👮 Role check
-    if (decoded.role !== "EMPLOYEE") {
+    if (decoded.role !== "ADMIN") {
       return NextResponse.json({ message: "Unauthorized Access" }, { status: 403 });
     }
 
@@ -31,6 +31,7 @@ export async function GET(request) {
             id: true,
             fullName: true,
             email: true,
+            profileImageUrl: true,
           },
         },
       },
