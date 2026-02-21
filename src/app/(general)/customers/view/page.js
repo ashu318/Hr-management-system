@@ -6,9 +6,6 @@ import CustomerContent from "@/components/customersView/CustomerContent";
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <CustomersViewHeader />
-      </PageHeader>
       <div className="main-content">
         <div className="row">
           <CustomerContent />

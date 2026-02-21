@@ -7,6 +7,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { FiSunrise } from "react-icons/fi";
 import Menus from "./Menus";
 import { NavigationContext } from "@/contentApi/navigationProvider";
+import { useUserStore } from "@/store/useUserStore"
 
 const NavigationManu = () => {
   const { navigationOpen, setNavigationOpen } = useContext(NavigationContext);
@@ -14,6 +15,25 @@ const NavigationManu = () => {
   useEffect(() => {
     setNavigationOpen(false);
   }, [pathName]);
+
+
+
+  const { user, loading, fetchUser } = useUserStore();
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+
+  // console.log("the logged in user is : ", user.role);
+  const userRole = user?.role;
+
+
+
+
+
+
+
   return (
     <nav className={`nxl-navigation ${navigationOpen ? "mob-navigation-active" : ""}`}>
       <div className="navbar-wrapper">
@@ -43,7 +63,7 @@ const NavigationManu = () => {
               <li className="nxl-item nxl-caption">
                 <label>Navigation</label>
               </li>
-              <Menus />
+              <Menus userRole={userRole} />
             </ul>
             <div className="card text-center">
               <div className="card-body">

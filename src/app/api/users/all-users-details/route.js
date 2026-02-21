@@ -382,9 +382,11 @@ export async function GET(request) {
         fullName: true,
         designation: true,
         email: true,
+        phone:true,
         department: true,
         employeeId: true,
         profileImageUrl: true,
+        lastLoginAt: true,
         organization: {
           select: {
             id: true,
