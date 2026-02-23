@@ -93,8 +93,9 @@ const AllLeavesData = () => {
 
   const columns = useMemo(() => [
     {
+      accessorKey: "user.fullName",
       id: "employee",
-      header: "Employee",
+      header: "Employee Name",
       cell: ({ row }) => {
         const user = row.original.user;
 
@@ -248,7 +249,7 @@ const AllLeavesData = () => {
 
   return (
     <>
-      <Table data={data} columns={columns} loading={loading} />
+      <Table data={data} columns={columns} loading={loading} searchPlaceholder="Search employees..." />
 
       {sidebarOpen && selectedLeave && (
         <LeavesSidebar

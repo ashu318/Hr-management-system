@@ -34,32 +34,10 @@ const EmployeesTable = () => {
 
 
 
-    // helper functsions
-    const toTitleCase = (text = "") =>
-        text
-            .toLowerCase()
-            .split("_")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    const STATUS_OPTIONS = [
-        {
-            label: "active",
-            value: "ACTIVE",
-            color: "#22c55e", // green
-        },
-        {
-            label: "inactive",
-            value: "INACTIVE",
-            color: "#ef4444", // red
-        },
-    ];
-    // helper functsions
-
-
-
     //colums of the table
     const columns = useMemo(() => [
         {
+            accessorKey: "fullName",
             id: "employee",
             header: "Employee Name",
             cell: ({ row }) => {
@@ -109,7 +87,6 @@ const EmployeesTable = () => {
         },
 
         {
-            accessorKey: "employeeId",
             header: "Employee ID",
             meta: {
                 className: "fw-bold text-dark",
@@ -122,7 +99,6 @@ const EmployeesTable = () => {
         },
 
         {
-            accessorKey: "phone",
             header: "Contact Info",
             cell: ({ row }) => (
                 <div className="hstack gap-2">
@@ -133,7 +109,6 @@ const EmployeesTable = () => {
         },
 
         {
-            accessorKey: "department",
             header: "Department",
             cell: ({ row }) => (
                 <span className="badge border border-dashed text-danger border-danger">
@@ -214,7 +189,7 @@ const EmployeesTable = () => {
 
     return (
         <>
-            <Table data={users} columns={columns} loading={loading} />
+            <Table data={users} columns={columns} loading={loading} searchPlaceholder="Search employees..." />
 
             {sidebarOpen && selectedLeave && (
                 <LeavesSidebar

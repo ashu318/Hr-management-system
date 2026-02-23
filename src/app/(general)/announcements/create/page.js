@@ -9,16 +9,12 @@ import ListRecentAnnounements from "@/components/announcements/ListRecentAnnoune
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <AnnouncementHeader />
-      </PageHeader>
       <div className="main-content">
         <div className="row">
           <CreateAnnouncements title={"Create Email's"} className={"col-xxl-8"} />
           <ListRecentAnnounements />
         </div>
       </div>
-      <Footer />
     </>
   );
 };

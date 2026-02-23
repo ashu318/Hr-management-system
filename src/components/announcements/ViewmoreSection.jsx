@@ -15,6 +15,11 @@ const ViewmoreSection = ({ data, onClose }) => {
     return () => document.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
+
+
+  console.log("The sidebar Data is : ", data);
+
+
   return (
     <>
       {/* Overlay */}
@@ -24,8 +29,11 @@ const ViewmoreSection = ({ data, onClose }) => {
       <div className="theme-customizer theme-customizer-open email-sidebar">
         <div className="customizer-sidebar-wrapper d-flex flex-column h-100">
           {/* Header */}
-          <div className="px-4 py-4 border-bottom">
-            <h5 className="mb-0 fw-bold">Announcement Preview</h5>
+          <div className="p-4 border-bottom d-flex justify-content-between align-items-center">
+            <h5 className="mb-2 fw-bold ">Announcement Details</h5>
+            {/* <button className="avatar-text avatar-md" onClick={onClose}>
+              <FiX />
+            </button> */}
           </div>
 
           {/* Body */}
@@ -36,31 +44,30 @@ const ViewmoreSection = ({ data, onClose }) => {
                 <div className="d-flex align-items-center gap-3 mb-4">
                   <div className="avatar-image avatar-md">
                     <img
-                      src="https://i.pravatar.cc/150"
+                      src={data?.createdBy.profileImageUrl || "/images/avatar/1.png"}
                       alt="User"
                       className="img-fluid rounded-circle"
                     />
                   </div>
                   <div>
-                    <div className="fw-bold text-dark">{data?.createdById || "Admin"}</div>
-                    <small className="text-muted">{data?.email || "no-reply@company.com"}</small>
+                    <div className="fw-bold text-dark">{data?.createdBy.fullName || "Admin"}</div>
+                    <small className="text-muted">{data?.createdBy.email || "no-reply@company.com"}</small>
                   </div>
                 </div>
 
                 {/* Title */}
                 <div className="mb-3">
-                  <h4 className="fw-bold email-title">{data?.title}</h4>
+                  <h5 className="fw-bold email-title">{data?.title}</h5>
                 </div>
 
                 {/* Meta Info */}
                 <div className="d-flex align-items-center gap-2 flex-wrap mb-4">
                   {/* Send Type Badge */}
                   <span
-                    className={`badge ${
-                      data?.sendType === "ALL"
-                        ? "bg-soft-primary text-primary"
-                        : "bg-soft-success text-success"
-                    }`}
+                    className={`badge ${data?.sendType === "ALL"
+                      ? "bg-soft-primary text-primary"
+                      : "bg-soft-success text-success"
+                      }`}
                   >
                     {data?.sendType === "ALL" ? "All Employees" : "Individual"}
                   </span>
@@ -82,7 +89,7 @@ const ViewmoreSection = ({ data, onClose }) => {
 
                   {/* Main Message */}
                   <div className="mb-4">
-                    <p className="mb-0 text-muted lh-lg" style={{ whiteSpace: "pre-line" }}>
+                    <p className="mb-0 text-muted lh-lg text-justify" style={{ whiteSpace: "pre-line" }}>
                       {data?.message}
                     </p>
                   </div>

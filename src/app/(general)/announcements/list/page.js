@@ -10,9 +10,6 @@ import AllAnnouncement from "@/components/announcements/AllAnnouncement";
 const page = () => {
   return (
     <>
-      <PageHeader>
-        <AnnouncementHeader />
-      </PageHeader>
       <div className="main-content">
         <div className="row">
           <AllAnnouncement />

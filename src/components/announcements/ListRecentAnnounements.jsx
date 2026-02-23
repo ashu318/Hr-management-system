@@ -19,7 +19,6 @@ const ListRecentAnnounements = ({ title }) => {
   }
 
   // Fecth Announcements list
-  // const [announcements, setAnnouncements] = useState([]);
   const COLORS = ["primary", "success", "warning", "info", "danger"];
   // const [isLoading, setIsLoading] = useState(true);
   const team_memberss = [
@@ -137,6 +136,7 @@ const ListRecentAnnounements = ({ title }) => {
         ) : (
           <>
             <div className="card-body">
+              {formattedAnnouncements.length === 0 && <p className="text-center">No emails found</p>}
               {formattedAnnouncements.map(({ date, id, team_members, color, title, createdAt }) => {
                 return (
                   <div key={id} className="p-3 border border-dashed rounded-3 schedule-card">

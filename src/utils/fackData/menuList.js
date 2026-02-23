@@ -634,7 +634,7 @@ export const menuList = [
         name: "Announcements List",
         path: "/announcements/list",
         subdropdownMenu: false,
-        roles: ["EMPLOYEE"],
+        roles: ["ADMIN", "EMPLOYEE"],
       },
     ],
   },

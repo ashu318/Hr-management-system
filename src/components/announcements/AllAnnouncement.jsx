@@ -21,16 +21,7 @@ import ViewmoreSection from "./ViewmoreSection";
 import { useAnnouncementStore } from '@/store/announcementStore'
 import toast from "react-hot-toast";
 
-const actions = [
-  { label: "Edit", icon: <FiEdit3 /> },
-  { label: "Print", icon: <FiPrinter /> },
-  { label: "Remind", icon: <FiClock /> },
-  { type: "divider" },
-  { label: "Archive", icon: <FiArchive /> },
-  { label: "Report Spam", icon: <FiAlertOctagon /> },
-  { type: "divider" },
-  { label: "Delete", icon: <FiTrash2 /> },
-];
+
 
 const AllAnnouncement = () => {
   // helper functsions
@@ -48,22 +39,21 @@ const AllAnnouncement = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "from",
         header: "From",
         meta: {
           className: "fw-bold text-dark",
         },
         cell: ({ row }) => {
-          const user = row.original.createdById;
+          const user = row.original.createdBy;
 
           return (
             <div className="hstack gap-3">
               <div className="avatar-image avatar-md">
-                <img src="https://i.pravatar.cc/150" alt={user.fullName} className="img-fluid" />
+                <img src={user?.profileImageUrl || "https://i.pravatar.cc/150"} alt={user.fullName} className="img-fluid" />
               </div>
               <div>
-                <span className="text-truncate-1-line fw-bold">{row.original.createdById}</span>
-                <small className="fs-12 fw-normal text-muted d-block">shitansu.cts@gmail.com</small>
+                <span className="text-truncate-1-line fw-bold"> {user?.fullName}</span>
+                <small className="fs-12 fw-normal text-muted d-block">{user?.email}</small>
               </div>
             </div>
           );
@@ -80,7 +70,6 @@ const AllAnnouncement = () => {
         ),
       },
       {
-        accessorKey: "sendType",
         header: "Send Type",
         cell: ({ row }) => {
           const type = row.original.sendType;
@@ -99,7 +88,6 @@ const AllAnnouncement = () => {
         ),
       },
       {
-        accessorKey: "createdAt",
         header: "Created At",
         cell: ({ row }) => {
           const formattedDate = dayjs(row.original.createdAt).format("DD MMM, YYYY hh:mm A");
@@ -148,7 +136,8 @@ const AllAnnouncement = () => {
 
   return (
     <>
-      <Table data={announcements} columns={columns} loading={loading} />
+      <Table data={announcements} columns={columns} loading={loading} searchPlaceholder="Search Announcement..."/>
+
       {sidebarOpen && selectedAnnouncement && (
         <ViewmoreSection
           data={selectedAnnouncement}

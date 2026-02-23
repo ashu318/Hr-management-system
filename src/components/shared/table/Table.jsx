@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 import LeaveApplicationLoaders from "@/components/loaders/LeaveApplicationLoaders";
 
-const Table = ({ data, columns, loading }) => {
+const Table = ({ data, columns, loading, searchPlaceholder }) => {
   // const [data] = useState([...fackData])
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -46,6 +46,7 @@ const Table = ({ data, columns, loading }) => {
                 table={table}
                 setGlobalFilter={setGlobalFilter}
                 globalFilter={globalFilter}
+                searchPlaceholder={searchPlaceholder}
               />
 
               <div className="row dt-row">

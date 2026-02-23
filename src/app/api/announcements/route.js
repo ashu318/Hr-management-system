@@ -15,9 +15,24 @@ export async function POST(request) {
     }
 
     const decoded = verifyToken(token);
-    if (!decoded?.role || decoded.role !== "EMPLOYEE") {
-      return NextResponse.json({ message: "Restricted Access - Admin Only" }, { status: 401 });
+
+
+    // console.log("THE ORG ID", decoded.organizationId);
+    // console.log("THE USER ID", decoded.userId);
+    // console.log("THE USER ROLE", decoded.role);
+
+    // if (!decoded?.role || decoded.role !== "EMPLOYEE") {
+    //   return NextResponse.json({ message: "Restricted Access - Admin Only" }, { status: 401 });
+    // }
+
+    if (decoded?.role !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Restricted Access - Admin Only" },
+        { status: 401 }
+      );
     }
+
+
 
     // 📦 Body
     const { subject, mailBody, sendType, emails } = await request.json();
@@ -247,8 +262,11 @@ export async function GET(request) {
     }
 
     const decoded = verifyToken(token);
-    if (!decoded?.role || decoded.role !== "EMPLOYEE") {
-      return NextResponse.json({ message: "Restricted Access - Admin Only" }, { status: 401 });
+    if (decoded?.role !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Restricted Access - Admin Only" },
+        { status: 401 }
+      );
     }
 
     const announcements = await prisma.announcement.findMany({

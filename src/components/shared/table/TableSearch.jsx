@@ -1,8 +1,9 @@
 import React from "react";
 
-const TableSearch = ({ table, setGlobalFilter, globalFilter }) => {
+const TableSearch = ({
+  table, setGlobalFilter, globalFilter, searchPlaceholder = "Search..." }) => {
   return (
-    <div className="row gy-2">
+    <div className="row gy-2" >
       <div className="col-sm-12 col-md-6 ps-0 m-0 pb-10">
         <div className="dataTables_length d-flex justify-content-md-start justify-content-center">
           <label className="d-flex align-items-center gap-1">
@@ -32,13 +33,13 @@ const TableSearch = ({ table, setGlobalFilter, globalFilter }) => {
               type="text"
               value={globalFilter ?? ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              placeholder="Search..."
+              placeholder={searchPlaceholder}
               className="form-control form-control-sm"
             />
           </label>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
