@@ -65,12 +65,13 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    // 1️⃣ Validate token
     const token = request.cookies.get("auth_token")?.value;
-    if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    if (!token)
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
     const decoded = verifyToken(token);
-    if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    if (!decoded)
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
 
     const holidaysLists = await prisma.holiday.findMany({
       include: {
@@ -78,16 +79,30 @@ export async function GET(request) {
       },
     });
 
+    const today = new Date();
+
+    // Separate upcoming and expired
+    const upcoming = holidaysLists
+      .filter(h => new Date(h.date) >= today)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const expired = holidaysLists
+      .filter(h => new Date(h.date) < today)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const finalList = [...upcoming, ...expired];
+
     return NextResponse.json({
       success: true,
-      holidaysList: holidaysLists,
+      holidaysList: finalList,
     });
+
   } catch (error) {
-    console.error("Error fetching users:", error);
+    console.error("Error fetching holidays:", error);
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Failed to fetch users",
+        error: "Failed to fetch holidays",
       }),
       {
         status: 500,

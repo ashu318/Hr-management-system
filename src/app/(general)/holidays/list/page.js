@@ -6,9 +6,9 @@ import HolidaysList from "@/components/holidays/HolidaysList";
 const page = () => {
   return (
     <>
-      <PageHeader>
+      {/* <PageHeader>
         <h5 className="m-b-10 text-capitalize">All Registerd Holidays</h5>
-      </PageHeader>
+      </PageHeader> */}
       <div className="main-content">
         <div className="row">
           <HolidaysList />

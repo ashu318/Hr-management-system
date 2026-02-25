@@ -102,11 +102,23 @@ const HolidaysList = () => {
                     <tr key={holiday.id}>
                       {/* Holiday Name */}
                       <td>
-                        <div className="hstack gap-3">
-                          <div className="avatar-text bg-soft-primary text-primary">
-                            <FiBriefcase size={16} />
+                        <div className="d-flex align-items-center gap-3">
+                          {/* ✅ Vertical Bar */}
+                          <div
+                            style={{
+                              width: "4px",
+                              height: "40px",
+                              borderRadius: "4px",
+                              backgroundColor: "#3454d1",
+                            }}
+                          />
+                          {/* ✅ Content */}
+                          <div className="hstack gap-3">
+                            <div className="avatar-text bg-soft-primary text-primary">
+                              <FiBriefcase size={16} />
+                            </div>
+                            <span className="fw-bold">{holiday.name}</span>
                           </div>
-                          <span className="fw-bold">{holiday.name}</span>
                         </div>
                       </td>
 
@@ -132,10 +144,10 @@ const HolidaysList = () => {
                         <span className="badge text-success border border-success border-dashed">
                           {holiday.date
                             ? new Date(holiday.date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                              })
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })
                             : ""}
                         </span>
                         {/* <span
@@ -200,15 +212,14 @@ const HolidaysList = () => {
                         {holiday.type && (
                           <span
                             className={`badge border border-dashed px-2 py-1 text-capitalize
-                ${
-                  holiday.type === "NATIONAL"
-                    ? "text-warning border-warning"
-                    : holiday.type === "FESTIVAL"
-                      ? "text-primary border-primary"
-                      : holiday.type === "COMPANY"
-                        ? "text-danger border-danger"
-                        : "text-secondary border-secondary"
-                }
+                ${holiday.type === "NATIONAL"
+                                ? "text-warning border-warning"
+                                : holiday.type === "FESTIVAL"
+                                  ? "text-primary border-primary"
+                                  : holiday.type === "COMPANY"
+                                    ? "text-danger border-danger"
+                                    : "text-secondary border-secondary"
+                              }
             `}
                           >
                             {holiday.type}

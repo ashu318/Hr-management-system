@@ -15,7 +15,7 @@ const page = () => {
           <CreateHolidayList />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
