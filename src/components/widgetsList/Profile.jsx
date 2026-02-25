@@ -2,19 +2,18 @@ import Image from "next/image";
 import React from "react";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { FiEdit, FiMail, FiMapPin, FiPhone, FiTrash2 } from "react-icons/fi";
-const Profile = () => {
+const Profile = ({ user }) => {
   return (
     <div className="card stretch stretch-full">
       <div className="card-body">
         <div className="mb-4 text-center">
           <div className="wd-150 ht-150 mx-auto mb-3 position-relative">
             <div className="avatar-image wd-150 ht-150 border border-5 border-gray-3">
-              <Image
-                width={140}
-                height={140}
-                sizes="100vw"
-                src="/images/avatar/1.png"
+              <img
+                src={user?.profileImageUrl || "/images/avatar/1.png"}
                 alt="img"
+                width="140"
+                height="140"
                 className="img-fluid"
               />
             </div>
@@ -28,24 +27,31 @@ const Profile = () => {
           <div className="mb-4">
             <a href="#" className="fs-14 fw-bold d-block">
               {" "}
-              Alexandra Della
+              {user?.fullName || " Alexandra Della"}
             </a>
             <a href="#" className="fs-12 fw-normal text-muted d-block">
-              alex.della@outlook.com
+              {user?.email || "alex.della@outlook.com"}
             </a>
           </div>
           <div className="fs-12 fw-normal text-muted text-center d-flex flex-wrap gap-3 mb-4">
             <div className="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
-              <h6 className="fs-15 fw-bolder">28.65K</h6>
-              <p className="fs-12 text-muted mb-0">Followers</p>
+              <h6 className="fs-15 fw-bolder">{user?.employeeId || "123456"}</h6>
+              <p className="fs-12 text-muted mb-0">Employee Id</p>
             </div>
             <div className="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
-              <h6 className="fs-15 fw-bolder">38.85K</h6>
-              <p className="fs-12 text-muted mb-0">Following</p>
+              <h6 className="fs-15 fw-bolder">{user?.status || "Active"}</h6>
+              <p className="fs-12 text-muted mb-0">Status</p>
             </div>
             <div className="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
-              <h6 className="fs-15 fw-bolder">43.67K</h6>
-              <p className="fs-12 text-muted mb-0">Engagement</p>
+              <h6 className="fs-15 fw-bolder">
+                {user?.lastLoginAt
+                  ? new Date(user.lastLoginAt).toLocaleString("en-IN", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                  : "Never Logged In"}
+              </h6>
+              <p className="fs-12 text-muted mb-0">Last Login</p>
             </div>
           </div>
         </div>
@@ -56,7 +62,7 @@ const Profile = () => {
               Location
             </span>
             <a href="#" className="float-end">
-              California, USA
+              {user?.currentAddress || " Patia , Bhuabneswar , India"}
             </a>
           </li>
           <li className="hstack justify-content-between mb-4">
@@ -65,7 +71,7 @@ const Profile = () => {
               Phone
             </span>
             <a href="#" className="float-end">
-              +01 (375) 2589 645
+              {user?.phone || " +91 9876543210"}
             </a>
           </li>
           <li className="hstack justify-content-between mb-0">
@@ -74,7 +80,7 @@ const Profile = () => {
               Email
             </span>
             <a href="#" className="float-end">
-              alex.della@outlook.com
+              {user?.email || " alex.della@outlook.com"}
             </a>
           </li>
         </ul>

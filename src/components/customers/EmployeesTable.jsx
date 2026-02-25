@@ -17,6 +17,7 @@ import Table from "@/components/shared/table/Table";
 import Link from "next/link";
 import dayjs from "dayjs";
 import getIcon from "@/utils/getIcon";
+import { useRouter } from "next/navigation";
 
 
 const actions = [
@@ -32,7 +33,7 @@ const actions = [
 
 const EmployeesTable = () => {
 
-
+    const router = useRouter();
 
     //colums of the table
     const columns = useMemo(() => [
@@ -141,10 +142,9 @@ const EmployeesTable = () => {
                 <div className="hstack gap-2 justify-content-end">
                     <button
                         className="avatar-text avatar-md"
-                        onClick={() => {
-                            setSelectedUser(row.original);
-                            setSidebarOpen(true);
-                        }}
+                        onClick={() =>
+                            router.push(`/employees/${row.original.employeeId.trim()}`)
+                        }
                     >
                         <FiEye />
                     </button>
@@ -158,8 +158,7 @@ const EmployeesTable = () => {
     // function to fetch and set the data to the tabel
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [selectedLeave, setSelectedLeave] = useState(null);
+
 
     const fetchUsersInfo = async () => {
         try {
@@ -191,16 +190,6 @@ const EmployeesTable = () => {
         <>
             <Table data={users} columns={columns} loading={loading} searchPlaceholder="Search employees..." />
 
-            {sidebarOpen && selectedLeave && (
-                <LeavesSidebar
-                    data={selectedLeave}
-                    onClose={() => {
-                        setSidebarOpen(false);
-                        setSelectedLeave(null);
-                    }}
-                    onStatusUpdated={fetchLeaves}
-                />
-            )}
         </>
     );
 };

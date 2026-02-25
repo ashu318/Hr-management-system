@@ -2,7 +2,7 @@
 import React from "react";
 import { FiAlertOctagon, FiCheck, FiEye, FiMoreVertical, FiSend } from "react-icons/fi";
 
-const TabBillingContent = ({ billingHistoryshow }) => {
+const TabBillingContent = ({ billingHistoryshow, user }) => {
   const billingHistory = [
     {
       id: "#258963",
@@ -136,6 +136,29 @@ const TabBillingContent = ({ billingHistoryshow }) => {
               expiryDate="11/25"
             />
           </div>
+        </div>
+      </div>
+
+
+
+      <div className="subscription-plan px-4 pt-4">
+        <SectionTitle
+          sectionName="Documents"
+          sectionDescription="Employee uploaded documents"
+        />
+        <div className="row">
+          <SimpleFileCard
+            imgSrc="https://res.cloudinary.com/dpz6btlj7/image/upload/v1771566853/hrms/profile-images/ypst2rhfvcfyclhwoi9j.jpg"
+            title="PAN Card"
+          />
+          <SimpleFileCard
+            imgSrc="/icons/pdf.png"
+            title="Aadhar Card"
+          />
+          <SimpleFileCard
+            imgSrc="/icons/pdf.png"
+            title="Bank Proof"
+          />
         </div>
       </div>
 
@@ -303,6 +326,42 @@ const BillingHistory = ({ history }) => {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+};
+
+
+const SectionTitle = ({ sectionName, sectionDescription }) => {
+  return (
+    <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="me-4">
+        <h2 className="fs-16 fw-bold mb-1">{sectionName}</h2>
+        <div className="fs-12 text-muted text-truncate-1-line">{sectionDescription}</div>
+      </div>
+      <a href="#" className="btn btn-sm btn-light-brand">
+        View More
+      </a>
+    </div>
+  );
+};
+
+
+const SimpleFileCard = ({ imgSrc, title }) => {
+  return (
+    <div className="col-md-4 col-sm-6 mb-4">
+      <div className="card border rounded-3 text-center p-3 h-100 shadow-sm">
+        <div
+          className="d-flex align-items-center justify-content-center mb-3"
+          style={{ height: "80px" }}
+        >
+          <img
+            src={imgSrc}
+            alt={title}
+            style={{ maxHeight: "60px" }}
+          />
+        </div>
+        <h6 className="mb-0 fw-semibold">{title}</h6>
       </div>
     </div>
   );

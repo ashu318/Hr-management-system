@@ -1,4 +1,6 @@
+'use client';
 import React from "react";
+import { useParams } from "next/navigation";
 import CustomerSocalMedia from "./CustomerSocalMedia";
 import TabOverviewContent from "./TabOverviewContent";
 import TabBillingContent from "./TabBillingContent";
@@ -8,14 +10,56 @@ import TabConnections from "./TabConnections";
 import TabSecurity from "./TabSecurity";
 import Profile from "../widgetsList/Profile";
 import CustomerSocalFlower from "./CustomerSocalFlower";
+import { useState, useEffect } from "react";
 
 const CustomerContent = () => {
+  const { employeeId } = useParams();
+
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    if (!employeeId) return;
+
+    const fetchUserDetails = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(
+          `/api/users/users-profile/${employeeId.trim()}`,
+          {
+            method: "GET",
+            credentials: "include", // important for cookies (auth_token)
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch user");
+        }
+
+        const data = await res.json();
+
+        if (data.success) {
+          setUser(data.user);
+          console.log("Received user details:", data.user);
+        }
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserDetails();
+  }, [employeeId]);
+
   return (
     <>
       <div className="col-xxl-4 col-xl-6">
-        <Profile />
-        <CustomerSocalMedia />
-        <CustomerSocalFlower />
+        <Profile user={user} />
+        {/* <CustomerSocalMedia />
+        <CustomerSocalFlower /> */}
       </div>
       <div className="col-xxl-8 col-xl-6">
         <div className="card border-top-0">
@@ -44,7 +88,7 @@ const CustomerContent = () => {
                   data-bs-target="#billingTab"
                   role="tab"
                 >
-                  Billing
+                  Account Info
                 </a>
               </li>
               <li className="nav-item flex-fill border-top" role="presentation">
@@ -94,9 +138,9 @@ const CustomerContent = () => {
             </ul>
           </div>
           <div className="tab-content">
-            <TabOverviewContent />
+            <TabOverviewContent user={user} />
             <div className="tab-pane fade" id="billingTab" role="tabpanel">
-              <TabBillingContent billingHistoryshow={true} />
+              <TabBillingContent billingHistoryshow={true} user={user} />
             </div>
             <TabActivityContent />
             <TabNotificationsContent />

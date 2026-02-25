@@ -18,42 +18,126 @@ const informationData = [
   { label: "Allow Changes", value: "YES" },
   { label: "Website", value: "https://wrapbootstrap.com/user/theme_ocean" },
 ];
-const TabOverviewContent = () => {
+const TabOverviewContent = ({ user }) => {
   return (
     <div className="tab-pane fade show active p-4" id="overviewTab" role="tabpanel">
-      <div className="about-section mb-5">
-        <div className="mb-4 d-flex align-items-center justify-content-between">
-          <h5 className="fw-bold mb-0">Profile About:</h5>
-          <a href="#" className="btn btn-sm btn-light-brand">
-            Updates
-          </a>
-        </div>
-        <p>
-          John Doe is a frontend developer with over 5 years of experience creating high-quality,
-          user-friendly websites and web applications. He has a strong understanding of web
-          development technologies and a keen eye for design.
-        </p>
-        <p>
-          John is proficient in languages such as HTML, CSS, and JavaScript, and is experienced in
-          using popular frontend frameworks such as React and Angular. He is also well-versed in
-          user experience design and uses his knowledge to create engaging and intuitive user
-          interfaces.
-        </p>
-        <p>
-          Throughout his career, John has worked on a wide range of projects for clients in various
-          industries, including e-commerce, healthcare, and education. He takes a collaborative
-          approach to development and enjoys working closely with clients and other developers to
-          bring their ideas to life.
-        </p>
-      </div>
+
       <div className="profile-details mb-5">
-        <div className="mb-4 d-flex align-items-center justify-content-between">
+        <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
           <h5 className="fw-bold mb-0">Profile Details:</h5>
           <a href="#" className="btn btn-sm btn-light-brand">
             Edit Profile
           </a>
         </div>
-        {informationData.map((item, index) => (
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Full Name :</div>
+          <div className="col-sm-6 fw-semibold">{user?.fullName || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Employee ID :</div>
+          <div className="col-sm-6 fw-semibold">{user?.employeeId || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Email :</div>
+          <div className="col-sm-6 fw-semibold">{user?.email || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Phone :</div>
+          <div className="col-sm-6 fw-semibold">{user?.phone || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Gender :</div>
+          <div className="col-sm-6 fw-semibold">{user?.gender || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Designation</div>
+          <div className="col-sm-6 fw-semibold">{user?.designation || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Department</div>
+          <div className="col-sm-6 fw-semibold">{user?.department || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Employment Type</div>
+          <div className="col-sm-6 fw-semibold">{user?.employmentType || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Work Location</div>
+          <div className="col-sm-6 fw-semibold">{user?.workLocation || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Reporting Manager</div>
+          <div className="col-sm-6 fw-semibold">{user?.reportingManagerName || "-"}</div>
+        </div>
+
+
+        {/* Address Information */}
+        <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
+          <h5 className="fw-bold mb-0">Address Details:</h5>
+          {/* <a href="#" className="btn btn-sm btn-light-brand">
+            Edit Profile
+          </a> */}
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Current Address</div>
+          <div className="col-sm-6 fw-semibold">{user?.currentAddress || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Permanent Address</div>
+          <div className="col-sm-6 fw-semibold">{user?.permanentAddress || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">City</div>
+          <div className="col-sm-6 fw-semibold">{user?.city || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">State</div>
+          <div className="col-sm-6 fw-semibold">{user?.state || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Country</div>
+          <div className="col-sm-6 fw-semibold">{user?.country || "-"}</div>
+        </div>
+
+
+        {/* Emergency Contact */}
+        <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
+          <h5 className="fw-bold mb-0">Emergency Contact:</h5>
+
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Contact Name</div>
+          <div className="col-sm-6 fw-semibold">{user?.emergencyContactName || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Contact Phone</div>
+          <div className="col-sm-6 fw-semibold">{user?.emergencyContactPhone || "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Relation</div>
+          <div className="col-sm-6 fw-semibold">{user?.emergencyContactRelation || "-"}</div>
+        </div>
+
+
+        {/* {informationData.map((item, index) => (
           <div
             key={index}
             className={`row g-0 ${index === informationData.length - 1 ? "mb-0" : "mb-4"}`}
@@ -61,7 +145,7 @@ const TabOverviewContent = () => {
             <div className="col-sm-6 text-muted">{item.label}:</div>
             <div className="col-sm-6 fw-semibold">{item.value}</div>
           </div>
-        ))}
+        ))} */}
       </div>
       <div
         className="alert alert-dismissible mb-4 p-4 d-flex alert-soft-warning-message profile-overview-alert"
