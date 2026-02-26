@@ -262,6 +262,21 @@ exports.Prisma.LeaveCommentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserDocumentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  documentType: 'documentType',
+  documentName: 'documentName',
+  documentNumber: 'documentNumber',
+  fileUrl: 'fileUrl',
+  filePublicId: 'filePublicId',
+  fileType: 'fileType',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -336,7 +351,8 @@ exports.Prisma.ModelName = {
   AnnouncementRecipient: 'AnnouncementRecipient',
   FinancialDetails: 'FinancialDetails',
   PayrollSettings: 'PayrollSettings',
-  LeaveComment: 'LeaveComment'
+  LeaveComment: 'LeaveComment',
+  UserDocument: 'UserDocument'
 };
 
 /**

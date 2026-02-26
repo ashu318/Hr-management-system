@@ -35,135 +35,96 @@ const TabBillingContent = ({ billingHistoryshow, user }) => {
   ];
   return (
     <>
-      <div className="alert alert-dismissible m-4 p-4 d-flex alert-soft-teal-message" role="alert">
-        <div className="me-4 d-none d-md-block">
-          <FiAlertOctagon className="fs-1" />
-        </div>
-        <div>
-          <p className="fw-bold mb-1 text-truncate-1-line">We need your attention!</p>
-          <p className="fs-12 fw-medium text-truncate-1-line">
-            Your payment was declined. To start using tools, please{" "}
-            <strong>Add Payment Method</strong>
+      <div className="alert alert-dismissible m-4 p-4 d-flex align-items-start alert-soft-teal-message" role="alert" style={{ borderRadius: '12px', color: "#3454d1" }}>
+        {/* Icon */}
+        {/* <div className="me-4 d-none d-md-block">
+          <FiAlertOctagon className="fs-1 text-teal" />
+        </div> */}
+
+        {/* Content */}
+        <div className="flex-fill">
+          <p className="fw-bold mb-2 text-truncate-1-line">We need your attention!</p>
+          <p className="fs-12 fw-medium mb-3">
+            Your payment account details are incomplete. To continue using all tools, please review and update your accounts.
           </p>
-          <a href="#" className="btn btn-sm bg-soft-teal text-teal d-inline-block">
-            Add Payment Method
-          </a>
-          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
-        </div>
-      </div>
-      <div className="subscription-plan px-4 pt-4">
-        <div className="mb-4 d-flex align-items-center justify-content-between">
-          <h5 className="fw-bold mb-0">Subscription &amp; Plan:</h5>
-          <a href="#" className="btn btn-sm btn-light-brand">
-            4 days remaining
-          </a>
-        </div>
-        <SubscriptionPlan
-          planName="Team Plan"
-          description="A simple start for everyone"
-          price="$29.99"
-          billingCycle="Month"
-          nextPayment="12/10/2023"
-          onCancel={() => alert("Cancel Plan clicked")}
-          onUpdate={() => alert("Update Plan clicked")}
-        />
-        <div className="row">
-          <SubscriptionCard
-            planName="BASIC"
-            description="Starter plan for individuals."
-            details="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ipsa id corrupti modi, impedit exercitationem harum voluptates reiciendis."
-            price="$12.99"
-            billingCycle="Month"
-            isActive={false}
-          />
-          <SubscriptionCard
-            planName="TEAM"
-            description="Collaborate up to 10 people."
-            details="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ipsa id corrupti modi, impedit exercitationem harum voluptates reiciendis."
-            price="$29.99"
-            billingCycle="Month"
-            isActive={true}
-          />
-          <SubscriptionCard
-            planName="ENTERPRISE"
-            description="For bigger businesses."
-            details="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ipsa id corrupti modi, impedit exercitationem harum voluptates reiciendis."
-            price="$49.99"
-            billingCycle="Month"
-            isActive={false}
-          />
-        </div>
-      </div>
-      <hr className="mt-2" />
-      <div className="payment-methord px-4">
-        <div className="mb-4 d-flex align-items-center justify-content-between">
-          <h5 className="fw-bold mb-0">Payment Methods:</h5>
-          <a href="#" className="btn btn-sm btn-light-brand">
-            Add Method
-          </a>
-        </div>
-        <div className="row">
-          <div className="col-xxl-6 col-xl-12 col-lg-6">
-            <PaymentMethod
-              cardType="mastercard"
-              cardHolder="Alexandra Della"
-              cardNumber="5155 **** **** ****"
-              expiryDate="12/24"
-              isActive={true}
-            />
+
+          {/* Bank Accounts */}
+          <div className="mb-3">
+            {/* Example bank account */}
+            <div className="card shadow-sm mb-2 p-3" style={{
+              borderRadius: '10px', backgroundColor: '#f5f5f5', borderColor: "#3454d1"
+            }}>
+              < div className="d-flex justify-content-between align-items-center mb-2" >
+                <span className="fw-bold">State Bank of India</span>
+                <img src="/icons/bank.png" alt="bank logo" style={{ height: '28px' }} />
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">Account Number</span>
+                <span className="fw-semibold">{user?.financialDetails.accountNo || "John Doe"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">IFSC</span>
+                <span className="fw-semibold">{user?.financialDetails.ifscCode || "John Doe"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">Account Holder</span>
+                <span className="fw-semibold">{user?.financialDetails.bankName || "John Doe"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">Account Holder</span>
+                <span className="fw-semibold">{user?.fullName || "John Doe"}</span>
+              </div>
+            </div>
           </div>
-          <div className="col-xxl-6 col-xl-12 col-lg-6">
-            <PaymentMethod
-              cardType="visa"
-              cardHolder="Alexandra Della"
-              cardNumber="4236 **** **** ****"
-              expiryDate="11/23"
-            />
+        </div >
+
+      </div >
+      <div className="alert alert-dismissible m-4 p-4 d-flex align-items-start alert-soft-teal-message" role="alert" style={{ borderRadius: '12px', color: "#17c666 " }}>
+        {/* Icon */}
+        {/* <div className="me-4 d-none d-md-block">
+          <FiAlertOctagon className="fs-1 text-teal" />
+        </div> */}
+
+        {/* Content */}
+        <div className="flex-fill">
+          <p className="fw-bold mb-2 text-truncate-1-line">  Financial & Statutory Details</p>
+          <p className="fs-12 fw-medium mb-3">
+            Below are the employee's registered statutory and financial identification details including UAN, ESIC, and PAN information.
+          </p>
+
+          {/* Bank Accounts */}
+          <div className="mb-3">
+            {/* Example bank account */}
+            <div className="card shadow-sm mb-2 p-3" style={{
+              borderRadius: '10px', backgroundColor: '#f5f5f5', borderColor: "#17c666 "
+            }}>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">UNA Number</span>
+                <span className="fw-semibold">{user?.financialDetails.uanNo || "John Doe"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">ESIC Number</span>
+                <span className="fw-semibold">{user?.financialDetails.esicNo || "John Doe"}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted small">PAN Number</span>
+                <span className="fw-semibold">{user?.financialDetails.panNumber || "John Doe"}</span>
+              </div>
+            </div>
           </div>
-          <div className="col-xxl-6 col-xl-12 col-lg-6">
-            <PaymentMethod
-              cardType="american-express"
-              cardHolder="Alexandra Della"
-              cardNumber="3437 **** **** ****"
-              expiryDate="11/24"
-            />
-          </div>
-          <div className="col-xxl-6 col-xl-12 col-lg-6">
-            <PaymentMethod
-              cardType="discover"
-              cardHolder="Alexandra Della"
-              cardNumber="6011 **** **** ****"
-              expiryDate="11/25"
-            />
-          </div>
-        </div>
-      </div>
+        </div >
+
+      </div >
 
 
 
-      <div className="subscription-plan px-4 pt-4">
-        <SectionTitle
-          sectionName="Documents"
-          sectionDescription="Employee uploaded documents"
-        />
-        <div className="row">
-          <SimpleFileCard
-            imgSrc="https://res.cloudinary.com/dpz6btlj7/image/upload/v1771566853/hrms/profile-images/ypst2rhfvcfyclhwoi9j.jpg"
-            title="PAN Card"
-          />
-          <SimpleFileCard
-            imgSrc="/icons/pdf.png"
-            title="Aadhar Card"
-          />
-          <SimpleFileCard
-            imgSrc="/icons/pdf.png"
-            title="Bank Proof"
-          />
-        </div>
-      </div>
+
+
+
+
 
       <hr className="mt-2" />
-      {billingHistoryshow && <BillingHistory history={billingHistory} />}
+      {/* {billingHistoryshow && <BillingHistory history={billingHistory} />} */}
     </>
   );
 };

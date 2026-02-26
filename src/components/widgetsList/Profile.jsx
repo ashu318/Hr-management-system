@@ -2,6 +2,8 @@ import Image from "next/image";
 import React from "react";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { FiEdit, FiMail, FiMapPin, FiPhone, FiTrash2 } from "react-icons/fi";
+
+
 const Profile = ({ user }) => {
   return (
     <div className="card stretch stretch-full">

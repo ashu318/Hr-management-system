@@ -22,6 +22,9 @@ export async function GET(request, { params }) {
             where: {
                 employeeId: employeeId.trim(),
             },
+            include: {
+                financialDetails: true,   // 👈 ADD THIS
+            },
         });
 
         if (!user) {

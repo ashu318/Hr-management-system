@@ -147,7 +147,7 @@ const TabOverviewContent = ({ user }) => {
           </div>
         ))} */}
       </div>
-      <div
+      {/* <div
         className="alert alert-dismissible mb-4 p-4 d-flex alert-soft-warning-message profile-overview-alert"
         role="alert"
       >
@@ -166,8 +166,8 @@ const TabOverviewContent = ({ user }) => {
           </a>
           <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
         </div>
-      </div>
-      <div className="project-section">
+      </div> */}
+      {/* <div className="project-section">
         <div className="mb-4 d-flex align-items-center justify-content-between">
           <h5 className="fw-bold mb-0">Projects Details:</h5>
           <a href="#" className="btn btn-sm btn-light-brand">
@@ -234,7 +234,7 @@ const TabOverviewContent = ({ user }) => {
               )
             )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

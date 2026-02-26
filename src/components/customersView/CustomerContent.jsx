@@ -21,7 +21,7 @@ const CustomerContent = () => {
 
   useEffect(() => {
     if (!employeeId) return;
-
+    
     const fetchUserDetails = async () => {
       try {
         setLoading(true);
@@ -96,10 +96,10 @@ const CustomerContent = () => {
                   href="#"
                   className="nav-link"
                   data-bs-toggle="tab"
-                  data-bs-target="#activityTab"
+                  data-bs-target="#notificationsTab"
                   role="tab"
                 >
-                  Activity
+                  Documents
                 </a>
               </li>
               <li className="nav-item flex-fill border-top" role="presentation">
@@ -107,13 +107,14 @@ const CustomerContent = () => {
                   href="#"
                   className="nav-link"
                   data-bs-toggle="tab"
-                  data-bs-target="#notificationsTab"
+                  data-bs-target="#activityTab"
                   role="tab"
                 >
-                  Notifications
+                  Activity
                 </a>
               </li>
-              <li className="nav-item flex-fill border-top" role="presentation">
+
+              {/* <li className="nav-item flex-fill border-top" role="presentation">
                 <a
                   href="#"
                   className="nav-link"
@@ -134,7 +135,7 @@ const CustomerContent = () => {
                 >
                   Security
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="tab-content">
@@ -143,7 +144,7 @@ const CustomerContent = () => {
               <TabBillingContent billingHistoryshow={true} user={user} />
             </div>
             <TabActivityContent />
-            <TabNotificationsContent />
+            <TabNotificationsContent employeeId={user?.employeeId} />
             <TabConnections />
             <TabSecurity />
           </div>

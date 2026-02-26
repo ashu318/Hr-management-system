@@ -49,10 +49,8 @@ const ProfileModal = () => {
   return (
     <div className="dropdown nxl-h-item">
       <a href="#" data-bs-toggle="dropdown" role="button" data-bs-auto-close="outside">
-        <Image
-          width={40}
-          height={40}
-          src="/images/avatar/1.png"
+        <img
+          src={user?.profileImageUrl || "/images/avatar/1.png"}
           alt="user-image"
           className="img-fluid user-avtar me-0"
         />
@@ -60,10 +58,8 @@ const ProfileModal = () => {
       <div className="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
         <div className="dropdown-header">
           <div className="d-flex align-items-center">
-            <Image
-              width={40}
-              height={40}
-              src="/images/avatar/1.png"
+            <img
+              src={user?.profileImageUrl || "/images/avatar/1.png"}
               alt="user-image"
               className="img-fluid user-avtar"
             />
@@ -133,7 +129,7 @@ const ProfileModal = () => {
           </div>
         </div>
         <div className="dropdown-divider"></div>
-        <Link href="/profile/me" className="dropdown-item">
+        <Link href="/customers/profile" className="dropdown-item">
           <i>
             <FiUser />
           </i>

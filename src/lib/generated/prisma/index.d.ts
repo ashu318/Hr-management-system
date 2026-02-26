@@ -73,6 +73,12 @@ export type PayrollSettings = $Result.DefaultSelection<Prisma.$PayrollSettingsPa
  * ////////////////////////
  */
 export type LeaveComment = $Result.DefaultSelection<Prisma.$LeaveCommentPayload>
+/**
+ * Model UserDocument
+ * ////////////////////////
+ * ////////////////////////
+ */
+export type UserDocument = $Result.DefaultSelection<Prisma.$UserDocumentPayload>
 
 /**
  * Enums
@@ -402,6 +408,16 @@ export class PrismaClient<
     * ```
     */
   get leaveComment(): Prisma.LeaveCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userDocument`: Exposes CRUD operations for the **UserDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserDocuments
+    * const userDocuments = await prisma.userDocument.findMany()
+    * ```
+    */
+  get userDocument(): Prisma.UserDocumentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -852,7 +868,8 @@ export namespace Prisma {
     AnnouncementRecipient: 'AnnouncementRecipient',
     FinancialDetails: 'FinancialDetails',
     PayrollSettings: 'PayrollSettings',
-    LeaveComment: 'LeaveComment'
+    LeaveComment: 'LeaveComment',
+    UserDocument: 'UserDocument'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -871,7 +888,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment"
+      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment" | "userDocument"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1615,6 +1632,80 @@ export namespace Prisma {
           }
         }
       }
+      UserDocument: {
+        payload: Prisma.$UserDocumentPayload<ExtArgs>
+        fields: Prisma.UserDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.UserDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.UserDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.UserDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.UserDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.UserDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          update: {
+            args: Prisma.UserDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.UserDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserDocument>
+          }
+          groupBy: {
+            args: Prisma.UserDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<UserDocumentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1721,6 +1812,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsOmit
     payrollSettings?: PayrollSettingsOmit
     leaveComment?: LeaveCommentOmit
+    userDocument?: UserDocumentOmit
   }
 
   /* Types for Logging */
@@ -1804,12 +1896,14 @@ export namespace Prisma {
     users: number
     holidays: number
     announcements: number
+    documents: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | OrganizationCountOutputTypeCountUsersArgs
     holidays?: boolean | OrganizationCountOutputTypeCountHolidaysArgs
     announcements?: boolean | OrganizationCountOutputTypeCountAnnouncementsArgs
+    documents?: boolean | OrganizationCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -1844,6 +1938,13 @@ export namespace Prisma {
     where?: AnnouncementWhereInput
   }
 
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserDocumentWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1854,6 +1955,7 @@ export namespace Prisma {
     LeaveApplication: number
     createdAnnouncements: number
     announcementReceipts: number
+    documents: number
     leaveComments: number
   }
 
@@ -1862,6 +1964,7 @@ export namespace Prisma {
     LeaveApplication?: boolean | UserCountOutputTypeCountLeaveApplicationArgs
     createdAnnouncements?: boolean | UserCountOutputTypeCountCreatedAnnouncementsArgs
     announcementReceipts?: boolean | UserCountOutputTypeCountAnnouncementReceiptsArgs
+    documents?: boolean | UserCountOutputTypeCountDocumentsArgs
     leaveComments?: boolean | UserCountOutputTypeCountLeaveCommentsArgs
   }
 
@@ -1902,6 +2005,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAnnouncementReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnnouncementRecipientWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserDocumentWhereInput
   }
 
   /**
@@ -2145,6 +2255,7 @@ export namespace Prisma {
     users?: boolean | Organization$usersArgs<ExtArgs>
     holidays?: boolean | Organization$holidaysArgs<ExtArgs>
     announcements?: boolean | Organization$announcementsArgs<ExtArgs>
+    documents?: boolean | Organization$documentsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -2177,6 +2288,7 @@ export namespace Prisma {
     users?: boolean | Organization$usersArgs<ExtArgs>
     holidays?: boolean | Organization$holidaysArgs<ExtArgs>
     announcements?: boolean | Organization$announcementsArgs<ExtArgs>
+    documents?: boolean | Organization$documentsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2188,6 +2300,7 @@ export namespace Prisma {
       users: Prisma.$UserPayload<ExtArgs>[]
       holidays: Prisma.$HolidayPayload<ExtArgs>[]
       announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
+      documents: Prisma.$UserDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2592,6 +2705,7 @@ export namespace Prisma {
     users<T extends Organization$usersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     holidays<T extends Organization$holidaysArgs<ExtArgs> = {}>(args?: Subset<T, Organization$holidaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HolidayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     announcements<T extends Organization$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends Organization$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3083,6 +3197,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AnnouncementScalarFieldEnum | AnnouncementScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.documents
+   */
+  export type Organization$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    where?: UserDocumentWhereInput
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    cursor?: UserDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
   }
 
   /**
@@ -3581,6 +3719,7 @@ export namespace Prisma {
     announcementReceipts?: boolean | User$announcementReceiptsArgs<ExtArgs>
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
+    documents?: boolean | User$documentsArgs<ExtArgs>
     leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3722,6 +3861,7 @@ export namespace Prisma {
     announcementReceipts?: boolean | User$announcementReceiptsArgs<ExtArgs>
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
+    documents?: boolean | User$documentsArgs<ExtArgs>
     leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3742,6 +3882,7 @@ export namespace Prisma {
       announcementReceipts: Prisma.$AnnouncementRecipientPayload<ExtArgs>[]
       financialDetails: Prisma.$FinancialDetailsPayload<ExtArgs> | null
       payrollSettings: Prisma.$PayrollSettingsPayload<ExtArgs> | null
+      documents: Prisma.$UserDocumentPayload<ExtArgs>[]
       leaveComments: Prisma.$LeaveCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4185,6 +4326,7 @@ export namespace Prisma {
     announcementReceipts<T extends User$announcementReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$announcementReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnnouncementRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     financialDetails<T extends User$financialDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$financialDetailsArgs<ExtArgs>>): Prisma__FinancialDetailsClient<$Result.GetResult<Prisma.$FinancialDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payrollSettings<T extends User$payrollSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$payrollSettingsArgs<ExtArgs>>): Prisma__PayrollSettingsClient<$Result.GetResult<Prisma.$PayrollSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leaveComments<T extends User$leaveCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$leaveCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4781,6 +4923,30 @@ export namespace Prisma {
      */
     include?: PayrollSettingsInclude<ExtArgs> | null
     where?: PayrollSettingsWhereInput
+  }
+
+  /**
+   * User.documents
+   */
+  export type User$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    where?: UserDocumentWhereInput
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    cursor?: UserDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
   }
 
   /**
@@ -13825,6 +13991,1163 @@ export namespace Prisma {
 
 
   /**
+   * Model UserDocument
+   */
+
+  export type AggregateUserDocument = {
+    _count: UserDocumentCountAggregateOutputType | null
+    _min: UserDocumentMinAggregateOutputType | null
+    _max: UserDocumentMaxAggregateOutputType | null
+  }
+
+  export type UserDocumentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    documentType: string | null
+    documentName: string | null
+    documentNumber: string | null
+    fileUrl: string | null
+    filePublicId: string | null
+    fileType: string | null
+    isVerified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserDocumentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    documentType: string | null
+    documentName: string | null
+    documentNumber: string | null
+    fileUrl: string | null
+    filePublicId: string | null
+    fileType: string | null
+    isVerified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserDocumentCountAggregateOutputType = {
+    id: number
+    userId: number
+    organizationId: number
+    documentType: number
+    documentName: number
+    documentNumber: number
+    fileUrl: number
+    filePublicId: number
+    fileType: number
+    isVerified: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserDocumentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    documentType?: true
+    documentName?: true
+    documentNumber?: true
+    fileUrl?: true
+    filePublicId?: true
+    fileType?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserDocumentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    documentType?: true
+    documentName?: true
+    documentNumber?: true
+    fileUrl?: true
+    filePublicId?: true
+    fileType?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserDocumentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    documentType?: true
+    documentName?: true
+    documentNumber?: true
+    fileUrl?: true
+    filePublicId?: true
+    fileType?: true
+    isVerified?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserDocument to aggregate.
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDocuments to fetch.
+     */
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserDocuments
+    **/
+    _count?: true | UserDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserDocumentMaxAggregateInputType
+  }
+
+  export type GetUserDocumentAggregateType<T extends UserDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserDocument[P]>
+      : GetScalarType<T[P], AggregateUserDocument[P]>
+  }
+
+
+
+
+  export type UserDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserDocumentWhereInput
+    orderBy?: UserDocumentOrderByWithAggregationInput | UserDocumentOrderByWithAggregationInput[]
+    by: UserDocumentScalarFieldEnum[] | UserDocumentScalarFieldEnum
+    having?: UserDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserDocumentCountAggregateInputType | true
+    _min?: UserDocumentMinAggregateInputType
+    _max?: UserDocumentMaxAggregateInputType
+  }
+
+  export type UserDocumentGroupByOutputType = {
+    id: string
+    userId: string
+    organizationId: string
+    documentType: string
+    documentName: string
+    documentNumber: string | null
+    fileUrl: string
+    filePublicId: string | null
+    fileType: string | null
+    isVerified: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: UserDocumentCountAggregateOutputType | null
+    _min: UserDocumentMinAggregateOutputType | null
+    _max: UserDocumentMaxAggregateOutputType | null
+  }
+
+  type GetUserDocumentGroupByPayload<T extends UserDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], UserDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    documentNumber?: boolean
+    fileUrl?: boolean
+    filePublicId?: boolean
+    fileType?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userDocument"]>
+
+  export type UserDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    documentNumber?: boolean
+    fileUrl?: boolean
+    filePublicId?: boolean
+    fileType?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userDocument"]>
+
+  export type UserDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    documentNumber?: boolean
+    fileUrl?: boolean
+    filePublicId?: boolean
+    fileType?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userDocument"]>
+
+  export type UserDocumentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    documentNumber?: boolean
+    fileUrl?: boolean
+    filePublicId?: boolean
+    fileType?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "organizationId" | "documentType" | "documentName" | "documentNumber" | "fileUrl" | "filePublicId" | "fileType" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["userDocument"]>
+  export type UserDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type UserDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type UserDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $UserDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserDocument"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      organizationId: string
+      documentType: string
+      documentName: string
+      documentNumber: string | null
+      fileUrl: string
+      filePublicId: string | null
+      fileType: string | null
+      isVerified: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userDocument"]>
+    composites: {}
+  }
+
+  type UserDocumentGetPayload<S extends boolean | null | undefined | UserDocumentDefaultArgs> = $Result.GetResult<Prisma.$UserDocumentPayload, S>
+
+  type UserDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserDocumentCountAggregateInputType | true
+    }
+
+  export interface UserDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserDocument'], meta: { name: 'UserDocument' } }
+    /**
+     * Find zero or one UserDocument that matches the filter.
+     * @param {UserDocumentFindUniqueArgs} args - Arguments to find a UserDocument
+     * @example
+     * // Get one UserDocument
+     * const userDocument = await prisma.userDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserDocumentFindUniqueArgs>(args: SelectSubset<T, UserDocumentFindUniqueArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserDocumentFindUniqueOrThrowArgs} args - Arguments to find a UserDocument
+     * @example
+     * // Get one UserDocument
+     * const userDocument = await prisma.userDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, UserDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentFindFirstArgs} args - Arguments to find a UserDocument
+     * @example
+     * // Get one UserDocument
+     * const userDocument = await prisma.userDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserDocumentFindFirstArgs>(args?: SelectSubset<T, UserDocumentFindFirstArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentFindFirstOrThrowArgs} args - Arguments to find a UserDocument
+     * @example
+     * // Get one UserDocument
+     * const userDocument = await prisma.userDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, UserDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserDocuments
+     * const userDocuments = await prisma.userDocument.findMany()
+     * 
+     * // Get first 10 UserDocuments
+     * const userDocuments = await prisma.userDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userDocumentWithIdOnly = await prisma.userDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserDocumentFindManyArgs>(args?: SelectSubset<T, UserDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserDocument.
+     * @param {UserDocumentCreateArgs} args - Arguments to create a UserDocument.
+     * @example
+     * // Create one UserDocument
+     * const UserDocument = await prisma.userDocument.create({
+     *   data: {
+     *     // ... data to create a UserDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserDocumentCreateArgs>(args: SelectSubset<T, UserDocumentCreateArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserDocuments.
+     * @param {UserDocumentCreateManyArgs} args - Arguments to create many UserDocuments.
+     * @example
+     * // Create many UserDocuments
+     * const userDocument = await prisma.userDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserDocumentCreateManyArgs>(args?: SelectSubset<T, UserDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserDocuments and returns the data saved in the database.
+     * @param {UserDocumentCreateManyAndReturnArgs} args - Arguments to create many UserDocuments.
+     * @example
+     * // Create many UserDocuments
+     * const userDocument = await prisma.userDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserDocuments and only return the `id`
+     * const userDocumentWithIdOnly = await prisma.userDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, UserDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserDocument.
+     * @param {UserDocumentDeleteArgs} args - Arguments to delete one UserDocument.
+     * @example
+     * // Delete one UserDocument
+     * const UserDocument = await prisma.userDocument.delete({
+     *   where: {
+     *     // ... filter to delete one UserDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDocumentDeleteArgs>(args: SelectSubset<T, UserDocumentDeleteArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserDocument.
+     * @param {UserDocumentUpdateArgs} args - Arguments to update one UserDocument.
+     * @example
+     * // Update one UserDocument
+     * const userDocument = await prisma.userDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserDocumentUpdateArgs>(args: SelectSubset<T, UserDocumentUpdateArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserDocuments.
+     * @param {UserDocumentDeleteManyArgs} args - Arguments to filter UserDocuments to delete.
+     * @example
+     * // Delete a few UserDocuments
+     * const { count } = await prisma.userDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDocumentDeleteManyArgs>(args?: SelectSubset<T, UserDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserDocuments
+     * const userDocument = await prisma.userDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserDocumentUpdateManyArgs>(args: SelectSubset<T, UserDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserDocuments and returns the data updated in the database.
+     * @param {UserDocumentUpdateManyAndReturnArgs} args - Arguments to update many UserDocuments.
+     * @example
+     * // Update many UserDocuments
+     * const userDocument = await prisma.userDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserDocuments and only return the `id`
+     * const userDocumentWithIdOnly = await prisma.userDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, UserDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserDocument.
+     * @param {UserDocumentUpsertArgs} args - Arguments to update or create a UserDocument.
+     * @example
+     * // Update or create a UserDocument
+     * const userDocument = await prisma.userDocument.upsert({
+     *   create: {
+     *     // ... data to create a UserDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserDocumentUpsertArgs>(args: SelectSubset<T, UserDocumentUpsertArgs<ExtArgs>>): Prisma__UserDocumentClient<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentCountArgs} args - Arguments to filter UserDocuments to count.
+     * @example
+     * // Count the number of UserDocuments
+     * const count = await prisma.userDocument.count({
+     *   where: {
+     *     // ... the filter for the UserDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserDocumentCountArgs>(
+      args?: Subset<T, UserDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserDocumentAggregateArgs>(args: Subset<T, UserDocumentAggregateArgs>): Prisma.PrismaPromise<GetUserDocumentAggregateType<T>>
+
+    /**
+     * Group by UserDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: UserDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserDocument model
+   */
+  readonly fields: UserDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserDocument model
+   */
+  interface UserDocumentFieldRefs {
+    readonly id: FieldRef<"UserDocument", 'String'>
+    readonly userId: FieldRef<"UserDocument", 'String'>
+    readonly organizationId: FieldRef<"UserDocument", 'String'>
+    readonly documentType: FieldRef<"UserDocument", 'String'>
+    readonly documentName: FieldRef<"UserDocument", 'String'>
+    readonly documentNumber: FieldRef<"UserDocument", 'String'>
+    readonly fileUrl: FieldRef<"UserDocument", 'String'>
+    readonly filePublicId: FieldRef<"UserDocument", 'String'>
+    readonly fileType: FieldRef<"UserDocument", 'String'>
+    readonly isVerified: FieldRef<"UserDocument", 'Boolean'>
+    readonly createdAt: FieldRef<"UserDocument", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserDocument findUnique
+   */
+  export type UserDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDocument to fetch.
+     */
+    where: UserDocumentWhereUniqueInput
+  }
+
+  /**
+   * UserDocument findUniqueOrThrow
+   */
+  export type UserDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDocument to fetch.
+     */
+    where: UserDocumentWhereUniqueInput
+  }
+
+  /**
+   * UserDocument findFirst
+   */
+  export type UserDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDocument to fetch.
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDocuments to fetch.
+     */
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserDocuments.
+     */
+    cursor?: UserDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserDocuments.
+     */
+    distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * UserDocument findFirstOrThrow
+   */
+  export type UserDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDocument to fetch.
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDocuments to fetch.
+     */
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserDocuments.
+     */
+    cursor?: UserDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserDocuments.
+     */
+    distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * UserDocument findMany
+   */
+  export type UserDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserDocuments to fetch.
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserDocuments to fetch.
+     */
+    orderBy?: UserDocumentOrderByWithRelationInput | UserDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserDocuments.
+     */
+    cursor?: UserDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserDocuments.
+     */
+    skip?: number
+    distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * UserDocument create
+   */
+  export type UserDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserDocument.
+     */
+    data: XOR<UserDocumentCreateInput, UserDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * UserDocument createMany
+   */
+  export type UserDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserDocuments.
+     */
+    data: UserDocumentCreateManyInput | UserDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserDocument createManyAndReturn
+   */
+  export type UserDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserDocuments.
+     */
+    data: UserDocumentCreateManyInput | UserDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserDocument update
+   */
+  export type UserDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserDocument.
+     */
+    data: XOR<UserDocumentUpdateInput, UserDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which UserDocument to update.
+     */
+    where: UserDocumentWhereUniqueInput
+  }
+
+  /**
+   * UserDocument updateMany
+   */
+  export type UserDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserDocuments.
+     */
+    data: XOR<UserDocumentUpdateManyMutationInput, UserDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which UserDocuments to update
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * Limit how many UserDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserDocument updateManyAndReturn
+   */
+  export type UserDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update UserDocuments.
+     */
+    data: XOR<UserDocumentUpdateManyMutationInput, UserDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which UserDocuments to update
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * Limit how many UserDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserDocument upsert
+   */
+  export type UserDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserDocument to update in case it exists.
+     */
+    where: UserDocumentWhereUniqueInput
+    /**
+     * In case the UserDocument found by the `where` argument doesn't exist, create a new UserDocument with this data.
+     */
+    create: XOR<UserDocumentCreateInput, UserDocumentUncheckedCreateInput>
+    /**
+     * In case the UserDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserDocumentUpdateInput, UserDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * UserDocument delete
+   */
+  export type UserDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which UserDocument to delete.
+     */
+    where: UserDocumentWhereUniqueInput
+  }
+
+  /**
+   * UserDocument deleteMany
+   */
+  export type UserDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserDocuments to delete
+     */
+    where?: UserDocumentWhereInput
+    /**
+     * Limit how many UserDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserDocument without action
+   */
+  export type UserDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserDocument
+     */
+    select?: UserDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserDocument
+     */
+    omit?: UserDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserDocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14007,6 +15330,24 @@ export namespace Prisma {
   };
 
   export type LeaveCommentScalarFieldEnum = (typeof LeaveCommentScalarFieldEnum)[keyof typeof LeaveCommentScalarFieldEnum]
+
+
+  export const UserDocumentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    organizationId: 'organizationId',
+    documentType: 'documentType',
+    documentName: 'documentName',
+    documentNumber: 'documentNumber',
+    fileUrl: 'fileUrl',
+    filePublicId: 'filePublicId',
+    fileType: 'fileType',
+    isVerified: 'isVerified',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserDocumentScalarFieldEnum = (typeof UserDocumentScalarFieldEnum)[keyof typeof UserDocumentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14242,6 +15583,7 @@ export namespace Prisma {
     users?: UserListRelationFilter
     holidays?: HolidayListRelationFilter
     announcements?: AnnouncementListRelationFilter
+    documents?: UserDocumentListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -14253,6 +15595,7 @@ export namespace Prisma {
     users?: UserOrderByRelationAggregateInput
     holidays?: HolidayOrderByRelationAggregateInput
     announcements?: AnnouncementOrderByRelationAggregateInput
+    documents?: UserDocumentOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -14267,6 +15610,7 @@ export namespace Prisma {
     users?: UserListRelationFilter
     holidays?: HolidayListRelationFilter
     announcements?: AnnouncementListRelationFilter
+    documents?: UserDocumentListRelationFilter
   }, "id">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -14341,6 +15685,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientListRelationFilter
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
+    documents?: UserDocumentListRelationFilter
     leaveComments?: LeaveCommentListRelationFilter
   }
 
@@ -14391,6 +15736,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientOrderByRelationAggregateInput
     financialDetails?: FinancialDetailsOrderByWithRelationInput
     payrollSettings?: PayrollSettingsOrderByWithRelationInput
+    documents?: UserDocumentOrderByRelationAggregateInput
     leaveComments?: LeaveCommentOrderByRelationAggregateInput
   }
 
@@ -14445,6 +15791,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientListRelationFilter
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
+    documents?: UserDocumentListRelationFilter
     leaveComments?: LeaveCommentListRelationFilter
   }, "id" | "email" | "employeeId_organizationId">
 
@@ -15137,6 +16484,99 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LeaveComment"> | Date | string
   }
 
+  export type UserDocumentWhereInput = {
+    AND?: UserDocumentWhereInput | UserDocumentWhereInput[]
+    OR?: UserDocumentWhereInput[]
+    NOT?: UserDocumentWhereInput | UserDocumentWhereInput[]
+    id?: StringFilter<"UserDocument"> | string
+    userId?: StringFilter<"UserDocument"> | string
+    organizationId?: StringFilter<"UserDocument"> | string
+    documentType?: StringFilter<"UserDocument"> | string
+    documentName?: StringFilter<"UserDocument"> | string
+    documentNumber?: StringNullableFilter<"UserDocument"> | string | null
+    fileUrl?: StringFilter<"UserDocument"> | string
+    filePublicId?: StringNullableFilter<"UserDocument"> | string | null
+    fileType?: StringNullableFilter<"UserDocument"> | string | null
+    isVerified?: BoolFilter<"UserDocument"> | boolean
+    createdAt?: DateTimeFilter<"UserDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type UserDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    documentNumber?: SortOrderInput | SortOrder
+    fileUrl?: SortOrder
+    filePublicId?: SortOrderInput | SortOrder
+    fileType?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type UserDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserDocumentWhereInput | UserDocumentWhereInput[]
+    OR?: UserDocumentWhereInput[]
+    NOT?: UserDocumentWhereInput | UserDocumentWhereInput[]
+    userId?: StringFilter<"UserDocument"> | string
+    organizationId?: StringFilter<"UserDocument"> | string
+    documentType?: StringFilter<"UserDocument"> | string
+    documentName?: StringFilter<"UserDocument"> | string
+    documentNumber?: StringNullableFilter<"UserDocument"> | string | null
+    fileUrl?: StringFilter<"UserDocument"> | string
+    filePublicId?: StringNullableFilter<"UserDocument"> | string | null
+    fileType?: StringNullableFilter<"UserDocument"> | string | null
+    isVerified?: BoolFilter<"UserDocument"> | boolean
+    createdAt?: DateTimeFilter<"UserDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id">
+
+  export type UserDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    documentNumber?: SortOrderInput | SortOrder
+    fileUrl?: SortOrder
+    filePublicId?: SortOrderInput | SortOrder
+    fileType?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserDocumentCountOrderByAggregateInput
+    _max?: UserDocumentMaxOrderByAggregateInput
+    _min?: UserDocumentMinOrderByAggregateInput
+  }
+
+  export type UserDocumentScalarWhereWithAggregatesInput = {
+    AND?: UserDocumentScalarWhereWithAggregatesInput | UserDocumentScalarWhereWithAggregatesInput[]
+    OR?: UserDocumentScalarWhereWithAggregatesInput[]
+    NOT?: UserDocumentScalarWhereWithAggregatesInput | UserDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserDocument"> | string
+    userId?: StringWithAggregatesFilter<"UserDocument"> | string
+    organizationId?: StringWithAggregatesFilter<"UserDocument"> | string
+    documentType?: StringWithAggregatesFilter<"UserDocument"> | string
+    documentName?: StringWithAggregatesFilter<"UserDocument"> | string
+    documentNumber?: StringNullableWithAggregatesFilter<"UserDocument"> | string | null
+    fileUrl?: StringWithAggregatesFilter<"UserDocument"> | string
+    filePublicId?: StringNullableWithAggregatesFilter<"UserDocument"> | string | null
+    fileType?: StringNullableWithAggregatesFilter<"UserDocument"> | string | null
+    isVerified?: BoolWithAggregatesFilter<"UserDocument"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"UserDocument"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserDocument"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -15146,6 +16586,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -15157,6 +16598,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -15168,6 +16610,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -15179,6 +16622,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -15251,6 +16695,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -15300,6 +16745,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -15349,6 +16795,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -15398,6 +16845,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16160,6 +17608,109 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserDocumentCreateInput = {
+    id?: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDocumentsInput
+    organization: OrganizationCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type UserDocumentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type UserDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDocumentCreateManyInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16219,6 +17770,12 @@ export namespace Prisma {
     none?: AnnouncementWhereInput
   }
 
+  export type UserDocumentListRelationFilter = {
+    every?: UserDocumentWhereInput
+    some?: UserDocumentWhereInput
+    none?: UserDocumentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -16233,6 +17790,10 @@ export namespace Prisma {
   }
 
   export type AnnouncementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserDocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17063,6 +18624,51 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type UserDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    documentNumber?: SortOrder
+    fileUrl?: SortOrder
+    filePublicId?: SortOrder
+    fileType?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    documentNumber?: SortOrder
+    fileUrl?: SortOrder
+    filePublicId?: SortOrder
+    fileType?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    documentNumber?: SortOrder
+    fileUrl?: SortOrder
+    filePublicId?: SortOrder
+    fileType?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -17084,6 +18690,13 @@ export namespace Prisma {
     connect?: AnnouncementWhereUniqueInput | AnnouncementWhereUniqueInput[]
   }
 
+  export type UserDocumentCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput> | UserDocumentCreateWithoutOrganizationInput[] | UserDocumentUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutOrganizationInput | UserDocumentCreateOrConnectWithoutOrganizationInput[]
+    createMany?: UserDocumentCreateManyOrganizationInputEnvelope
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -17103,6 +18716,13 @@ export namespace Prisma {
     connectOrCreate?: AnnouncementCreateOrConnectWithoutOrganizationInput | AnnouncementCreateOrConnectWithoutOrganizationInput[]
     createMany?: AnnouncementCreateManyOrganizationInputEnvelope
     connect?: AnnouncementWhereUniqueInput | AnnouncementWhereUniqueInput[]
+  }
+
+  export type UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput> | UserDocumentCreateWithoutOrganizationInput[] | UserDocumentUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutOrganizationInput | UserDocumentCreateOrConnectWithoutOrganizationInput[]
+    createMany?: UserDocumentCreateManyOrganizationInputEnvelope
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17159,6 +18779,20 @@ export namespace Prisma {
     deleteMany?: AnnouncementScalarWhereInput | AnnouncementScalarWhereInput[]
   }
 
+  export type UserDocumentUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput> | UserDocumentCreateWithoutOrganizationInput[] | UserDocumentUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutOrganizationInput | UserDocumentCreateOrConnectWithoutOrganizationInput[]
+    upsert?: UserDocumentUpsertWithWhereUniqueWithoutOrganizationInput | UserDocumentUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: UserDocumentCreateManyOrganizationInputEnvelope
+    set?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    disconnect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    delete?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    update?: UserDocumentUpdateWithWhereUniqueWithoutOrganizationInput | UserDocumentUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: UserDocumentUpdateManyWithWhereWithoutOrganizationInput | UserDocumentUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -17199,6 +18833,20 @@ export namespace Prisma {
     update?: AnnouncementUpdateWithWhereUniqueWithoutOrganizationInput | AnnouncementUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: AnnouncementUpdateManyWithWhereWithoutOrganizationInput | AnnouncementUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: AnnouncementScalarWhereInput | AnnouncementScalarWhereInput[]
+  }
+
+  export type UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput> | UserDocumentCreateWithoutOrganizationInput[] | UserDocumentUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutOrganizationInput | UserDocumentCreateOrConnectWithoutOrganizationInput[]
+    upsert?: UserDocumentUpsertWithWhereUniqueWithoutOrganizationInput | UserDocumentUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: UserDocumentCreateManyOrganizationInputEnvelope
+    set?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    disconnect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    delete?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    update?: UserDocumentUpdateWithWhereUniqueWithoutOrganizationInput | UserDocumentUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: UserDocumentUpdateManyWithWhereWithoutOrganizationInput | UserDocumentUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutUsersInput = {
@@ -17247,6 +18895,13 @@ export namespace Prisma {
     connect?: PayrollSettingsWhereUniqueInput
   }
 
+  export type UserDocumentCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput> | UserDocumentCreateWithoutUserInput[] | UserDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: UserDocumentCreateManyUserInputEnvelope
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+  }
+
   export type LeaveCommentCreateNestedManyWithoutUserInput = {
     create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
@@ -17292,6 +18947,13 @@ export namespace Prisma {
     create?: XOR<PayrollSettingsCreateWithoutUserInput, PayrollSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: PayrollSettingsCreateOrConnectWithoutUserInput
     connect?: PayrollSettingsWhereUniqueInput
+  }
+
+  export type UserDocumentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput> | UserDocumentCreateWithoutUserInput[] | UserDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: UserDocumentCreateManyUserInputEnvelope
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
   }
 
   export type LeaveCommentUncheckedCreateNestedManyWithoutUserInput = {
@@ -17417,6 +19079,20 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollSettingsUpdateToOneWithWhereWithoutUserInput, PayrollSettingsUpdateWithoutUserInput>, PayrollSettingsUncheckedUpdateWithoutUserInput>
   }
 
+  export type UserDocumentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput> | UserDocumentCreateWithoutUserInput[] | UserDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: UserDocumentUpsertWithWhereUniqueWithoutUserInput | UserDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserDocumentCreateManyUserInputEnvelope
+    set?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    disconnect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    delete?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    update?: UserDocumentUpdateWithWhereUniqueWithoutUserInput | UserDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserDocumentUpdateManyWithWhereWithoutUserInput | UserDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
+  }
+
   export type LeaveCommentUpdateManyWithoutUserNestedInput = {
     create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
@@ -17505,6 +19181,20 @@ export namespace Prisma {
     delete?: PayrollSettingsWhereInput | boolean
     connect?: PayrollSettingsWhereUniqueInput
     update?: XOR<XOR<PayrollSettingsUpdateToOneWithWhereWithoutUserInput, PayrollSettingsUpdateWithoutUserInput>, PayrollSettingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserDocumentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput> | UserDocumentCreateWithoutUserInput[] | UserDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: UserDocumentUpsertWithWhereUniqueWithoutUserInput | UserDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserDocumentCreateManyUserInputEnvelope
+    set?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    disconnect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    delete?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+    update?: UserDocumentUpdateWithWhereUniqueWithoutUserInput | UserDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserDocumentUpdateManyWithWhereWithoutUserInput | UserDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
   }
 
   export type LeaveCommentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17783,6 +19473,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLeaveCommentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeaveCommentsInput, UserUpdateWithoutLeaveCommentsInput>, UserUncheckedUpdateWithoutLeaveCommentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<OrganizationCreateWithoutDocumentsInput, OrganizationUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDocumentsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    upsert?: UserUpsertWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentsInput, UserUpdateWithoutDocumentsInput>, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutDocumentsInput, OrganizationUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDocumentsInput
+    upsert?: OrganizationUpsertWithoutDocumentsInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDocumentsInput, OrganizationUpdateWithoutDocumentsInput>, OrganizationUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18178,6 +19896,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -18226,6 +19945,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -18304,6 +20024,44 @@ export namespace Prisma {
 
   export type AnnouncementCreateManyOrganizationInputEnvelope = {
     data: AnnouncementCreateManyOrganizationInput | AnnouncementCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserDocumentCreateWithoutOrganizationInput = {
+    id?: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type UserDocumentUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    userId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserDocumentCreateOrConnectWithoutOrganizationInput = {
+    where: UserDocumentWhereUniqueInput
+    create: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type UserDocumentCreateManyOrganizationInputEnvelope = {
+    data: UserDocumentCreateManyOrganizationInput | UserDocumentCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -18431,6 +20189,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Announcement"> | Date | string
   }
 
+  export type UserDocumentUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: UserDocumentWhereUniqueInput
+    update: XOR<UserDocumentUpdateWithoutOrganizationInput, UserDocumentUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<UserDocumentCreateWithoutOrganizationInput, UserDocumentUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type UserDocumentUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: UserDocumentWhereUniqueInput
+    data: XOR<UserDocumentUpdateWithoutOrganizationInput, UserDocumentUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type UserDocumentUpdateManyWithWhereWithoutOrganizationInput = {
+    where: UserDocumentScalarWhereInput
+    data: XOR<UserDocumentUpdateManyMutationInput, UserDocumentUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type UserDocumentScalarWhereInput = {
+    AND?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
+    OR?: UserDocumentScalarWhereInput[]
+    NOT?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
+    id?: StringFilter<"UserDocument"> | string
+    userId?: StringFilter<"UserDocument"> | string
+    organizationId?: StringFilter<"UserDocument"> | string
+    documentType?: StringFilter<"UserDocument"> | string
+    documentName?: StringFilter<"UserDocument"> | string
+    documentNumber?: StringNullableFilter<"UserDocument"> | string | null
+    fileUrl?: StringFilter<"UserDocument"> | string
+    filePublicId?: StringNullableFilter<"UserDocument"> | string | null
+    fileType?: StringNullableFilter<"UserDocument"> | string | null
+    isVerified?: BoolFilter<"UserDocument"> | boolean
+    createdAt?: DateTimeFilter<"UserDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"UserDocument"> | Date | string
+  }
+
   export type OrganizationCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -18439,6 +20231,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -18449,6 +20242,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -18636,6 +20430,44 @@ export namespace Prisma {
     create: XOR<PayrollSettingsCreateWithoutUserInput, PayrollSettingsUncheckedCreateWithoutUserInput>
   }
 
+  export type UserDocumentCreateWithoutUserInput = {
+    id?: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type UserDocumentUncheckedCreateWithoutUserInput = {
+    id?: string
+    organizationId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserDocumentCreateOrConnectWithoutUserInput = {
+    where: UserDocumentWhereUniqueInput
+    create: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserDocumentCreateManyUserInputEnvelope = {
+    data: UserDocumentCreateManyUserInput | UserDocumentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LeaveCommentCreateWithoutUserInput = {
     id?: string
     message: string
@@ -18679,6 +20511,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -18689,6 +20522,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type LeaveBalanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -18865,6 +20699,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserDocumentUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserDocumentWhereUniqueInput
+    update: XOR<UserDocumentUpdateWithoutUserInput, UserDocumentUncheckedUpdateWithoutUserInput>
+    create: XOR<UserDocumentCreateWithoutUserInput, UserDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserDocumentUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserDocumentWhereUniqueInput
+    data: XOR<UserDocumentUpdateWithoutUserInput, UserDocumentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserDocumentUpdateManyWithWhereWithoutUserInput = {
+    where: UserDocumentScalarWhereInput
+    data: XOR<UserDocumentUpdateManyMutationInput, UserDocumentUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type LeaveCommentUpsertWithWhereUniqueWithoutUserInput = {
     where: LeaveCommentWhereUniqueInput
     update: XOR<LeaveCommentUpdateWithoutUserInput, LeaveCommentUncheckedUpdateWithoutUserInput>
@@ -18900,6 +20750,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutHolidaysInput = {
@@ -18910,6 +20761,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutHolidaysInput = {
@@ -18936,6 +20788,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutHolidaysInput = {
@@ -18946,6 +20799,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserCreateWithoutLeaveBalancesInput = {
@@ -18993,6 +20847,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -19041,6 +20896,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19105,6 +20961,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -19153,6 +21010,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -19201,6 +21059,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -19249,6 +21108,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19337,6 +21197,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -19385,6 +21246,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -19412,6 +21274,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutAnnouncementsInput = {
@@ -19422,6 +21285,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutAnnouncementsInput = {
@@ -19474,6 +21338,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -19522,6 +21387,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19577,6 +21443,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutAnnouncementsInput = {
@@ -19587,6 +21454,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutCreatedAnnouncementsInput = {
@@ -19645,6 +21513,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -19693,6 +21562,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -19784,6 +21654,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -19832,6 +21703,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19929,6 +21801,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -19977,6 +21850,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -20025,6 +21899,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -20073,6 +21948,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -20137,6 +22013,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -20185,6 +22062,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -20233,6 +22111,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -20281,6 +22160,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -20345,6 +22225,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -20393,6 +22274,7 @@ export namespace Prisma {
     createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -20471,6 +22353,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeaveCommentsInput = {
@@ -20519,6 +22402,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeaveCommentsInput = {
@@ -20618,6 +22502,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeaveCommentsInput = {
@@ -20666,6 +22551,279 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutUsersInput
+    leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDocumentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type OrganizationCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    domain?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    holidays?: HolidayCreateNestedManyWithoutOrganizationInput
+    announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    domain?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutDocumentsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutDocumentsInput, OrganizationUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type UserUpsertWithoutDocumentsInput = {
+    update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type UserUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type OrganizationUpsertWithoutDocumentsInput = {
+    update: XOR<OrganizationUpdateWithoutDocumentsInput, OrganizationUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<OrganizationCreateWithoutDocumentsInput, OrganizationUncheckedCreateWithoutDocumentsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutDocumentsInput, OrganizationUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type OrganizationUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
+    announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserCreateManyOrganizationInput = {
@@ -20732,6 +22890,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserDocumentCreateManyOrganizationInput = {
+    id?: string
+    userId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -20777,6 +22949,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -20825,6 +22998,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -20940,6 +23114,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserDocumentUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type UserDocumentUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDocumentUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LeaveBalanceCreateManyUserInput = {
     id?: string
     leaveType: $Enums.LeaveType
@@ -20978,6 +23194,20 @@ export namespace Prisma {
     isRead?: boolean
     readAt?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type UserDocumentCreateManyUserInput = {
+    id?: string
+    organizationId: string
+    documentType: string
+    documentName: string
+    documentNumber?: string | null
+    fileUrl: string
+    filePublicId?: string | null
+    fileType?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LeaveCommentCreateManyUserInput = {
@@ -21109,6 +23339,48 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
     readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDocumentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type UserDocumentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserDocumentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeaveCommentUpdateWithoutUserInput = {

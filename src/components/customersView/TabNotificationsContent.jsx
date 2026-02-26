@@ -1,184 +1,456 @@
-import React from "react";
-import SelectDropdown from "@/components/shared/SelectDropdown";
-import { customerViewOptions } from "@/utils/options";
-import getIcon from "@/utils/getIcon";
+"use client";
+import React, { useState, useEffect } from "react";
+import { FiTrash2, FiEdit, FiEye } from "react-icons/fi";
+import { BsPatchCheckFill } from "react-icons/bs";
+import toast from "react-hot-toast";
 
-const notificationSetting = [
-  {
-    title: "Successful payments",
-    description: "Receive a notification for every successful payment.",
-    options: customerViewOptions,
-    defaultSelect: "email",
-  },
-  {
-    title: "Customer payment dispute",
-    description:
-      "Receive a notification if a payment is disputed by a customer and for dispute purposes.",
-    options: customerViewOptions,
-    defaultSelect: "push",
-  },
-  {
-    title: "Refund alerts",
-    description: "Receive a notification if a payment is stated as risk by the Finance Department.",
-    options: customerViewOptions,
-    defaultSelect: "repeat",
-  },
-  {
-    title: "Successful payments",
-    description: "Receive a notification for every successful payment.",
-    options: customerViewOptions,
-    defaultSelect: "sms-email",
-  },
-  {
-    title: "Invoice payments",
-    description:
-      "Receive a notification if a customer sends an incorrect amount to pay their invoice. ",
-    options: customerViewOptions,
-    defaultSelect: "deactivate",
-  },
-  {
-    title: "Rating reminders",
-    description: "Send an email reminding me to rate an item a week after purchase ",
-    options: customerViewOptions,
-    defaultSelect: "sms-push-email",
-  },
-  {
-    title: "Item update notifications",
-    description: "Send an email when an item I've purchased is updated ",
-    options: customerViewOptions,
-    defaultSelect: "repeat",
-  },
-  {
-    title: "Item comment notifications",
-    description: "Send me an email when someone comments on one of my items ",
-    options: customerViewOptions,
-    defaultSelect: "push",
-  },
-  {
-    title: "Team comment notifications",
-    description: "Send me an email when someone comments on one of my team items ",
-    options: customerViewOptions,
-    defaultSelect: "sms",
-  },
-  {
-    title: "Item review notifications",
-    description: "Send me an email when my items are approved or rejected ",
-    options: customerViewOptions,
-    defaultSelect: "email",
-  },
-  {
-    title: "Buyer review notifications",
-    description: "Send me an email when someone leaves a review with their rating ",
-    options: customerViewOptions,
-    defaultSelect: "deactivate",
-  },
-  {
-    title: "Expiring support notifications",
-    description: "Send me emails showing my soon to expire support entitlements ",
-    options: customerViewOptions,
-    defaultSelect: "email-push",
-  },
-  {
-    title: "Daily summary emails",
-    description: "Send me a daily summary of all items approved or rejected ",
-    options: customerViewOptions,
-    defaultSelect: "sms-push",
-  },
+const documentTypesList = [
+  "PAN Card",
+  "Aadhaar Card",
+  "Bank Proof",
+  "Offer Letter",
+  "Resume",
+  "Leaving Letter",
+  "Joining Letter",
+  "Passport",
+  "Visa",
+  "Driving License",
+  "Experience Certificate",
 ];
 
-const TabNotificationsContent = () => {
+const TabNotificationsContent = ({ employeeId }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [documentType, setDocumentType] = useState("");
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [documents, setDocuments] = useState([]);
+  const [fetchLoading, setFetchLoading] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
+
+  const handleUpload = async () => {
+    if (!documentType || !file) {
+      toast.error("Please select document type and file");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("documentType", documentType);
+      formData.append("documentName", documentType);
+      formData.append("file", file);
+
+      const res = await fetch(
+        `/api/users/users-profile/${employeeId}/documents`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Document uploaded successfully ✅");
+
+        // Reset
+        setDocumentType("");
+        setFile(null);
+        setPreview(null);
+        await fetchDocuments();
+        setShowModal(false);
+      } else {
+        toast.error(data.message || "Upload failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const fetchDocuments = async () => {
+    try {
+      setFetchLoading(true);
+
+      const res = await fetch(
+        `/api/users/users-profile/${employeeId}/documents`
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setDocuments(data.documents);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setFetchLoading(false);
+    }
+  };
+
+
+  const handleDelete = async (documentId) => {
+    if (!confirm("Are you sure you want to delete this document?")) return;
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        `/api/users/users-profile/documents/${documentId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Document deleted successfully ");
+        // Refresh the document list
+        setDocuments((prev) => prev.filter((doc) => doc.id !== documentId));
+      } else {
+        toast.error(data.message || "Delete failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while deleting the document");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
+    if (employeeId) {
+      fetchDocuments();
+    }
+  }, [employeeId]);
+
+
   return (
     <div className="tab-pane fade" id="notificationsTab" role="tabpanel">
-      <div className="table-responsive">
-        <table className="table mb-0">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th className="wd-250 text-end">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {notificationSetting.map(({ defaultSelect, description, options, title }, index) => (
-              <NotificationRow
-                key={index}
-                title={title}
-                description={description}
-                options={options}
-                defaultSelect={defaultSelect}
-              />
-            ))}
-          </tbody>
-        </table>
+
+      {/* Upload Header */}
+      <div className="mb-2 mt-4 d-flex align-items-center justify-content-between px-4">
+        <h5 className="fw-bold mb-0">Documents </h5>
+
+        <button
+          type="button"
+          className="btn btn-sm btn-light-brand"
+          onClick={() => setShowModal(true)}
+        >
+          + Upload Document
+        </button>
       </div>
+
+
+
+      {/* Modal */}
+      {showModal && (
+        <>
+          {/* Backdrop */}
+          <div className="modal-backdrop show"></div>
+
+          <div
+            className="modal fade show d-block"
+            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content rounded-4 border-0 shadow p-4">
+
+                {/* Header */}
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <h6 className="fw-semibold mb-0">
+                    Upload Document
+                  </h6>
+                  <button
+                    className="btn-close"
+                    onClick={() => setShowModal(false)}
+                  ></button>
+                </div>
+
+                {/* Document Type */}
+                <div className="mb-3">
+                  <label className="form-label small text-muted">
+                    Document Type
+                  </label>
+                  <select
+                    className="form-select"
+                    value={documentType}
+                    onChange={(e) => setDocumentType(e.target.value)}
+                  >
+                    <option value="">Select Document Type</option>
+                    {documentTypesList.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* File Input */}
+                <div className="mb-3">
+                  <label className="form-label small text-muted">
+                    Select File
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    onChange={(e) => {
+                      const selected = e.target.files[0];
+
+                      if (!selected) return;
+
+                      const allowedTypes = [
+                        "image/jpeg",
+                        "image/jpg",
+                        "image/png",
+                        "image/webp",
+                      ];
+
+                      if (!allowedTypes.includes(selected.type)) {
+                        alert("Only JPG, JPEG, PNG and WEBP images are allowed.");
+                        e.target.value = null;
+                        return;
+                      }
+
+                      setFile(selected);
+                      setPreview(URL.createObjectURL(selected));
+                    }}
+                  />
+                </div>
+
+                {/* Preview */}
+                {preview && (
+                  <div className="text-center mb-3">
+                    {file?.type === "application/pdf" ? (
+                      <img
+                        src="/icons/pdf.png"
+                        alt="pdf"
+                        style={{ height: "80px" }}
+                      />
+                    ) : (
+                      <img
+                        src={preview}
+                        alt="preview"
+                        className="img-fluid rounded-3"
+                        style={{
+                          maxHeight: "150px",
+                          objectFit: "contain",
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {/* Upload Button */}
+                <button
+                  className="btn btn-primary w-100 rounded-pill"
+                  onClick={handleUpload}
+                  disabled={loading}
+                >
+                  {loading ? "Uploading..." : "Upload Document"}
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       <hr />
-      <div className="notify-activity-section">
-        <div className="px-4 mb-4 d-flex justify-content-between">
-          <h5 className="fw-bold">Account Activity</h5>
-          <a href="#" className="btn btn-sm btn-light-brand">
-            View Alls
-          </a>
-        </div>
-        <div className="px-4">
-          <NotificationItem
-            icon="feather-message-square"
-            title="Someone comments on one of my items"
-            description="If someone comments on one of your items, it's important to respond in a timely and appropriate manner."
-          />
-          <NotificationItem
-            icon="feather-briefcase"
-            title="Someone replies to my job posting"
-            description="Great! It's always exciting to hear from someone who's interested in a job posting you've put out."
-          />
-          <NotificationItem
-            icon="feather-briefcase"
-            title="Someone mentions or follows me"
-            description="If you received a notification that someone mentioned or followed you, take a moment to read it and understand what it means."
-          />
-        </div>
+
+      <div className="px-4 mt-3">
+        {fetchLoading ? (
+          <p className="text-muted">Loading documents...</p>
+        ) : documents.length === 0 ? (
+          <p className="text-muted">No documents uploaded.</p>
+        ) : (
+          <div className="row">
+            {documents.map((doc) => (
+              <div key={doc.id} className="col-md-4 col-sm-6 mb-4">
+                <div
+                  className="card border-0 shadow-sm h-80 position-relative"
+                  style={{
+                    borderRadius: "12px",
+                    transition: "0.2s ease",
+                  }}
+                >
+
+                  {/* Verified Badge */}
+                  <div
+                    className="position-absolute text-success"
+                    style={{
+                      top: "10px",
+                      right: "10px",
+                    }}
+                  >
+                    <BsPatchCheckFill size={18} />
+                  </div>
+
+                  {/* Image Container */}
+                  <div
+                    className="bg-light d-flex align-items-center justify-content-center"
+                    style={{
+                      height: "100px",
+                      borderTopLeftRadius: "12px",
+                      borderTopRightRadius: "12px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {doc.fileType === "application/pdf" ? (
+                      <img
+                        src="/icons/pdf.png"
+                        alt="pdf"
+                        style={{
+                          height: "70px",
+                          objectFit: "contain",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={doc.fileUrl}
+                        alt="document"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Card Body */}
+                  <div className="p-3 text-center flex-grow-1">
+                    <h6 className="fw-semibold mb-1 text-truncate">
+                      {doc.documentType}
+                    </h6>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="d-flex gap-2 p-3 pt-0">
+                    <button
+                      className="w-50 btn btn-light-brand btn-sm"
+                      style={{ borderRadius: "4px" }}
+                      onClick={() => handleDelete(doc.id)}
+                    >
+                      <FiTrash2 size={14} className="me-1" />
+                      Delete
+                    </button>
+
+                    <button
+                      className="w-50 btn btn-primary btn-sm"
+                      style={{ borderRadius: "4px" }}
+                      onClick={() => setSelectedDoc(doc)}
+                    >
+                      <FiEye size={14} className="me-1" />
+                      View
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+
+      {selectedDoc && (
+        <>
+          <div className="modal-backdrop show"></div>
+
+          <div
+            className="modal fade show d-block"
+            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+          >
+            <div className="modal-dialog modal-md modal-dialog-centered">
+              <div
+                className="modal-content"
+                style={{ borderRadius: "10px" }}
+              >
+
+                {/* Header */}
+                <div className="modal-header">
+                  <h6 className="fw-semibold mb-0">
+                    {selectedDoc.documentType}
+                  </h6>
+                  <button
+                    className="btn-close"
+                    onClick={() => setSelectedDoc(null)}
+                  ></button>
+                </div>
+
+                {/* Body */}
+                <div
+                  className="modal-body text-center"
+                  style={{
+                    maxHeight: "400px",
+                    overflowY: "auto",
+                  }}
+                >
+                  {selectedDoc.fileUrl?.toLowerCase().includes(".pdf") ? (
+                    <iframe
+                      src={selectedDoc.fileUrl}
+                      width="100%"
+                      height="350px"
+                      title="PDF Preview"
+                      style={{
+                        borderRadius: "6px",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={selectedDoc.fileUrl}
+                      alt="preview"
+                      style={{
+                        maxHeight: "350px",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                        borderRadius: "6px",
+                      }}
+                    />
+                  )}
+                </div>
+
+                {/* Footer */}
+                <div className="modal-footer d-flex justify-content-between">
+
+                  <button
+                    className="btn btn-light btn-sm"
+                    onClick={() => setSelectedDoc(null)}
+                    style={{ borderRadius: "4px" }}
+                  >
+                    Close
+                  </button>
+
+                  <a
+                    href={selectedDoc.fileUrl.replace(
+                      "/upload/",
+                      "/upload/fl_attachment/"
+                    )}
+                    className="btn btn-primary btn-sm"
+                    style={{ borderRadius: "4px" }}
+                  >
+                    Download
+                  </a>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
 export default TabNotificationsContent;
-
-const NotificationRow = ({ title, description, options, defaultSelect }) => {
-  return (
-    <tr>
-      <td>
-        <div className="fw-bold text-dark">{title}</div>
-        <small className="fs-12 text-muted">{description}</small>
-      </td>
-      <td className="text-end">
-        <SelectDropdown
-          options={options}
-          defaultSelect={defaultSelect}
-          className={"select-wd-lg"}
-        />
-      </td>
-    </tr>
-  );
-};
-
-const NotificationItem = ({ title, description, icon }) => {
-  return (
-    <div className="hstack justify-content-between p-4 mb-3 border border-dashed border-gray-3 rounded-1">
-      <div className="hstack me-4">
-        <div className="avatar-text">{React.cloneElement(getIcon(icon), { size: "16" })}</div>
-        <div className="ms-4">
-          <a href="#" className="fw-bold mb-1 text-truncate-1-line">
-            {title}
-          </a>
-          <div className="fs-12 text-muted text-truncate-1-line">{description}</div>
-        </div>
-      </div>
-      <div className="form-check form-switch form-switch-sm">
-        <label
-          className="form-check-label fw-500 text-dark c-pointer"
-          htmlFor="formSwitchComment"
-        ></label>
-        <input className="form-check-input c-pointer" type="checkbox" id="formSwitchComment" />
-      </div>
-    </div>
-  );
-};
