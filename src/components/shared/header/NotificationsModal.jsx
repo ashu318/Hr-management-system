@@ -1,6 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { FiBell, FiCheck, FiX } from "react-icons/fi";
+import { useAnnouncementStore } from "@/store/announcementStore";
 
 const notificationsList = [
   {
@@ -26,6 +27,18 @@ const notificationsList = [
   },
 ];
 const NotificationsModal = () => {
+
+
+  const { announcements, loading, fetchAnnouncements } = useAnnouncementStore()
+
+  useEffect(() => {
+    fetchAnnouncements()
+  }, [])
+
+
+
+
+
   return (
     <div className="dropdown nxl-h-item">
       <div
@@ -50,12 +63,15 @@ const NotificationsModal = () => {
             <span>Make as Read</span>
           </Link>
         </div>
-        {notificationsList.map(({ id, src, time, titleFirst, titleSecond }) => (
-          <Card key={id} src={src} time={time} titleFirst={titleFirst} titleSecond={titleSecond} />
-        ))}
+        {announcements.slice() // create copy (important to avoid mutating state)
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // latest first
+          .slice(0, 3) // take only 3
+          .map(({ id, createdBy, createdAt, title }) => (
+            < Card key={id} profileImage={createdBy?.profileImageUrl} time={createdAt} titleFirst={title} titleSecond="3 seconds" />
+          ))}
 
         <div className="text-center notifications-footer">
-          <Link href="#" className="fs-13 fw-semibold text-dark">
+          <Link href="/announcements/list" className="fs-13 fw-semibold text-dark">
             Alls Notifications
           </Link>
         </div>
@@ -66,10 +82,36 @@ const NotificationsModal = () => {
 
 export default NotificationsModal;
 
-const Card = ({ src, time, titleFirst, titleSecond }) => {
+const Card = ({ src, time, titleFirst, titleSecond, profileImage }) => {
+  const timeAgo = (date) => {
+    const now = new Date();
+    const past = new Date(date);
+    const seconds = Math.floor((now - past) / 1000);
+
+    if (seconds < 60) return "Just now";
+
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60)
+      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24)
+      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+
+    const days = Math.floor(hours / 24);
+    if (days < 30)
+      return `${days} day${days > 1 ? "s" : ""} ago`;
+
+    const months = Math.floor(days / 30);
+    if (months < 12)
+      return `${months} month${months > 1 ? "s" : ""} ago`;
+
+    const years = Math.floor(months / 12);
+    return `${years} year${years > 1 ? "s" : ""} ago`;
+  };
   return (
     <div className="notifications-item">
-      <img src={src} alt="" className="rounded me-3 border" />
+      <img src={profileImage || "/images/avatar/1.png"} alt="" className="rounded me-3 border" />
       <div className="notifications-desc">
         <Link href="#" className="font-body text-truncate-2-line">
           {" "}
@@ -77,7 +119,7 @@ const Card = ({ src, time, titleFirst, titleSecond }) => {
         </Link>
         <div className="d-flex justify-content-between align-items-center">
           <div className="notifications-date text-muted border-bottom border-bottom-dashed">
-            {time} minutes ago
+            {timeAgo(time)}
           </div>
           <div className="d-flex align-items-center float-end gap-2">
             <span
