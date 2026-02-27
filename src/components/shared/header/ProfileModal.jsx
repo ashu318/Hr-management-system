@@ -53,6 +53,7 @@ const ProfileModal = () => {
           src={user?.profileImageUrl || "/images/avatar/1.png"}
           alt="user-image"
           className="img-fluid user-avtar me-0"
+          style={{ width: "40px", height: "40px" }}
         />
       </a>
       <div className="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
@@ -62,6 +63,7 @@ const ProfileModal = () => {
               src={user?.profileImageUrl || "/images/avatar/1.png"}
               alt="user-image"
               className="img-fluid user-avtar"
+              style={{ width: "40px", height: "40px" }}
             />
             <div>
               <h6 className="text-dark mb-0">

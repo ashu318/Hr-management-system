@@ -22,6 +22,9 @@ export async function GET(request) {
       where: {
         id: userId, // ✅ MUST be unique field
       },
+      include: {
+        financialDetails: true,   // 👈 ADD THIS
+      },
     });
 
 

@@ -8,6 +8,7 @@ import TabNotificationsContent from "@/components/customersView/TabNotifications
 import TabConnections from "@/components/customersView/TabConnections";
 import TabSecurity from "@/components/customersView/TabSecurity";
 import Profile from "@/components/widgetsList/Profile";
+import AccountInfo from "@/components/profile/AccountInfo";
 import { useState, useEffect } from "react";
 
 const ProfileContent = () => {
@@ -74,7 +75,7 @@ const ProfileContent = () => {
                                     Overview
                                 </a>
                             </li>
-                            {/* <li className="nav-item flex-fill border-top" role="presentation">
+                            <li className="nav-item flex-fill border-top" role="presentation">
                                 <a
                                     href="#"
                                     className="nav-link"
@@ -84,8 +85,8 @@ const ProfileContent = () => {
                                 >
                                     Account Info
                                 </a>
-                            </li> */}
-                            {/* <li className="nav-item flex-fill border-top" role="presentation">
+                            </li>
+                            <li className="nav-item flex-fill border-top" role="presentation">
                                 <a
                                     href="#"
                                     className="nav-link"
@@ -95,7 +96,7 @@ const ProfileContent = () => {
                                 >
                                     Documents
                                 </a>
-                            </li> */}
+                            </li>
                             <li className="nav-item flex-fill border-top" role="presentation">
                                 <a
                                     href="#"
@@ -134,9 +135,9 @@ const ProfileContent = () => {
                     </div>
                     <div className="tab-content">
                         <TabOverviewContent user={user} />
-                        {/* <div className="tab-pane fade" id="billingTab" role="tabpanel">
-                            <TabBillingContent billingHistoryshow={true} user={user} />
-                        </div> */}
+                        <div className="tab-pane fade" id="billingTab" role="tabpanel">
+                            <AccountInfo user={user} />
+                        </div>
                         <TabActivityContent />
                         <TabNotificationsContent employeeId={user?.employeeId} />
                         <TabConnections />
