@@ -277,6 +277,19 @@ exports.Prisma.UserDocumentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  date: 'date',
+  punchIn: 'punchIn',
+  punchOut: 'punchOut',
+  totalMinutes: 'totalMinutes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -341,6 +354,12 @@ exports.AnnouncementSendType = exports.$Enums.AnnouncementSendType = {
   INDIVIDUAL: 'INDIVIDUAL'
 };
 
+exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  INCOMPLETE: 'INCOMPLETE',
+  ABSENT: 'ABSENT'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   User: 'User',
@@ -352,7 +371,8 @@ exports.Prisma.ModelName = {
   FinancialDetails: 'FinancialDetails',
   PayrollSettings: 'PayrollSettings',
   LeaveComment: 'LeaveComment',
-  UserDocument: 'UserDocument'
+  UserDocument: 'UserDocument',
+  Attendance: 'Attendance'
 };
 
 /**

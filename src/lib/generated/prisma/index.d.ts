@@ -79,6 +79,11 @@ export type LeaveComment = $Result.DefaultSelection<Prisma.$LeaveCommentPayload>
  * ////////////////////////
  */
 export type UserDocument = $Result.DefaultSelection<Prisma.$UserDocumentPayload>
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = $Result.DefaultSelection<Prisma.$AttendancePayload>
 
 /**
  * Enums
@@ -157,6 +162,15 @@ export const AnnouncementSendType: {
 
 export type AnnouncementSendType = (typeof AnnouncementSendType)[keyof typeof AnnouncementSendType]
 
+
+export const AttendanceStatus: {
+  PRESENT: 'PRESENT',
+  INCOMPLETE: 'INCOMPLETE',
+  ABSENT: 'ABSENT'
+};
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -190,6 +204,10 @@ export const LeaveStatus: typeof $Enums.LeaveStatus
 export type AnnouncementSendType = $Enums.AnnouncementSendType
 
 export const AnnouncementSendType: typeof $Enums.AnnouncementSendType
+
+export type AttendanceStatus = $Enums.AttendanceStatus
+
+export const AttendanceStatus: typeof $Enums.AttendanceStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -418,6 +436,16 @@ export class PrismaClient<
     * ```
     */
   get userDocument(): Prisma.UserDocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.attendance`: Exposes CRUD operations for the **Attendance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Attendances
+    * const attendances = await prisma.attendance.findMany()
+    * ```
+    */
+  get attendance(): Prisma.AttendanceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -869,7 +897,8 @@ export namespace Prisma {
     FinancialDetails: 'FinancialDetails',
     PayrollSettings: 'PayrollSettings',
     LeaveComment: 'LeaveComment',
-    UserDocument: 'UserDocument'
+    UserDocument: 'UserDocument',
+    Attendance: 'Attendance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -888,7 +917,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment" | "userDocument"
+      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment" | "userDocument" | "attendance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1706,6 +1735,80 @@ export namespace Prisma {
           }
         }
       }
+      Attendance: {
+        payload: Prisma.$AttendancePayload<ExtArgs>
+        fields: Prisma.AttendanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AttendanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AttendanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          findFirst: {
+            args: Prisma.AttendanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AttendanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          findMany: {
+            args: Prisma.AttendanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+          }
+          create: {
+            args: Prisma.AttendanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          createMany: {
+            args: Prisma.AttendanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AttendanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+          }
+          delete: {
+            args: Prisma.AttendanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          update: {
+            args: Prisma.AttendanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          deleteMany: {
+            args: Prisma.AttendanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AttendanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AttendanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+          }
+          upsert: {
+            args: Prisma.AttendanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          aggregate: {
+            args: Prisma.AttendanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAttendance>
+          }
+          groupBy: {
+            args: Prisma.AttendanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AttendanceCountArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1813,6 +1916,7 @@ export namespace Prisma {
     payrollSettings?: PayrollSettingsOmit
     leaveComment?: LeaveCommentOmit
     userDocument?: UserDocumentOmit
+    attendance?: AttendanceOmit
   }
 
   /* Types for Logging */
@@ -1897,6 +2001,7 @@ export namespace Prisma {
     holidays: number
     announcements: number
     documents: number
+    attendances: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1904,6 +2009,7 @@ export namespace Prisma {
     holidays?: boolean | OrganizationCountOutputTypeCountHolidaysArgs
     announcements?: boolean | OrganizationCountOutputTypeCountAnnouncementsArgs
     documents?: boolean | OrganizationCountOutputTypeCountDocumentsArgs
+    attendances?: boolean | OrganizationCountOutputTypeCountAttendancesArgs
   }
 
   // Custom InputTypes
@@ -1945,6 +2051,13 @@ export namespace Prisma {
     where?: UserDocumentWhereInput
   }
 
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1956,6 +2069,7 @@ export namespace Prisma {
     createdAnnouncements: number
     announcementReceipts: number
     documents: number
+    attendances: number
     leaveComments: number
   }
 
@@ -1965,6 +2079,7 @@ export namespace Prisma {
     createdAnnouncements?: boolean | UserCountOutputTypeCountCreatedAnnouncementsArgs
     announcementReceipts?: boolean | UserCountOutputTypeCountAnnouncementReceiptsArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+    attendances?: boolean | UserCountOutputTypeCountAttendancesArgs
     leaveComments?: boolean | UserCountOutputTypeCountLeaveCommentsArgs
   }
 
@@ -2012,6 +2127,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserDocumentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
   }
 
   /**
@@ -2256,6 +2378,7 @@ export namespace Prisma {
     holidays?: boolean | Organization$holidaysArgs<ExtArgs>
     announcements?: boolean | Organization$announcementsArgs<ExtArgs>
     documents?: boolean | Organization$documentsArgs<ExtArgs>
+    attendances?: boolean | Organization$attendancesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -2289,6 +2412,7 @@ export namespace Prisma {
     holidays?: boolean | Organization$holidaysArgs<ExtArgs>
     announcements?: boolean | Organization$announcementsArgs<ExtArgs>
     documents?: boolean | Organization$documentsArgs<ExtArgs>
+    attendances?: boolean | Organization$attendancesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2301,6 +2425,7 @@ export namespace Prisma {
       holidays: Prisma.$HolidayPayload<ExtArgs>[]
       announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
       documents: Prisma.$UserDocumentPayload<ExtArgs>[]
+      attendances: Prisma.$AttendancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2706,6 +2831,7 @@ export namespace Prisma {
     holidays<T extends Organization$holidaysArgs<ExtArgs> = {}>(args?: Subset<T, Organization$holidaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HolidayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     announcements<T extends Organization$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Organization$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendances<T extends Organization$attendancesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3224,6 +3350,30 @@ export namespace Prisma {
   }
 
   /**
+   * Organization.attendances
+   */
+  export type Organization$attendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    cursor?: AttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
    * Organization without action
    */
   export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3720,6 +3870,7 @@ export namespace Prisma {
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    attendances?: boolean | User$attendancesArgs<ExtArgs>
     leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3862,6 +4013,7 @@ export namespace Prisma {
     financialDetails?: boolean | User$financialDetailsArgs<ExtArgs>
     payrollSettings?: boolean | User$payrollSettingsArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    attendances?: boolean | User$attendancesArgs<ExtArgs>
     leaveComments?: boolean | User$leaveCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3883,6 +4035,7 @@ export namespace Prisma {
       financialDetails: Prisma.$FinancialDetailsPayload<ExtArgs> | null
       payrollSettings: Prisma.$PayrollSettingsPayload<ExtArgs> | null
       documents: Prisma.$UserDocumentPayload<ExtArgs>[]
+      attendances: Prisma.$AttendancePayload<ExtArgs>[]
       leaveComments: Prisma.$LeaveCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4327,6 +4480,7 @@ export namespace Prisma {
     financialDetails<T extends User$financialDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$financialDetailsArgs<ExtArgs>>): Prisma__FinancialDetailsClient<$Result.GetResult<Prisma.$FinancialDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payrollSettings<T extends User$payrollSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$payrollSettingsArgs<ExtArgs>>): Prisma__PayrollSettingsClient<$Result.GetResult<Prisma.$PayrollSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendances<T extends User$attendancesArgs<ExtArgs> = {}>(args?: Subset<T, User$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leaveComments<T extends User$leaveCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$leaveCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4947,6 +5101,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserDocumentScalarFieldEnum | UserDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * User.attendances
+   */
+  export type User$attendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    cursor?: AttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
   }
 
   /**
@@ -15148,6 +15326,1171 @@ export namespace Prisma {
 
 
   /**
+   * Model Attendance
+   */
+
+  export type AggregateAttendance = {
+    _count: AttendanceCountAggregateOutputType | null
+    _avg: AttendanceAvgAggregateOutputType | null
+    _sum: AttendanceSumAggregateOutputType | null
+    _min: AttendanceMinAggregateOutputType | null
+    _max: AttendanceMaxAggregateOutputType | null
+  }
+
+  export type AttendanceAvgAggregateOutputType = {
+    totalMinutes: number | null
+  }
+
+  export type AttendanceSumAggregateOutputType = {
+    totalMinutes: number | null
+  }
+
+  export type AttendanceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    date: Date | null
+    punchIn: Date | null
+    punchOut: Date | null
+    totalMinutes: number | null
+    status: $Enums.AttendanceStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AttendanceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    organizationId: string | null
+    date: Date | null
+    punchIn: Date | null
+    punchOut: Date | null
+    totalMinutes: number | null
+    status: $Enums.AttendanceStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AttendanceCountAggregateOutputType = {
+    id: number
+    userId: number
+    organizationId: number
+    date: number
+    punchIn: number
+    punchOut: number
+    totalMinutes: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AttendanceAvgAggregateInputType = {
+    totalMinutes?: true
+  }
+
+  export type AttendanceSumAggregateInputType = {
+    totalMinutes?: true
+  }
+
+  export type AttendanceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    date?: true
+    punchIn?: true
+    punchOut?: true
+    totalMinutes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AttendanceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    date?: true
+    punchIn?: true
+    punchOut?: true
+    totalMinutes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AttendanceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    organizationId?: true
+    date?: true
+    punchIn?: true
+    punchOut?: true
+    totalMinutes?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AttendanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attendance to aggregate.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Attendances
+    **/
+    _count?: true | AttendanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AttendanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AttendanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AttendanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AttendanceMaxAggregateInputType
+  }
+
+  export type GetAttendanceAggregateType<T extends AttendanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateAttendance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAttendance[P]>
+      : GetScalarType<T[P], AggregateAttendance[P]>
+  }
+
+
+
+
+  export type AttendanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithAggregationInput | AttendanceOrderByWithAggregationInput[]
+    by: AttendanceScalarFieldEnum[] | AttendanceScalarFieldEnum
+    having?: AttendanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AttendanceCountAggregateInputType | true
+    _avg?: AttendanceAvgAggregateInputType
+    _sum?: AttendanceSumAggregateInputType
+    _min?: AttendanceMinAggregateInputType
+    _max?: AttendanceMaxAggregateInputType
+  }
+
+  export type AttendanceGroupByOutputType = {
+    id: string
+    userId: string
+    organizationId: string
+    date: Date
+    punchIn: Date | null
+    punchOut: Date | null
+    totalMinutes: number | null
+    status: $Enums.AttendanceStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: AttendanceCountAggregateOutputType | null
+    _avg: AttendanceAvgAggregateOutputType | null
+    _sum: AttendanceSumAggregateOutputType | null
+    _min: AttendanceMinAggregateOutputType | null
+    _max: AttendanceMaxAggregateOutputType | null
+  }
+
+  type GetAttendanceGroupByPayload<T extends AttendanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AttendanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AttendanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AttendanceGroupByOutputType[P]>
+            : GetScalarType<T[P], AttendanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AttendanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    date?: boolean
+    punchIn?: boolean
+    punchOut?: boolean
+    totalMinutes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendance"]>
+
+  export type AttendanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    date?: boolean
+    punchIn?: boolean
+    punchOut?: boolean
+    totalMinutes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendance"]>
+
+  export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    date?: boolean
+    punchIn?: boolean
+    punchOut?: boolean
+    totalMinutes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendance"]>
+
+  export type AttendanceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    organizationId?: boolean
+    date?: boolean
+    punchIn?: boolean
+    punchOut?: boolean
+    totalMinutes?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AttendanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "organizationId" | "date" | "punchIn" | "punchOut" | "totalMinutes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
+  export type AttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type AttendanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type AttendanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $AttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Attendance"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      organizationId: string
+      date: Date
+      punchIn: Date | null
+      punchOut: Date | null
+      totalMinutes: number | null
+      status: $Enums.AttendanceStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["attendance"]>
+    composites: {}
+  }
+
+  type AttendanceGetPayload<S extends boolean | null | undefined | AttendanceDefaultArgs> = $Result.GetResult<Prisma.$AttendancePayload, S>
+
+  type AttendanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AttendanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AttendanceCountAggregateInputType | true
+    }
+
+  export interface AttendanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Attendance'], meta: { name: 'Attendance' } }
+    /**
+     * Find zero or one Attendance that matches the filter.
+     * @param {AttendanceFindUniqueArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AttendanceFindUniqueArgs>(args: SelectSubset<T, AttendanceFindUniqueArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Attendance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AttendanceFindUniqueOrThrowArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AttendanceFindUniqueOrThrowArgs>(args: SelectSubset<T, AttendanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Attendance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindFirstArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AttendanceFindFirstArgs>(args?: SelectSubset<T, AttendanceFindFirstArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Attendance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindFirstOrThrowArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AttendanceFindFirstOrThrowArgs>(args?: SelectSubset<T, AttendanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Attendances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Attendances
+     * const attendances = await prisma.attendance.findMany()
+     * 
+     * // Get first 10 Attendances
+     * const attendances = await prisma.attendance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const attendanceWithIdOnly = await prisma.attendance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AttendanceFindManyArgs>(args?: SelectSubset<T, AttendanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Attendance.
+     * @param {AttendanceCreateArgs} args - Arguments to create a Attendance.
+     * @example
+     * // Create one Attendance
+     * const Attendance = await prisma.attendance.create({
+     *   data: {
+     *     // ... data to create a Attendance
+     *   }
+     * })
+     * 
+     */
+    create<T extends AttendanceCreateArgs>(args: SelectSubset<T, AttendanceCreateArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Attendances.
+     * @param {AttendanceCreateManyArgs} args - Arguments to create many Attendances.
+     * @example
+     * // Create many Attendances
+     * const attendance = await prisma.attendance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AttendanceCreateManyArgs>(args?: SelectSubset<T, AttendanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Attendances and returns the data saved in the database.
+     * @param {AttendanceCreateManyAndReturnArgs} args - Arguments to create many Attendances.
+     * @example
+     * // Create many Attendances
+     * const attendance = await prisma.attendance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Attendances and only return the `id`
+     * const attendanceWithIdOnly = await prisma.attendance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AttendanceCreateManyAndReturnArgs>(args?: SelectSubset<T, AttendanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Attendance.
+     * @param {AttendanceDeleteArgs} args - Arguments to delete one Attendance.
+     * @example
+     * // Delete one Attendance
+     * const Attendance = await prisma.attendance.delete({
+     *   where: {
+     *     // ... filter to delete one Attendance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AttendanceDeleteArgs>(args: SelectSubset<T, AttendanceDeleteArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Attendance.
+     * @param {AttendanceUpdateArgs} args - Arguments to update one Attendance.
+     * @example
+     * // Update one Attendance
+     * const attendance = await prisma.attendance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AttendanceUpdateArgs>(args: SelectSubset<T, AttendanceUpdateArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Attendances.
+     * @param {AttendanceDeleteManyArgs} args - Arguments to filter Attendances to delete.
+     * @example
+     * // Delete a few Attendances
+     * const { count } = await prisma.attendance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AttendanceDeleteManyArgs>(args?: SelectSubset<T, AttendanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Attendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Attendances
+     * const attendance = await prisma.attendance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AttendanceUpdateManyArgs>(args: SelectSubset<T, AttendanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Attendances and returns the data updated in the database.
+     * @param {AttendanceUpdateManyAndReturnArgs} args - Arguments to update many Attendances.
+     * @example
+     * // Update many Attendances
+     * const attendance = await prisma.attendance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Attendances and only return the `id`
+     * const attendanceWithIdOnly = await prisma.attendance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AttendanceUpdateManyAndReturnArgs>(args: SelectSubset<T, AttendanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Attendance.
+     * @param {AttendanceUpsertArgs} args - Arguments to update or create a Attendance.
+     * @example
+     * // Update or create a Attendance
+     * const attendance = await prisma.attendance.upsert({
+     *   create: {
+     *     // ... data to create a Attendance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Attendance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AttendanceUpsertArgs>(args: SelectSubset<T, AttendanceUpsertArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Attendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceCountArgs} args - Arguments to filter Attendances to count.
+     * @example
+     * // Count the number of Attendances
+     * const count = await prisma.attendance.count({
+     *   where: {
+     *     // ... the filter for the Attendances we want to count
+     *   }
+     * })
+    **/
+    count<T extends AttendanceCountArgs>(
+      args?: Subset<T, AttendanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AttendanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Attendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AttendanceAggregateArgs>(args: Subset<T, AttendanceAggregateArgs>): Prisma.PrismaPromise<GetAttendanceAggregateType<T>>
+
+    /**
+     * Group by Attendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AttendanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AttendanceGroupByArgs['orderBy'] }
+        : { orderBy?: AttendanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AttendanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAttendanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Attendance model
+   */
+  readonly fields: AttendanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Attendance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AttendanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Attendance model
+   */
+  interface AttendanceFieldRefs {
+    readonly id: FieldRef<"Attendance", 'String'>
+    readonly userId: FieldRef<"Attendance", 'String'>
+    readonly organizationId: FieldRef<"Attendance", 'String'>
+    readonly date: FieldRef<"Attendance", 'DateTime'>
+    readonly punchIn: FieldRef<"Attendance", 'DateTime'>
+    readonly punchOut: FieldRef<"Attendance", 'DateTime'>
+    readonly totalMinutes: FieldRef<"Attendance", 'Int'>
+    readonly status: FieldRef<"Attendance", 'AttendanceStatus'>
+    readonly createdAt: FieldRef<"Attendance", 'DateTime'>
+    readonly updatedAt: FieldRef<"Attendance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Attendance findUnique
+   */
+  export type AttendanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance findUniqueOrThrow
+   */
+  export type AttendanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance findFirst
+   */
+  export type AttendanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attendances.
+     */
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance findFirstOrThrow
+   */
+  export type AttendanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attendances.
+     */
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance findMany
+   */
+  export type AttendanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendances to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance create
+   */
+  export type AttendanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Attendance.
+     */
+    data: XOR<AttendanceCreateInput, AttendanceUncheckedCreateInput>
+  }
+
+  /**
+   * Attendance createMany
+   */
+  export type AttendanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Attendances.
+     */
+    data: AttendanceCreateManyInput | AttendanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Attendance createManyAndReturn
+   */
+  export type AttendanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Attendances.
+     */
+    data: AttendanceCreateManyInput | AttendanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Attendance update
+   */
+  export type AttendanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Attendance.
+     */
+    data: XOR<AttendanceUpdateInput, AttendanceUncheckedUpdateInput>
+    /**
+     * Choose, which Attendance to update.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance updateMany
+   */
+  export type AttendanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Attendances.
+     */
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Attendances to update
+     */
+    where?: AttendanceWhereInput
+    /**
+     * Limit how many Attendances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Attendance updateManyAndReturn
+   */
+  export type AttendanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * The data used to update Attendances.
+     */
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Attendances to update
+     */
+    where?: AttendanceWhereInput
+    /**
+     * Limit how many Attendances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Attendance upsert
+   */
+  export type AttendanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Attendance to update in case it exists.
+     */
+    where: AttendanceWhereUniqueInput
+    /**
+     * In case the Attendance found by the `where` argument doesn't exist, create a new Attendance with this data.
+     */
+    create: XOR<AttendanceCreateInput, AttendanceUncheckedCreateInput>
+    /**
+     * In case the Attendance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AttendanceUpdateInput, AttendanceUncheckedUpdateInput>
+  }
+
+  /**
+   * Attendance delete
+   */
+  export type AttendanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter which Attendance to delete.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance deleteMany
+   */
+  export type AttendanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attendances to delete
+     */
+    where?: AttendanceWhereInput
+    /**
+     * Limit how many Attendances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Attendance without action
+   */
+  export type AttendanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attendance
+     */
+    omit?: AttendanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15348,6 +16691,22 @@ export namespace Prisma {
   };
 
   export type UserDocumentScalarFieldEnum = (typeof UserDocumentScalarFieldEnum)[keyof typeof UserDocumentScalarFieldEnum]
+
+
+  export const AttendanceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    organizationId: 'organizationId',
+    date: 'date',
+    punchIn: 'punchIn',
+    punchOut: 'punchOut',
+    totalMinutes: 'totalMinutes',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15555,6 +16914,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AttendanceStatus'
+   */
+  export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AttendanceStatus[]'
+   */
+  export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -15584,6 +16957,7 @@ export namespace Prisma {
     holidays?: HolidayListRelationFilter
     announcements?: AnnouncementListRelationFilter
     documents?: UserDocumentListRelationFilter
+    attendances?: AttendanceListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -15596,6 +16970,7 @@ export namespace Prisma {
     holidays?: HolidayOrderByRelationAggregateInput
     announcements?: AnnouncementOrderByRelationAggregateInput
     documents?: UserDocumentOrderByRelationAggregateInput
+    attendances?: AttendanceOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -15611,6 +16986,7 @@ export namespace Prisma {
     holidays?: HolidayListRelationFilter
     announcements?: AnnouncementListRelationFilter
     documents?: UserDocumentListRelationFilter
+    attendances?: AttendanceListRelationFilter
   }, "id">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -15686,6 +17062,7 @@ export namespace Prisma {
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
     documents?: UserDocumentListRelationFilter
+    attendances?: AttendanceListRelationFilter
     leaveComments?: LeaveCommentListRelationFilter
   }
 
@@ -15737,6 +17114,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsOrderByWithRelationInput
     payrollSettings?: PayrollSettingsOrderByWithRelationInput
     documents?: UserDocumentOrderByRelationAggregateInput
+    attendances?: AttendanceOrderByRelationAggregateInput
     leaveComments?: LeaveCommentOrderByRelationAggregateInput
   }
 
@@ -15792,6 +17170,7 @@ export namespace Prisma {
     financialDetails?: XOR<FinancialDetailsNullableScalarRelationFilter, FinancialDetailsWhereInput> | null
     payrollSettings?: XOR<PayrollSettingsNullableScalarRelationFilter, PayrollSettingsWhereInput> | null
     documents?: UserDocumentListRelationFilter
+    attendances?: AttendanceListRelationFilter
     leaveComments?: LeaveCommentListRelationFilter
   }, "id" | "email" | "employeeId_organizationId">
 
@@ -16577,6 +17956,92 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"UserDocument"> | Date | string
   }
 
+  export type AttendanceWhereInput = {
+    AND?: AttendanceWhereInput | AttendanceWhereInput[]
+    OR?: AttendanceWhereInput[]
+    NOT?: AttendanceWhereInput | AttendanceWhereInput[]
+    id?: StringFilter<"Attendance"> | string
+    userId?: StringFilter<"Attendance"> | string
+    organizationId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    punchIn?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    punchOut?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    totalMinutes?: IntNullableFilter<"Attendance"> | number | null
+    status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type AttendanceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    date?: SortOrder
+    punchIn?: SortOrderInput | SortOrder
+    punchOut?: SortOrderInput | SortOrder
+    totalMinutes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_date?: AttendanceUserIdDateCompoundUniqueInput
+    AND?: AttendanceWhereInput | AttendanceWhereInput[]
+    OR?: AttendanceWhereInput[]
+    NOT?: AttendanceWhereInput | AttendanceWhereInput[]
+    userId?: StringFilter<"Attendance"> | string
+    organizationId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    punchIn?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    punchOut?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    totalMinutes?: IntNullableFilter<"Attendance"> | number | null
+    status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "userId_date">
+
+  export type AttendanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    date?: SortOrder
+    punchIn?: SortOrderInput | SortOrder
+    punchOut?: SortOrderInput | SortOrder
+    totalMinutes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AttendanceCountOrderByAggregateInput
+    _avg?: AttendanceAvgOrderByAggregateInput
+    _max?: AttendanceMaxOrderByAggregateInput
+    _min?: AttendanceMinOrderByAggregateInput
+    _sum?: AttendanceSumOrderByAggregateInput
+  }
+
+  export type AttendanceScalarWhereWithAggregatesInput = {
+    AND?: AttendanceScalarWhereWithAggregatesInput | AttendanceScalarWhereWithAggregatesInput[]
+    OR?: AttendanceScalarWhereWithAggregatesInput[]
+    NOT?: AttendanceScalarWhereWithAggregatesInput | AttendanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Attendance"> | string
+    userId?: StringWithAggregatesFilter<"Attendance"> | string
+    organizationId?: StringWithAggregatesFilter<"Attendance"> | string
+    date?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+    punchIn?: DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
+    punchOut?: DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
+    totalMinutes?: IntNullableWithAggregatesFilter<"Attendance"> | number | null
+    status?: EnumAttendanceStatusWithAggregatesFilter<"Attendance"> | $Enums.AttendanceStatus
+    createdAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -16587,6 +18052,7 @@ export namespace Prisma {
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -16599,6 +18065,7 @@ export namespace Prisma {
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -16611,6 +18078,7 @@ export namespace Prisma {
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -16623,6 +18091,7 @@ export namespace Prisma {
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -16696,6 +18165,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -16746,6 +18216,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16796,6 +18267,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -16846,6 +18318,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -17711,6 +19184,95 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AttendanceCreateInput = {
+    id?: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAttendancesInput
+    organization: OrganizationCreateNestedOneWithoutAttendancesInput
+  }
+
+  export type AttendanceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAttendancesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutAttendancesNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceCreateManyInput = {
+    id?: string
+    userId: string
+    organizationId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17776,6 +19338,12 @@ export namespace Prisma {
     none?: UserDocumentWhereInput
   }
 
+  export type AttendanceListRelationFilter = {
+    every?: AttendanceWhereInput
+    some?: AttendanceWhereInput
+    none?: AttendanceWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17794,6 +19362,10 @@ export namespace Prisma {
   }
 
   export type UserDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AttendanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18669,6 +20241,102 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumAttendanceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttendanceStatusFilter<$PrismaModel> | $Enums.AttendanceStatus
+  }
+
+  export type AttendanceUserIdDateCompoundUniqueInput = {
+    userId: string
+    date: Date | string
+  }
+
+  export type AttendanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    date?: SortOrder
+    punchIn?: SortOrder
+    punchOut?: SortOrder
+    totalMinutes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttendanceAvgOrderByAggregateInput = {
+    totalMinutes?: SortOrder
+  }
+
+  export type AttendanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    date?: SortOrder
+    punchIn?: SortOrder
+    punchOut?: SortOrder
+    totalMinutes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttendanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    organizationId?: SortOrder
+    date?: SortOrder
+    punchIn?: SortOrder
+    punchOut?: SortOrder
+    totalMinutes?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttendanceSumOrderByAggregateInput = {
+    totalMinutes?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+    _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -18697,6 +20365,13 @@ export namespace Prisma {
     connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
   }
 
+  export type AttendanceCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput> | AttendanceCreateWithoutOrganizationInput[] | AttendanceUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutOrganizationInput | AttendanceCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AttendanceCreateManyOrganizationInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -18723,6 +20398,13 @@ export namespace Prisma {
     connectOrCreate?: UserDocumentCreateOrConnectWithoutOrganizationInput | UserDocumentCreateOrConnectWithoutOrganizationInput[]
     createMany?: UserDocumentCreateManyOrganizationInputEnvelope
     connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+  }
+
+  export type AttendanceUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput> | AttendanceCreateWithoutOrganizationInput[] | AttendanceUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutOrganizationInput | AttendanceCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AttendanceCreateManyOrganizationInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18793,6 +20475,20 @@ export namespace Prisma {
     deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
   }
 
+  export type AttendanceUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput> | AttendanceCreateWithoutOrganizationInput[] | AttendanceUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutOrganizationInput | AttendanceCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutOrganizationInput | AttendanceUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AttendanceCreateManyOrganizationInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutOrganizationInput | AttendanceUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutOrganizationInput | AttendanceUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -18849,6 +20545,20 @@ export namespace Prisma {
     deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
   }
 
+  export type AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput> | AttendanceCreateWithoutOrganizationInput[] | AttendanceUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutOrganizationInput | AttendanceCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutOrganizationInput | AttendanceUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AttendanceCreateManyOrganizationInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutOrganizationInput | AttendanceUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutOrganizationInput | AttendanceUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
   export type OrganizationCreateNestedOneWithoutUsersInput = {
     create?: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutUsersInput
@@ -18900,6 +20610,13 @@ export namespace Prisma {
     connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
     createMany?: UserDocumentCreateManyUserInputEnvelope
     connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+  }
+
+  export type AttendanceCreateNestedManyWithoutUserInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
   }
 
   export type LeaveCommentCreateNestedManyWithoutUserInput = {
@@ -18954,6 +20671,13 @@ export namespace Prisma {
     connectOrCreate?: UserDocumentCreateOrConnectWithoutUserInput | UserDocumentCreateOrConnectWithoutUserInput[]
     createMany?: UserDocumentCreateManyUserInputEnvelope
     connect?: UserDocumentWhereUniqueInput | UserDocumentWhereUniqueInput[]
+  }
+
+  export type AttendanceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
   }
 
   export type LeaveCommentUncheckedCreateNestedManyWithoutUserInput = {
@@ -19093,6 +20817,20 @@ export namespace Prisma {
     deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
   }
 
+  export type AttendanceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutUserInput | AttendanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutUserInput | AttendanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutUserInput | AttendanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
   export type LeaveCommentUpdateManyWithoutUserNestedInput = {
     create?: XOR<LeaveCommentCreateWithoutUserInput, LeaveCommentUncheckedCreateWithoutUserInput> | LeaveCommentCreateWithoutUserInput[] | LeaveCommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LeaveCommentCreateOrConnectWithoutUserInput | LeaveCommentCreateOrConnectWithoutUserInput[]
@@ -19195,6 +20933,20 @@ export namespace Prisma {
     update?: UserDocumentUpdateWithWhereUniqueWithoutUserInput | UserDocumentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserDocumentUpdateManyWithWhereWithoutUserInput | UserDocumentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserDocumentScalarWhereInput | UserDocumentScalarWhereInput[]
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutUserInput | AttendanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutUserInput | AttendanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutUserInput | AttendanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
   }
 
   export type LeaveCommentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -19501,6 +21253,46 @@ export namespace Prisma {
     upsert?: OrganizationUpsertWithoutDocumentsInput
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDocumentsInput, OrganizationUpdateWithoutDocumentsInput>, OrganizationUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAttendancesInput = {
+    create?: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAttendancesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutAttendancesInput = {
+    create?: XOR<OrganizationCreateWithoutAttendancesInput, OrganizationUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutAttendancesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumAttendanceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AttendanceStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutAttendancesNestedInput = {
+    create?: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAttendancesInput
+    upsert?: UserUpsertWithoutAttendancesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAttendancesInput, UserUpdateWithoutAttendancesInput>, UserUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutAttendancesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutAttendancesInput, OrganizationUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutAttendancesInput
+    upsert?: OrganizationUpsertWithoutAttendancesInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutAttendancesInput, OrganizationUpdateWithoutAttendancesInput>, OrganizationUncheckedUpdateWithoutAttendancesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -19851,6 +21643,39 @@ export namespace Prisma {
     _max?: NestedEnumAnnouncementSendTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumAttendanceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttendanceStatusFilter<$PrismaModel> | $Enums.AttendanceStatus
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttendanceStatus | EnumAttendanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttendanceStatus[] | ListEnumAttendanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttendanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttendanceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+    _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutOrganizationInput = {
     id?: string
     email: string
@@ -19897,6 +21722,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -19946,6 +21772,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -20062,6 +21889,40 @@ export namespace Prisma {
 
   export type UserDocumentCreateManyOrganizationInputEnvelope = {
     data: UserDocumentCreateManyOrganizationInput | UserDocumentCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AttendanceCreateWithoutOrganizationInput = {
+    id?: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAttendancesInput
+  }
+
+  export type AttendanceUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateOrConnectWithoutOrganizationInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AttendanceCreateManyOrganizationInputEnvelope = {
+    data: AttendanceCreateManyOrganizationInput | AttendanceCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -20223,6 +22084,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserDocument"> | Date | string
   }
 
+  export type AttendanceUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutOrganizationInput, AttendanceUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<AttendanceCreateWithoutOrganizationInput, AttendanceUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AttendanceUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutOrganizationInput, AttendanceUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type AttendanceUpdateManyWithWhereWithoutOrganizationInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type AttendanceScalarWhereInput = {
+    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    OR?: AttendanceScalarWhereInput[]
+    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    id?: StringFilter<"Attendance"> | string
+    userId?: StringFilter<"Attendance"> | string
+    organizationId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    punchIn?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    punchOut?: DateTimeNullableFilter<"Attendance"> | Date | string | null
+    totalMinutes?: IntNullableFilter<"Attendance"> | number | null
+    status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+  }
+
   export type OrganizationCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -20232,6 +22125,7 @@ export namespace Prisma {
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -20243,6 +22137,7 @@ export namespace Prisma {
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -20468,6 +22363,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AttendanceCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutAttendancesInput
+  }
+
+  export type AttendanceUncheckedCreateWithoutUserInput = {
+    id?: string
+    organizationId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateOrConnectWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type AttendanceCreateManyUserInputEnvelope = {
+    data: AttendanceCreateManyUserInput | AttendanceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LeaveCommentCreateWithoutUserInput = {
     id?: string
     message: string
@@ -20512,6 +22441,7 @@ export namespace Prisma {
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -20523,6 +22453,7 @@ export namespace Prisma {
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type LeaveBalanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -20715,6 +22646,22 @@ export namespace Prisma {
     data: XOR<UserDocumentUpdateManyMutationInput, UserDocumentUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type AttendanceUpsertWithWhereUniqueWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutUserInput, AttendanceUncheckedUpdateWithoutUserInput>
+    create: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type AttendanceUpdateWithWhereUniqueWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutUserInput, AttendanceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AttendanceUpdateManyWithWhereWithoutUserInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type LeaveCommentUpsertWithWhereUniqueWithoutUserInput = {
     where: LeaveCommentWhereUniqueInput
     update: XOR<LeaveCommentUpdateWithoutUserInput, LeaveCommentUncheckedUpdateWithoutUserInput>
@@ -20751,6 +22698,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutHolidaysInput = {
@@ -20762,6 +22710,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutHolidaysInput = {
@@ -20789,6 +22738,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutHolidaysInput = {
@@ -20800,6 +22750,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserCreateWithoutLeaveBalancesInput = {
@@ -20848,6 +22799,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -20897,6 +22849,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -20962,6 +22915,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -21011,6 +22965,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -21060,6 +23015,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -21109,6 +23065,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -21198,6 +23155,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -21247,6 +23205,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -21275,6 +23234,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutAnnouncementsInput = {
@@ -21286,6 +23246,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutAnnouncementsInput = {
@@ -21339,6 +23300,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -21388,6 +23350,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -21444,6 +23407,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutAnnouncementsInput = {
@@ -21455,6 +23419,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutCreatedAnnouncementsInput = {
@@ -21514,6 +23479,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -21563,6 +23529,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -21655,6 +23622,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -21704,6 +23672,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -21802,6 +23771,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -21851,6 +23821,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -21900,6 +23871,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -21949,6 +23921,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22014,6 +23987,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -22063,6 +24037,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22112,6 +24087,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -22161,6 +24137,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22226,6 +24203,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -22275,6 +24253,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22354,6 +24333,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
     documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeaveCommentsInput = {
@@ -22403,6 +24383,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
     documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeaveCommentsInput = {
@@ -22503,6 +24484,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeaveCommentsInput = {
@@ -22552,6 +24534,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -22600,6 +24583,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
   }
 
@@ -22649,6 +24633,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
     financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
     payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
     leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22666,6 +24651,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutDocumentsInput = {
@@ -22677,6 +24663,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutDocumentsInput = {
@@ -22741,6 +24728,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -22790,6 +24778,7 @@ export namespace Prisma {
     announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22813,6 +24802,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutDocumentsInput = {
@@ -22824,6 +24814,287 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserCreateWithoutAttendancesInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutUsersInput
+    leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAttendancesInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designation: string
+    department?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAttendancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+  }
+
+  export type OrganizationCreateWithoutAttendancesInput = {
+    id?: string
+    name: string
+    domain?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    holidays?: HolidayCreateNestedManyWithoutOrganizationInput
+    announcements?: AnnouncementCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutAttendancesInput = {
+    id?: string
+    name: string
+    domain?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    holidays?: HolidayUncheckedCreateNestedManyWithoutOrganizationInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutOrganizationInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutAttendancesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutAttendancesInput, OrganizationUncheckedCreateWithoutAttendancesInput>
+  }
+
+  export type UserUpsertWithoutAttendancesInput = {
+    update: XOR<UserUpdateWithoutAttendancesInput, UserUncheckedUpdateWithoutAttendancesInput>
+    create: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAttendancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAttendancesInput, UserUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type UserUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type OrganizationUpsertWithoutAttendancesInput = {
+    update: XOR<OrganizationUpdateWithoutAttendancesInput, OrganizationUncheckedUpdateWithoutAttendancesInput>
+    create: XOR<OrganizationCreateWithoutAttendancesInput, OrganizationUncheckedCreateWithoutAttendancesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutAttendancesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutAttendancesInput, OrganizationUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type OrganizationUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    holidays?: HolidayUpdateManyWithoutOrganizationNestedInput
+    announcements?: AnnouncementUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    holidays?: HolidayUncheckedUpdateManyWithoutOrganizationNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutOrganizationNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserCreateManyOrganizationInput = {
@@ -22904,6 +25175,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AttendanceCreateManyOrganizationInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutOrganizationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -22950,6 +25233,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
   }
 
@@ -22999,6 +25283,7 @@ export namespace Prisma {
     financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
     payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
     documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
     leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -23156,6 +25441,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AttendanceUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAttendancesNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LeaveBalanceCreateManyUserInput = {
     id?: string
     leaveType: $Enums.LeaveType
@@ -23206,6 +25527,18 @@ export namespace Prisma {
     filePublicId?: string | null
     fileType?: string | null
     isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttendanceCreateManyUserInput = {
+    id?: string
+    organizationId: string
+    date: Date | string
+    punchIn?: Date | string | null
+    punchOut?: Date | string | null
+    totalMinutes?: number | null
+    status?: $Enums.AttendanceStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23379,6 +25712,42 @@ export namespace Prisma {
     filePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     fileType?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutAttendancesNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    punchIn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    punchOut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

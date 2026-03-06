@@ -1,11 +1,9 @@
 import React from "react";
 import Footer from "@/components/shared/Footer";
-import PageHeader from "@/components/shared/pageHeader/PageHeader";
-import AnnouncementHeader from "@/components/announcements/AnnouncementHeader";
-import ProjectsTwo from "@/components/widgetsTables/ProjectsTwo";
-import CreateAnnouncements from "@/components/announcements/CreateAnnouncements";
-import ListRecentAnnounements from "@/components/announcements/ListRecentAnnounements";
 import AllAnnouncement from "@/components/announcements/AllAnnouncement";
+
+
+export const dynamic = "force-dynamic";
 
 const page = () => {
   return (

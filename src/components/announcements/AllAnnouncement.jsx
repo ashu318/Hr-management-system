@@ -23,7 +23,7 @@ import toast from "react-hot-toast";
 
 
 
-const AllAnnouncement = () => {
+const AllAnnouncement = () => {goit
   // helper functsions
 
   const ANNOUNCEMENT_TYPE_MAP = {
