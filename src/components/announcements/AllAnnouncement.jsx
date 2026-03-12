@@ -23,7 +23,7 @@ import toast from "react-hot-toast";
 
 
 
-const AllAnnouncement = () => {goit
+const AllAnnouncement = () => {
   // helper functsions
 
   const ANNOUNCEMENT_TYPE_MAP = {
@@ -136,7 +136,7 @@ const AllAnnouncement = () => {goit
 
   return (
     <>
-      <Table data={announcements} columns={columns} loading={loading} searchPlaceholder="Search Announcement..."/>
+      <Table data={announcements} columns={columns} loading={loading} searchPlaceholder="Search Announcement..." />
 
       {sidebarOpen && selectedAnnouncement && (
         <ViewmoreSection
