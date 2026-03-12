@@ -28,15 +28,15 @@ const TabBillingContent = ({ billingHistoryshow, user }) => {
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">Account Number</span>
-                <span className="fw-semibold">{user?.financialDetails.accountNo || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.accountNo || "John Doe"}</span>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">IFSC</span>
-                <span className="fw-semibold">{user?.financialDetails.ifscCode || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.ifscCode || "John Doe"}</span>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">Account Holder</span>
-                <span className="fw-semibold">{user?.financialDetails.bankName || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.bankName || "John Doe"}</span>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">Account Holder</span>
@@ -65,15 +65,15 @@ const TabBillingContent = ({ billingHistoryshow, user }) => {
             }}>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">UNA Number</span>
-                <span className="fw-semibold">{user?.financialDetails.uanNo || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.uanNo || "John Doe"}</span>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">ESIC Number</span>
-                <span className="fw-semibold">{user?.financialDetails.esicNo || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.esicNo || "John Doe"}</span>
               </div>
               <div className="d-flex justify-content-between">
                 <span className="text-muted small">PAN Number</span>
-                <span className="fw-semibold">{user?.financialDetails.panNumber || "John Doe"}</span>
+                <span className="fw-semibold">{user?.financialDetails?.panNumber || "John Doe"}</span>
               </div>
             </div>
           </div>

@@ -56,6 +56,17 @@ const TabOverviewContent = ({ user }) => {
         </div>
 
         <div className="row g-2 mb-2">
+          <div className="col-sm-6 text-muted">Date of Birth :</div>
+          <div className="col-sm-6 fw-semibold">    {user?.dateOfBirth
+            ? new Date(user.dateOfBirth).toLocaleDateString("en-IN", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })
+            : "-"}</div>
+        </div>
+
+        <div className="row g-2 mb-2">
           <div className="col-sm-6 text-muted">Designation</div>
           <div className="col-sm-6 fw-semibold">{user?.designation || "-"}</div>
         </div>
