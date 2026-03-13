@@ -25,6 +25,7 @@ import { User, Send, Loader2, Info } from "lucide-react";
 import LeaveSidebar from "@/components/leaves/LeaveSidebar";
 import { marketingCampaignChartOptions } from "@/utils/chartsLogic/marketingCampaignChartOptions";
 import { useUserStore } from "@/store/useUserStore";
+import { useLeaveStore } from "@/store/useLeaveStore";
 
 const previtems = [
   {
@@ -35,140 +36,93 @@ const previtems = [
   },
 ];
 const CreateLeaves = () => {
-  const { startDate, endDate, setStartDate, setEndDate, renderFooter } = useDatePicker();
-  const { handleImageUpload, uploadedImage } = useImageUpload();
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [items, setItems] = useState(previtems);
-  const { fetchUser, user, loading } = useUserStore();
+  const { fetchUser, user, loading: userLoading } = useUserStore();
+  const { applyLeave, isLeavesLoading } = useLeaveStore();
 
-  const addItem = () => {
-    const newItem = {
-      id: items.length + 1,
-      product: "",
-      qty: 1,
-      price: 0,
-    };
-    setItems([...items, newItem]);
-  };
-
-  const removeItem = () => {
-    items.pop();
-
-    setItems(items);
-  };
-
-  const handleInputChange = (id, field, value) => {
-    const updatedItems = items.map((item) => {
-      if (item.id === id) {
-        const updatedItem = { ...item, [field]: value };
-        if (field === "qty" || field === "price") {
-          updatedItem.total = updatedItem.qty * updatedItem.price;
-        }
-        return updatedItem;
-      }
-      return item;
-    });
-    setItems(updatedItems);
-  };
-
-  const subTotal = items.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue.price * currentValue.qty;
-  }, 0);
-
-  const vat = (subTotal * 0.1).toFixed(2);
-  const vatNumber = Number(vat);
-  const total = Number(subTotal + vatNumber).toFixed(2);
-
-
-
-
-
-
-  // Leaves posting Logic
+  // ==========================
+  // Leave Form State
+  // ==========================
   const [formData, setFormData] = useState({
     leaveType: "",
     startDate: "",
     endDate: "",
     reason: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const [selectedLeaveType, setSelectedLeaveType] = useState(null);
 
+  // ==========================
+  // Handle Input Change
+  // ==========================
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  // ==========================
+  // Submit Leave Request
+  // ==========================
   const handleClick = async () => {
-    try {
-      // 🔍 Frontend validation (instant UX)
-      if (!formData.leaveType || !formData.startDate || !formData.endDate || !formData.reason) {
-        toast.error("Please fill all required fields");
-        return;
-      }
 
-      setIsLoading(true);
+    if (!formData.leaveType || !formData.startDate || !formData.endDate || !formData.reason) {
+      toast.error("Please fill all required fields");
+      return;
+    }
 
-      const response = await fetch("/api/leaves/myleaves", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // 🔐 send auth_token cookie
-        body: JSON.stringify(formData),
-      });
+    const success = await applyLeave(formData);
 
-      const data = await response.json();
+    if (success) {
 
-      if (!response.ok) {
-        // ❌ Backend validation error
-        toast.error(data.message || "Failed to apply leave");
-        return;
-      }
-
-      // ✅ Success
-      toast.success("Leave applied successfully!");
-
-      // Optional: reset form
+      // reset form
       setFormData({
         leaveType: "",
         startDate: "",
         endDate: "",
         reason: "",
       });
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setIsLoading(false);
+
+      setSelectedLeaveType(null);
     }
   };
-  // Leaves posting Logic
 
-
-
-  // Handle cancel
+  // ==========================
+  // Cancel Form
+  // ==========================
   const handleCancel = () => {
+
     if (window.confirm("Are you sure you want to cancel? All entered data will be lost.")) {
+
       setFormData({
         leaveType: "",
         startDate: "",
         endDate: "",
         reason: "",
       });
-      toast.success("Leave cancelled successfully!");
+
+      setSelectedLeaveType(null);
+
+      toast.success("Form cleared successfully");
     }
+
   };
 
-
-
-  // fetch users logic
+  // ==========================
+  // Fetch Logged-in User
+  // ==========================
   useEffect(() => {
     fetchUser();
   }, []);
-  // fetch users logic
+
+
+
+
+
+
+
 
   return (
     <>
@@ -304,7 +258,7 @@ const CreateLeaves = () => {
                 className="btn btn-light d-flex align-items-center justify-content-center"
                 style={{ minWidth: "150px", height: "44px" }}
                 onClick={handleCancel}
-                disabled={isLoading}
+                disabled={isLeavesLoading}
               >
                 Cancel
               </button>
@@ -313,9 +267,9 @@ const CreateLeaves = () => {
                 className="btn btn-primary d-flex align-items-center justify-content-center gap-2"
                 style={{ minWidth: "150px", height: "44px" }}
                 onClick={handleClick}
-                disabled={isLoading}
+                disabled={isLeavesLoading}
               >
-                {isLoading ? (
+                {isLeavesLoading ? (
                   <>
                     <Loader2 size={16} className="animate-spin" />
                     Processing...
@@ -330,33 +284,6 @@ const CreateLeaves = () => {
 
             </div>
 
-
-            {/* <div className="d-flex align-items-center justify-content-end gap-3">
-              <button
-                className="btn btn-light px-4"
-                onClick={handleCancel}
-                disabled={isLoading}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn btn-primary px-4 d-inline-flex align-items-center gap-2"
-                onClick={handleClick}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 size={16} className="animate-spin" />
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} />
-                    Submit Request
-                  </>
-                )}
-              </button>
-            </div> */}
 
           </div>
 
