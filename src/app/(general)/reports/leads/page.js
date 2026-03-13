@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import DuplicateLayout from "@/app/duplicateLayout";
 import Footer from "@/components/shared/Footer";
 import PageHeader from "@/components/shared/pageHeader/PageHeader";

@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
@@ -274,7 +275,34 @@ export async function GET(request) {
         createdAt: "desc",
       },
       take: 4,
+      select: {
+        id: true,
+        title: true,
+        message: true,
+        createdAt: true,
+
+        recipients: {
+          take: 4,
+          select: {
+            user: {
+              select: {
+                fullName: true,
+                profileImageUrl: true,
+              },
+            },
+          },
+        },
+        _count: {
+          select: {
+            recipients: true, // 👈 total recipients
+          },
+        },
+      },
     });
+
+
+    // console.log("The List Announcemnet is :", announcements)
+
 
     return NextResponse.json(
       {

@@ -8,40 +8,55 @@ import CardLoader from "@/components/shared/CardLoader";
 import useCardTitleActions from "@/hooks/useCardTitleActions";
 import Image from "next/image";
 import LeavesBalance from "@/components/loaders/LeavesBalanceLoaders";
+import { useLeaveStore } from "@/store/useLeaveStore";
 
 const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
   const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
     useCardTitleActions();
-  const [allLeaveBalances, setAllLeaveBalances] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [leaveBalances, setAllLeaveBalances] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  const fetchLeaveBalance = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch("/api/leaves/myleaves-balance", {
-        method: "GET",
-        credentials: "include",
-      });
+  // const fetchLeaveBalance = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const res = await fetch("/api/leaves/myleaves-balance", {
+  //       method: "GET",
+  //       credentials: "include",
+  //     });
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      if (data.success) {
-        setAllLeaveBalances(data.leaveBalances);
-      }
-    } catch (error) {
-      console.error("Failed to fetch leave balance", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     if (data.success) {
+  //       setAllLeaveBalances(data.leaveBalances);
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to fetch leave balance", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchLeaveBalance();
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("Updated leave balances:", leaveBalances);
+  // }, [leaveBalances]);
+
+
+
+
+  // new zustant store 
+  const { leaveBalances, fetchLeaveBalances, loading } = useLeaveStore();
 
   useEffect(() => {
-    fetchLeaveBalance();
+    fetchLeaveBalances();
   }, []);
 
-  useEffect(() => {
-    console.log("Updated leave balances:", allLeaveBalances);
-  }, [allLeaveBalances]);
+
+
+
 
 
 
@@ -50,8 +65,8 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
     PAID_LEAVE: { label: "Paid Leave", max: 7, color: "#0d6efd" },
     SICK_LEAVE: { label: "Sick Leave", max: 5, color: "#dc3545" },
     CASUAL_LEAVE: { label: "Casual Leave", max: 3, color: "#198754" },
-    MATERNITY_LEAVE: { label: "Maternity Leave", max: 90, color: "#6f42c1" },
-    PATERNITY_LEAVE: { label: "Paternity Leave", max: 3, color: "#ffc107" },
+    // MATERNITY_LEAVE: { label: "Maternity Leave", max: 90, color: "#6f42c1" },
+    // PATERNITY_LEAVE: { label: "Paternity Leave", max: 3, color: "#ffc107" },
     BEREAVEMENT_LEAVE: { label: "Bereavement Leave", max: 1, color: "#fd7e14" },
     OPTIONAL_LEAVE: { label: "Optional Leave", max: 3, color: "#20c997" },
   };
@@ -60,17 +75,17 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
 
 
   // card haeders logic calculataion
-  const totalAllocated = allLeaveBalances.reduce(
+  const totalAllocated = leaveBalances.reduce(
     (sum, leave) => sum + leave.allocated,
     0
   );
 
-  const totalUsed = allLeaveBalances.reduce(
+  const totalUsed = leaveBalances.reduce(
     (sum, leave) => sum + leave.used,
     0
   );
 
-  const totalRemaining = allLeaveBalances.reduce(
+  const totalRemaining = leaveBalances.reduce(
     (sum, leave) => sum + leave.remaining,
     0
   );
@@ -85,7 +100,7 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
       <div
         className={`card stretch stretch-full p-0 ${isExpanded ? "card-expand" : ""} ${refreshKey ? "card-loading" : ""}`}
       >
-        {isLoading ? (
+        {loading ? (
           <LeavesBalance rows={4} />
         ) : (
           <>
@@ -155,7 +170,7 @@ const LeaveSidebar = ({ footerShow, title, btnFooter }) => {
 
             {/* Progress section of leaves */}
             <div className="vstack gap-3">
-              {allLeaveBalances.map((leave, index) => {
+              {leaveBalances.map((leave, index) => {
                 const config = LEAVE_CONFIG[leave.leaveType];
                 if (!config) return null;
 

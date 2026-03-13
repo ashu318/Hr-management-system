@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import TaskContent from "@/components/tasks/TaskContent";
 import React from "react";
 

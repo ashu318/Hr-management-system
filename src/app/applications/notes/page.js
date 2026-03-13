@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import NotesContent from "@/components/notes/NotesContent";
 import React from "react";
 

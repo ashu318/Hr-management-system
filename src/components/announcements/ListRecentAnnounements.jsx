@@ -21,28 +21,28 @@ const ListRecentAnnounements = ({ title }) => {
   // Fecth Announcements list
   const COLORS = ["primary", "success", "warning", "info", "danger"];
   // const [isLoading, setIsLoading] = useState(true);
-  const team_memberss = [
-    {
-      id: 1,
-      user_name: "Janette Dalton",
-      user_img: "/images/avatar/2.png",
-    },
-    {
-      id: 2,
-      user_name: "Mikal Bon",
-      user_img: "/images/avatar/3.png",
-    },
-    {
-      id: 3,
-      user_name: "Socrates Itumay",
-      user_img: "/images/avatar/4.png",
-    },
-    {
-      id: 4,
-      user_name: "Jakson Jak",
-      user_img: "/images/avatar/6.png",
-    },
-  ];
+  // const team_memberss = [
+  //   {
+  //     id: 1,
+  //     user_name: "Janette Dalton",
+  //     user_img: "/images/avatar/2.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     user_name: "Mikal Bon",
+  //     user_img: "/images/avatar/3.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     user_name: "Socrates Itumay",
+  //     user_img: "/images/avatar/4.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     user_name: "Jakson Jak",
+  //     user_img: "/images/avatar/6.png",
+  //   },
+  // ];
 
   // const formatAnnouncementForUI = (announcement, index) => {
   //   const dateObj = new Date(announcement.createdAt);
@@ -107,6 +107,7 @@ const ListRecentAnnounements = ({ title }) => {
     return {
       id: announcement.id,
       title: announcement.title,
+
       date: {
         month: dateObj.toLocaleString("en-US", { month: "short" }),
         time: dateObj.toLocaleTimeString("en-US", {
@@ -114,9 +115,16 @@ const ListRecentAnnounements = ({ title }) => {
           minute: "2-digit",
         }),
       },
+
       createdAt: dateObj.getDate(),
       color: COLORS[index % COLORS.length],
-      team_members: team_memberss,
+
+      team_members: announcement.recipients.map((recipient) => ({
+        id: recipient.user.id,
+        user_name: recipient.user.fullName,
+        user_img: recipient.user.profileImageUrl,
+      })),
+      totalRecipients: announcement._count.recipients, // ✅ correct place
     };
   });
 
@@ -137,7 +145,7 @@ const ListRecentAnnounements = ({ title }) => {
           <>
             <div className="card-body">
               {formattedAnnouncements.length === 0 && <p className="text-center">No emails found</p>}
-              {formattedAnnouncements.map(({ date, id, team_members, color, title, createdAt }) => {
+              {formattedAnnouncements.map(({ date, id, team_members, color, title, createdAt, totalRecipients }) => {
                 return (
                   <div key={id} className="p-3 border border-dashed rounded-3 schedule-card">
                     <div className="d-flex justify-content-between">
@@ -151,7 +159,7 @@ const ListRecentAnnounements = ({ title }) => {
                           </span>
                         </div>
                         <div className="text-dark">
-                          <Link href="#" className="fw-bold mb-2 text-truncate-1-line">
+                          <Link href="/announcements/list" className="fw-bold mb-2 text-truncate-1-line">
                             {title}
                           </Link>
                           <span className="fs-11 fw-normal text-muted text-truncate-1-line">
@@ -160,7 +168,7 @@ const ListRecentAnnounements = ({ title }) => {
                         </div>
                       </div>
                       <div className="img-group lh-0 ms-3 justify-content-start d-none d-sm-flex">
-                        <ImageGroup data={team_members} avatarSize="avatar-md" />
+                        <ImageGroup data={team_members} moreUrl="/announcements/list" totalRecipients={totalRecipients} avatarSize="avatar-md" />
                       </div>
                     </div>
                   </div>

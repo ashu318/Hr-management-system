@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import CalenderContent from "@/components/calender/CalenderContent";
 import React from "react";
 

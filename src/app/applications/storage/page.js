@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import StorageContent from "@/components/storage/StorageContent";
 import React from "react";
 

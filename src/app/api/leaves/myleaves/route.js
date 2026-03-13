@@ -1,7 +1,8 @@
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
-
+import { sendEmail } from "@/lib/email";
 
 export async function POST(request) {
   try {
@@ -37,9 +38,6 @@ export async function POST(request) {
     // 📅 Calculate days
     const dayCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
-    console.log("DAY COUNT", dayCount);
-    console.log("THE FRONTEND DATA", leaveType, startDate, endDate, reason);
-
 
 
     // // 🔍 Fetch leave balance
@@ -53,7 +51,7 @@ export async function POST(request) {
       },
     });
 
-    console.log("LEAVE BALANCE", leaveBalance);
+    // console.log("LEAVE BALANCE", leaveBalance);
 
 
     if (!leaveBalance) {
@@ -97,11 +95,193 @@ export async function POST(request) {
           },
         },
       }),
-
     ]);
 
 
-    console.log("LEAVE APPLICATION", application);
+
+    // NEW CODE START
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { fullName: true, email: true },
+    });
+
+    const adminEmail = "shitansu.cts1025@gmail.com";
+    await sendEmail({
+      to: adminEmail,
+      subject: "New Leave Application",
+      html: `
+  <!DOCTYPE html>
+  <html>
+  <body style="margin:0;padding:0;background:#f4f6fb;font-family:Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+  <tr>
+  <td align="center">
+
+  <table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+
+  <!-- Header -->
+  <tr>
+  <td style="background:#3454d1;color:#fff;padding:30px;text-align:center;">
+  <h2 style="margin:0;">New Leave Application</h2>
+  <p style="margin:5px 0 0;">Crusharders HR System</p>
+  </td>
+  </tr>
+
+  <!-- Body -->
+  <tr>
+  <td style="padding:30px;color:#333;font-size:15px;line-height:1.6;">
+
+  <p>Hello Admin,</p>
+
+  <p>A new leave request has been submitted.</p>
+
+  <table width="100%" cellpadding="8" style="background:#f8f9fc;border-radius:8px;">
+  <tr>
+  <td><strong>Employee</strong></td>
+  <td>${user.fullName}</td>
+  </tr>
+
+  <tr>
+  <td><strong>Leave Type</strong></td>
+  <td>${leaveType}</td>
+  </tr>
+
+  <tr>
+  <td><strong>Start Date</strong></td>
+  <td>${startDate}</td>
+  </tr>
+
+  <tr>
+  <td><strong>End Date</strong></td>
+  <td>${endDate}</td>
+  </tr>
+
+  <tr>
+  <td><strong>Reason</strong></td>
+  <td>${reason}</td>
+  </tr>
+  </table>
+
+  <br/>
+
+  <div style="text-align:center;">
+  <a href="https://testctsl.in/leaves/list"
+  style="background:#3454d1;color:#fff;text-decoration:none;padding:12px 24px;border-radius:6px;display:inline-block;font-weight:bold;">
+  View Leave Request
+  </a>
+  </div>
+
+  </td>
+  </tr>
+
+  <!-- Footer -->
+  <tr>
+  <td style="background:#f1f3f9;padding:15px;text-align:center;font-size:12px;color:#777;">
+  © ${new Date().getFullYear()} Crusharders. All rights reserved.
+  </td>
+  </tr>
+
+  </table>
+
+  </td>
+  </tr>
+  </table>
+
+  </body>
+  </html>
+  `,
+    });
+    await sendEmail({
+      to: user.email,
+      subject: "Leave Request Submitted",
+      html: `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#f4f6fb;font-family:Arial,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+<tr>
+<td align="center">
+
+<table width="600" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+
+<!-- Header -->
+<tr>
+<td style="background:#3454d1;color:#fff;padding:30px;text-align:center;">
+<h2 style="margin:0;">Leave Request Submitted</h2>
+<p style="margin:5px 0 0;">Crusharders HR System</p>
+</td>
+</tr>
+
+<!-- Body -->
+<tr>
+<td style="padding:30px;color:#333;font-size:15px;line-height:1.6;">
+
+<p>Hello <strong>${user.fullName}</strong>,</p>
+
+<p>Your leave request has been successfully submitted and is currently under review.</p>
+
+<table width="100%" cellpadding="8" style="background:#f8f9fc;border-radius:8px;">
+<tr>
+<td><strong>Leave Type</strong></td>
+<td>${leaveType}</td>
+</tr>
+
+<tr>
+<td><strong>Start Date</strong></td>
+<td>${startDate}</td>
+</tr>
+
+<tr>
+<td><strong>End Date</strong></td>
+<td>${endDate}</td>
+</tr>
+
+<tr>
+<td><strong>Reason</strong></td>
+<td>${reason}</td>
+</tr>
+
+<tr>
+<td><strong>Status</strong></td>
+<td style="color:#e67e22;font-weight:bold;">Pending Approval</td>
+</tr>
+</table>
+
+<br/>
+
+<div style="text-align:center;">
+<a href="https://testctsl.in/leaves/list"
+style="background:#3454d1;color:#fff;text-decoration:none;padding:12px 24px;border-radius:6px;display:inline-block;font-weight:bold;">
+View My Leave Requests
+</a>
+</div>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<tr>
+<td style="background:#f1f3f9;padding:15px;text-align:center;font-size:12px;color:#777;">
+© ${new Date().getFullYear()} Crusharders. All rights reserved.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+`,
+    });
+    // NEW CODE END
+
+
+    // console.log("LEAVE APPLICATION", application);
 
 
     return NextResponse.json(
@@ -148,7 +328,7 @@ export async function GET(request) {
           select: {
             id: true,
             fullName: true,
-            email:true,
+            email: true,
             profileImageUrl: true,
           },
         },
