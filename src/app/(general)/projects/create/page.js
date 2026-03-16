@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 import React from "react";
 import PageHeader from "@/components/shared/pageHeader/PageHeader";
 import ProjectCreateContent from "@/components/projectsCreate/ProjectCreateContent";

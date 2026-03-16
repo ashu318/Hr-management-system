@@ -7,7 +7,8 @@ const ImageGroup = ({ data = [], avatarSize = "avatar-sm", avatarMore, avatarSty
     <>
       {data.map(({ user_name, user_img, id }, index) => (
         <Link
-          href={moreUrl}
+          key={id || index}
+          href={moreUrl || "#"}
           className={`avatar-image ${avatarSize}`}
           data-toggle="tooltip"
           data-bs-trigger="hover"
@@ -17,7 +18,7 @@ const ImageGroup = ({ data = [], avatarSize = "avatar-sm", avatarMore, avatarSty
         </Link>
       ))}
       <Link
-        href={moreUrl}
+        href={moreUrl || "#"}
         className={`avatar-text ${avatarSize} ${avatarStyle} fs-12 fw-normal`}
         data-toggle="tooltip"
         data-bs-trigger="hover"

@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 import React from "react";
 import EventCalendarSmall from "@/components/EventCalendarSmall";
 import Footer from "@/components/shared/Footer";
