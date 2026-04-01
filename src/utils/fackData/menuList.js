@@ -2,22 +2,8 @@ export const menuList = [
   {
     id: 0,
     name: "dashboards",
-    path: "#",
+    path: "/",
     icon: "feather-airplay",
-    dropdownMenu: [
-      {
-        id: 1,
-        name: "CRM",
-        path: "/",
-        subdropdownMenu: false,
-      },
-      {
-        id: 2,
-        name: "Analytics",
-        path: "/dashboards/analytics",
-        subdropdownMenu: false,
-      },
-    ],
   },
 
   {
@@ -25,6 +11,7 @@ export const menuList = [
     name: "reports",
     path: "#",
     icon: "feather-cast",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -57,6 +44,7 @@ export const menuList = [
     name: "applications",
     path: "#",
     icon: "feather-send",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -101,6 +89,7 @@ export const menuList = [
     name: "proposal",
     path: "#",
     icon: "feather-at-sign",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -133,6 +122,7 @@ export const menuList = [
     name: "payment",
     path: "#",
     icon: "feather-dollar-sign",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -193,14 +183,14 @@ export const menuList = [
         roles: ["ADMIN"],
       },
       {
-        id: 2,
+        id: 3,
         name: "Update Employee",
         path: "/customers/view",
         subdropdownMenu: false,
         roles: ["ADMIN"],
       },
       {
-        id: 2,
+        id: 4,
         name: " Employee List",
         path: "/customers/all",
         subdropdownMenu: false,
@@ -213,6 +203,8 @@ export const menuList = [
     name: "leads",
     path: "#",
     icon: "feather-alert-circle",
+    hidden: true,
+
     dropdownMenu: [
       {
         id: 1,
@@ -239,6 +231,7 @@ export const menuList = [
     name: "projects",
     path: "#",
     icon: "feather-briefcase",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -265,6 +258,7 @@ export const menuList = [
     name: "widgets",
     path: "#",
     icon: "feather-layout",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -535,6 +529,7 @@ export const menuList = [
     name: "help center",
     path: "#",
     icon: "feather-life-buoy",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
@@ -638,4 +633,5 @@ export const menuList = [
       },
     ],
   },
+
 ];
