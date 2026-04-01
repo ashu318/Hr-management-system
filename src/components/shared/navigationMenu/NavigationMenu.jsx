@@ -28,12 +28,6 @@ const NavigationManu = () => {
   // console.log("the logged in user is : ", user.role);
   const userRole = user?.role;
 
-
-
-
-
-
-
   return (
     <nav className={`nxl-navigation ${navigationOpen ? "mob-navigation-active" : ""}`}>
       <div className="navbar-wrapper">
@@ -70,12 +64,12 @@ const NavigationManu = () => {
                 <i className="fs-4 text-dark">
                   <FiSunrise />
                 </i>
-                <h6 className="mt-4 text-dark fw-bolder">Downloading Center</h6>
-                <p className="fs-11 my-3 text-dark">
-                  Duralux is a production ready CRM to get started up and running easily.
+                <h6 className="mt-2 text-dark fw-bolder">HRMS v1.0</h6>
+                <p className="fs-11 my-2 text-muted">
+                  System is up to date
                 </p>
                 <Link href="#" className="btn btn-primary text-dark w-100">
-                  Download Now
+                  Check Updates
                 </Link>
               </div>
             </div>
