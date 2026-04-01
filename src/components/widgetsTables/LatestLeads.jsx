@@ -1,13 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { FiMoreVertical } from "react-icons/fi";
+import { FiMoreVertical, FiEye } from "react-icons/fi";
 import CardHeader from "@/components/shared/CardHeader";
 import Pagination from "@/components/shared/Pagination";
 import { userList } from "@/utils/fackData/userList";
 import CardLoader from "@/components/shared/CardLoader";
 import useCardTitleActions from "@/hooks/useCardTitleActions";
 import Image from "next/image";
+import { usehrdashboardStore } from "@/store/usehrdashboardStore";
+import { useRouter } from "next/navigation";
+import HolidayTableSkeleton from "../loaders/HolidayTableSkeleton";
+
 
 const LatestLeads = ({ title }) => {
   const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
@@ -16,6 +20,22 @@ const LatestLeads = ({ title }) => {
   if (isRemoved) {
     return null;
   }
+
+
+  const router = useRouter();
+
+
+  const { birthdayinfo, fetchDashboard, loading } = usehrdashboardStore();
+
+  const data = birthdayinfo || [];
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+
+
+  console.log("The birthday INFO ARE", data)
 
   return (
     <div className="col-xxl-8">
@@ -35,57 +55,88 @@ const LatestLeads = ({ title }) => {
               <thead>
                 <tr className="border-b">
                   <th scope="row">Users</th>
-                  <th>Proposal</th>
+                  {/* <th>Proposal</th> */}
                   <th>Date</th>
                   <th>Status</th>
                   <th className="text-end">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                {userList(0, 5).map(
-                  ({ date, id, proposal, user_email, user_img, user_name, user_status, color }) => (
-                    <tr key={id} className="chat-single-item">
-                      <td>
-                        <div className="d-flex align-items-center gap-3">
-                          {user_img ? (
-                            <div className="avatar-image">
-                              <Image
-                                width={38}
-                                height={38}
-                                sizes="100vw"
-                                src={user_img}
-                                alt="user-img"
-                                className="img-fluid"
-                              />
-                            </div>
-                          ) : (
-                            <div className="text-white avatar-text user-avatar-text">
-                              {user_name.substring(0, 1)}
-                            </div>
-                          )}
-                          <a href="#">
-                            <span className="d-block">{user_name}</span>
-                            <span className="fs-12 d-block fw-normal text-muted">{user_email}</span>
-                          </a>
+              <tbody> {loading ? (
+                <tr>
+                  <HolidayTableSkeleton />
+                </tr>
+              ) : data.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-4">
+                    No upcoming birthdays 🎉
+                  </td>
+                </tr>
+              ) : (
+                data.map((emp) => (
+                  <tr key={emp.id}>
+                    <td>
+                      <div className="d-flex align-items-center gap-3">
+
+                        {/* Profile Image */}
+                        {emp.profileImageUrl ? (
+                          <div className="avatar-image">
+                            <img
+                              src={emp.profileImageUrl}
+                              alt="user-img"
+                              className="img-fluid"
+                            />
+                          </div>
+                        ) : (
+                          <div className="text-white avatar-text user-avatar-text">
+                            {emp.fullName?.charAt(0)}
+                          </div>
+                        )}
+
+                        {/* Name */}
+                        <div>
+                          <span className="d-block">{emp.fullName}</span>
+                          <span className="fs-12 text-muted">
+                            Birthday
+                          </span>
                         </div>
-                      </td>
-                      <td>
-                        <span className="badge bg-gray-200 text-dark">{proposal}</span>
-                      </td>
-                      <td>{date}</td>
-                      <td>
-                        <span className={`badge bg-soft-${color} text-${color}`}>
-                          {user_status}
+                      </div>
+                    </td>
+
+                    {/* Replace Proposal column */}
+                    {/* <td>
+                        <span className="badge bg-gray-200 text-dark">
+                          🎂 Birthday
                         </span>
-                      </td>
-                      <td className="text-end">
-                        <Link href="#">
-                          <FiMoreVertical size={16} />
-                        </Link>
-                      </td>
-                    </tr>
-                  )
-                )}
+                      </td> */}
+
+                    {/* Days Left */}
+                    <td>
+                      <span className="badge border border-dashed text-primary border-primary">
+                        {emp.formattedDate === 0
+                          ? "Today 🎉"
+                          : `${emp.formattedDate} days`}
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        className={`badge ${emp.formattedDate === "Today 🎉"
+                          ? "bg-success"
+                          : "bg-warning text-white"
+                          }`}
+                      >
+                        {emp.formattedDate === "Today 🎉" ? "Today 🎉" : "Upcoming"}
+                      </span>
+                    </td>
+
+                    {/* Action */}
+                    <td className="text-end">
+                      <Link href={`/employees/${emp.employeeId}`}>
+                        <FiEye size={16} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              )}
               </tbody>
             </table>
           </div>

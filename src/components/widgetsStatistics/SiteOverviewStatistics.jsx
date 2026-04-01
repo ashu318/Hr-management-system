@@ -1,13 +1,79 @@
-import React from "react";
+'use client';
+import React, { useEffect } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 import { crmStatisticsData } from "@/utils/fackData/crmStatisticsData";
 import getIcon from "@/utils/getIcon";
 import Link from "next/link";
+import { usehrdashboardStore } from "@/store/usehrdashboardStore";
 
 const SiteOverviewStatistics = () => {
+  const { cardsinfo, fetchDashboard } = usehrdashboardStore();
+
+  const data = cardsinfo || {};
+
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  // const employeesData = employees || {};
+  // const leavesData = leaves || {};
+  // const attendanceData = attendance || {};
+
+  // console.log(" The employeesData : ", employeesData,);
+  // console.log(" The LeaveData : ", leavesData);
+  // console.log(" The AttandanceData : ", attendanceData);
+
+  const totalLeaves =
+    (data.approvedLeavesThisMonth || 0) +
+    (data.pendingLeaves || 0);
+
+  const approvedPercent = totalLeaves
+    ? Math.round((data.approvedLeavesThisMonth / totalLeaves) * 100)
+    : 0;
+
+  const pendingPercent = totalLeaves
+    ? Math.round((data.pendingLeaves / totalLeaves) * 100)
+    : 0;
+
+  const statsData = [
+    {
+      id: 1,
+      title: "Total Employees",
+      total_number: data.totalEmployees || 0,
+      progress: "100%",
+      progress_info: "Total ",
+      icon: "feather-users",
+    },
+    {
+      id: 2,
+      title: "Approved Leaves (Month)",
+      total_number: data.approvedLeavesThisMonth || 0,
+      progress: `${approvedPercent}%`,
+      progress_info: "Approved",
+      icon: "feather-check-circle",
+    },
+    {
+      id: 3,
+      title: "Notifications (Month)",
+      total_number: data.notificationsThisMonth || 0,
+      progress: "100%",
+      progress_info: " This Month",
+      icon: "feather-bell",
+    },
+    {
+      id: 4,
+      title: "Pending Leaves",
+      total_number: data.pendingLeaves || 0,
+      progress: `${pendingPercent}%`,
+      progress_info: "Pending",
+      icon: "feather-clock",
+    },
+  ];
+
   return (
     <>
-      {crmStatisticsData.map(
+      {statsData.map(
         ({ id, completed_number, progress, progress_info, title, total_number, icon }) => (
           <div key={id} className="col-xxl-3 col-md-6">
             <div className="card stretch stretch-full short-info-card">
