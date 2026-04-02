@@ -17,20 +17,20 @@ import DuplicateLayout from "./duplicateLayout";
 const Home = () => {
   return (
     <DuplicateLayout>
-      <PageHeader>
+      {/* <PageHeader>
         <PageHeaderDate />
-      </PageHeader>
+      </PageHeader> */}
       <div className="main-content">
         <div className="row">
           <SiteOverviewStatistics />
-          <PaymentRecordChart />
-          <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
-          <TasksOverviewChart />
           <LeadsOverviewChart chartHeight={315} />
-          <LatestLeads title={"Latest Leads"} />
+          <PaymentRecordChart />
+          <LatestLeads title={"Upcoming Birthdays"} />
+          <TeamProgress title={"Upcoming Anniversaries"} footerShow={true} />
+          {/* <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
+          <TasksOverviewChart />
           <Schedule title={"Upcoming Schedule"} />
-          <Project cardYSpaceClass="hrozintioal-card" borderShow={true} title="Project Status" />
-          <TeamProgress title={"Team Progress"} footerShow={true} />
+          <Project cardYSpaceClass="hrozintioal-card" borderShow={true} title="Project Status" /> */}
         </div>
       </div>
     </DuplicateLayout>
