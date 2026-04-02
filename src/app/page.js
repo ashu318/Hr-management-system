@@ -23,12 +23,12 @@ const Home = () => {
       <div className="main-content">
         <div className="row">
           <SiteOverviewStatistics />
+          <LeadsOverviewChart chartHeight={315} />
+          <PaymentRecordChart />
           <LatestLeads title={"Upcoming Birthdays"} />
           <TeamProgress title={"Upcoming Anniversaries"} footerShow={true} />
-          {/* <PaymentRecordChart />
-          <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
+          {/* <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
           <TasksOverviewChart />
-          <LeadsOverviewChart chartHeight={315} />
           <Schedule title={"Upcoming Schedule"} />
           <Project cardYSpaceClass="hrozintioal-card" borderShow={true} title="Project Status" /> */}
         </div>

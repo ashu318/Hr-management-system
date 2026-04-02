@@ -187,7 +187,8 @@ export const menuList = [
         name: "Update Employee",
         path: "/customers/view",
         subdropdownMenu: false,
-        roles: ["ADMIN"],
+        hidden: true,
+        
       },
       {
         id: 4,
