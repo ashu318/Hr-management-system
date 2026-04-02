@@ -1,17 +1,21 @@
 export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 
 export async function GET(request) {
     try {
+        // 🔐 Auth
         const token = request.cookies.get("auth_token")?.value;
-        if (!token)
+        if (!token) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
 
         const decoded = verifyToken(token);
-        if (!decoded)
+        if (!decoded) {
             return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+        }
 
         if (decoded.role !== "ADMIN") {
             return NextResponse.json({ message: "Unauthorized Access" }, { status: 403 });
@@ -19,61 +23,60 @@ export async function GET(request) {
 
         const orgId = decoded.organizationId;
 
-        const [
-            totalEmployees,
-            approvedLeavesThisMonth,
-            notificationsThisMonth,
-            pendingLeaves,
-            users // ✅ ADD THIS
-        ] = await Promise.all([
+        // 🔥 SINGLE USERS QUERY (reuse everywhere)
+        const users = await prisma.user.findMany({
+            where: {
+                organizationId: orgId,
+                isDeleted: false,
+            },
+            select: {
+                id: true,
+                fullName: true,
+                dateOfBirth: true,
+                dateOfJoining: true,
+                profileImageUrl: true,
+                employeeId: true,
+                department: true,
+                employmentType: true,
+                status: true,
+            },
+        });
 
-            prisma.user.count({
-                where: { organizationId: orgId, isDeleted: false }
-            }),
+        // 🔥 Parallel lightweight counts (only 3 now)
+        const [approvedLeavesThisMonth, notificationsThisMonth, pendingLeaves] =
+            await Promise.all([
+                prisma.leaveApplication.count({
+                    where: {
+                        status: "APPROVED",
+                        user: { organizationId: orgId },
+                    },
+                }),
 
-            prisma.leaveApplication.count({
-                where: {
-                    status: "APPROVED",
-                    user: { organizationId: orgId }
-                }
-            }),
+                prisma.announcement.count({
+                    where: { organizationId: orgId },
+                }),
 
-            prisma.announcement.count({
-                where: { organizationId: orgId }
-            }),
+                prisma.leaveApplication.count({
+                    where: {
+                        status: "PENDING",
+                        user: { organizationId: orgId },
+                    },
+                }),
+            ]);
 
-            prisma.leaveApplication.count({
-                where: {
-                    status: "PENDING",
-                    user: { organizationId: orgId }
-                }
-            }),
+        // 🔥 TOTAL EMPLOYEES (no extra query)
+        const totalEmployees = users.length;
 
-            // 🎂 Users with DOB
-            prisma.user.findMany({
-                where: {
-                    organizationId: orgId,
-                    isDeleted: false,
-                    dateOfBirth: { not: null }
-                },
-                select: {
-                    id: true,
-                    fullName: true,
-                    dateOfBirth: true,
-                    dateOfJoining: true,
-                    profileImageUrl: true,
-                    employeeId: true,
-                }
-            })
-        ]);
-
+        // =========================
+        // 🎂 DATE LOGIC
+        // =========================
         const today = new Date();
-
-        // normalize today (remove time)
         today.setHours(0, 0, 0, 0);
 
+        // 🎂 Birthdays
         const upcomingBirthdays = users
-            .map(user => {
+            .filter((u) => u.dateOfBirth)
+            .map((user) => {
                 const dob = new Date(user.dateOfBirth);
 
                 let nextBirthday = new Date(
@@ -82,19 +85,15 @@ export async function GET(request) {
                     dob.getDate()
                 );
 
-                // if birthday already passed → next year
                 if (nextBirthday < today) {
                     nextBirthday.setFullYear(today.getFullYear() + 1);
                 }
 
-                return {
-                    ...user,
-                    birthdayDate: nextBirthday,
-                };
+                return { ...user, birthdayDate: nextBirthday };
             })
-            .sort((a, b) => a.birthdayDate - b.birthdayDate) // nearest first
-            .slice(0, 5) // ✅ ONLY NEXT 5
-            .map(user => {
+            .sort((a, b) => a.birthdayDate - b.birthdayDate)
+            .slice(0, 5)
+            .map((user) => {
                 const isToday =
                     user.birthdayDate.toDateString() === today.toDateString();
 
@@ -109,10 +108,10 @@ export async function GET(request) {
                 };
             });
 
-
+        // 🎉 Anniversaries
         const upcomingAnniversaries = users
-            .filter(user => user.dateOfJoining) // safety
-            .map(user => {
+            .filter((u) => u.dateOfJoining)
+            .map((user) => {
                 const doj = new Date(user.dateOfJoining);
 
                 let nextAnniversary = new Date(
@@ -121,15 +120,13 @@ export async function GET(request) {
                     doj.getDate()
                 );
 
-                // if already passed → next year
                 if (nextAnniversary < today) {
                     nextAnniversary.setFullYear(today.getFullYear() + 1);
                 }
 
-                // 🎯 Calculate years completed
                 let yearsCompleted = today.getFullYear() - doj.getFullYear();
                 if (nextAnniversary > today) {
-                    yearsCompleted--; // not completed this year yet
+                    yearsCompleted--;
                 }
 
                 return {
@@ -140,7 +137,7 @@ export async function GET(request) {
             })
             .sort((a, b) => a.anniversaryDate - b.anniversaryDate)
             .slice(0, 4)
-            .map(user => {
+            .map((user) => {
                 const isToday =
                     user.anniversaryDate.toDateString() === today.toDateString();
 
@@ -156,20 +153,52 @@ export async function GET(request) {
                 };
             });
 
+        // =========================
+        // 📊 CHARTS (NO groupBy)
+        // =========================
+        const groupCount = (data, key) => {
+            return Object.values(
+                data.reduce((acc, item) => {
+                    const value = item[key] || "Unknown";
+
+                    if (!acc[value]) {
+                        acc[value] = { name: value, value: 0 };
+                    }
+
+                    acc[value].value += 1;
+
+                    return acc;
+                }, {})
+            );
+        };
+
+        const charts = {
+            department: groupCount(users, "department"),
+            employmentType: groupCount(users, "employmentType"),
+            status: groupCount(users, "status"),
+        };
+
+        // =========================
+        // 🚀 FINAL RESPONSE
+        // =========================
         return NextResponse.json({
             success: true,
             cardsinfo: {
                 totalEmployees,
                 approvedLeavesThisMonth,
                 notificationsThisMonth,
-                pendingLeaves
+                pendingLeaves,
             },
-            birthdayinfo: upcomingBirthdays ,
-            anniversaryinfo: upcomingAnniversaries
+            birthdayinfo: upcomingBirthdays,
+            anniversaryinfo: upcomingAnniversaries,
+            charts, // 🔥 merged charts API
         });
 
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ error: "Dashboard error" }, { status: 500 });
+        return NextResponse.json(
+            { error: "Dashboard error" },
+            { status: 500 }
+        );
     }
 }

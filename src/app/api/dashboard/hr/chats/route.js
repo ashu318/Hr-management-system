@@ -1,64 +1,74 @@
 export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 
-
 export async function GET(request) {
     try {
+        // 🔐 Auth
         const token = request.cookies.get("auth_token")?.value;
-        if (!token)
+        if (!token) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
 
         const decoded = verifyToken(token);
-        if (!decoded)
+        if (!decoded) {
             return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+        }
 
         if (decoded.role !== "ADMIN") {
             return NextResponse.json({ message: "Unauthorized Access" }, { status: 403 });
         }
 
         const orgId = decoded.organizationId;
-        // Department
-        const dept = await prisma.user.groupBy({
-            by: ["department"],
-            _count: { id: true },
+
+        // 🔥 SINGLE QUERY (instead of 3 groupBy)
+        const users = await prisma.user.findMany({
+            where: {
+                organizationId: orgId,
+                isDeleted: false,
+            },
+            select: {
+                department: true,
+                employmentType: true,
+                status: true,
+            },
         });
 
-        const department = dept.map(d => ({
-            name: d.department || "Unknown",
-            value: d._count.id,
-        }));
+        // 🔥 Reusable grouping function
+        const groupCount = (data, key) => {
+            return Object.values(
+                data.reduce((acc, item) => {
+                    const value = item[key] || "Unknown";
 
-        // Employment Type
-        const empType = await prisma.user.groupBy({
-            by: ["employmentType"],
-            _count: { id: true },
-        });
+                    if (!acc[value]) {
+                        acc[value] = { name: value, value: 0 };
+                    }
 
-        const employmentType = empType.map(e => ({
-            name: e.employmentType || "Unknown",
-            value: e._count.id,
-        }));
+                    acc[value].value += 1;
 
-        // Status
-        const statusData = await prisma.user.groupBy({
-            by: ["status"],
-            _count: { id: true },
-        });
+                    return acc;
+                }, {})
+            );
+        };
 
-        const status = statusData.map(s => ({
-            name: s.status,
-            value: s._count.id,
-        }));
+        // 🔥 Build response
+        const department = groupCount(users, "department");
+        const employmentType = groupCount(users, "employmentType");
+        const status = groupCount(users, "status");
 
-        return Response.json({
+        return NextResponse.json({
             department,
             employmentType,
             status,
         });
 
     } catch (error) {
-        return NextResponse.json({ message: error.message }, { status: 500 });
+        console.error(error);
+        return NextResponse.json(
+            { message: "Charts API error" },
+            { status: 500 }
+        );
     }
 }
