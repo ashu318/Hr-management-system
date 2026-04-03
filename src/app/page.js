@@ -1,5 +1,5 @@
-export const dynamic = "force-dynamic";
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import PageHeader from "@/components/shared/pageHeader/PageHeader";
 import PageHeaderDate from "@/components/shared/pageHeader/PageHeaderDate";
 import SiteOverviewStatistics from "@/components/widgetsStatistics/SiteOverviewStatistics";
@@ -13,27 +13,44 @@ import LatestLeads from "@/components/widgetsTables/LatestLeads";
 import TeamProgress from "@/components/widgetsList/Progress";
 import { projectsDataTwo } from "@/utils/fackData/projectsDataTwo";
 import DuplicateLayout from "./duplicateLayout";
+import { useRouter } from "next/navigation";
+import { LoaderIcon } from "lucide-react";
 
 const Home = () => {
+  const router = useRouter();
+
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then(res => res.json())
+      .then(data => {
+        if (!data.user) {
+          router.push("/authentication/login/minimal");
+        } else if (data.user.role === "ADMIN") {
+          router.push("/dashboard/admin/");
+        } else {
+          router.push("/dashboard/user/");
+        }
+      });
+  }, []);
+
+
   return (
-    <DuplicateLayout>
-      <PageHeader>
-        <PageHeaderDate />
-      </PageHeader>
-      <div className="main-content">
-        <div className="row">
-          <SiteOverviewStatistics />
-          <LeadsOverviewChart chartHeight={315} />
-          <PaymentRecordChart />
-          <LatestLeads title={"Upcoming Birthdays"} />
-          <TeamProgress title={"Upcoming Anniversaries"} footerShow={true} />
-          {/* <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
-          <TasksOverviewChart />
-          <Schedule title={"Upcoming Schedule"} />
-          <Project cardYSpaceClass="hrozintioal-card" borderShow={true} title="Project Status" /> */}
-        </div>
-      </div>
-    </DuplicateLayout>
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      <LoaderIcon className="mb-3" size={40} style={{ animation: "spin 1s linear infinite" }} />
+      <h2 className="fw-bold mb-2">Welcome to Your HRMS</h2>
+      <p className="text-muted">Preparing your dashboard...</p>
+
+      {/* Custom spin animation */}
+      <style>
+        {`
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}
+      </style>
+    </div>
   );
 };
 

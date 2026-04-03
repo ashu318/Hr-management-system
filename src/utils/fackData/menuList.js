@@ -3,7 +3,9 @@ export const menuList = [
     id: 0,
     name: "dashboards",
     path: "/",
+    roles: ["ADMIN"],
     icon: "feather-airplay",
+    
   },
 
   {

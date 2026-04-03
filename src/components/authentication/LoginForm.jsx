@@ -26,13 +26,23 @@ const LoginForm = ({ registerPath, resetPath }) => {
 
       const data = await res.json();
 
+      console.log("The login data from the backend: ", data);
+
       if (!res.ok) {
         toast.error(data.message || "Something went wrong");
         return;
       }
 
       toast.success("Login successful");
-      router.push("/");
+
+      const role = data.user.role;
+      if (role === "ADMIN") {
+        router.push("/dashboard/admin");
+      } else {
+        router.push("/dashboard/user");
+      }
+
+      // router.push("/");
     } catch (error) {
       console.error(error);
       toast.error("Login failed");
