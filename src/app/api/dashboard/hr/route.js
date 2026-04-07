@@ -42,27 +42,26 @@ export async function GET(request) {
             },
         });
 
-        // 🔥 Parallel lightweight counts (only 3 now)
-        const [approvedLeavesThisMonth, notificationsThisMonth, pendingLeaves] =
-            await Promise.all([
-                prisma.leaveApplication.count({
-                    where: {
-                        status: "APPROVED",
-                        user: { organizationId: orgId },
-                    },
-                }),
+       
+        // ✅ Sequential queries (SAFE for DB)
 
-                prisma.announcement.count({
-                    where: { organizationId: orgId },
-                }),
+        const approvedLeavesThisMonth = await prisma.leaveApplication.count({
+            where: {
+                status: "APPROVED",
+                user: { organizationId: orgId },
+            },
+        });
 
-                prisma.leaveApplication.count({
-                    where: {
-                        status: "PENDING",
-                        user: { organizationId: orgId },
-                    },
-                }),
-            ]);
+        const notificationsThisMonth = await prisma.announcement.count({
+            where: { organizationId: orgId },
+        });
+
+        const pendingLeaves = await prisma.leaveApplication.count({
+            where: {
+                status: "PENDING",
+                user: { organizationId: orgId },
+            },
+        });
 
         // 🔥 TOTAL EMPLOYEES (no extra query)
         const totalEmployees = users.length;
