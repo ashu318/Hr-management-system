@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect } from "react";
+
+import React from "react";
 import PageHeader from "@/components/shared/pageHeader/PageHeader";
 import PageHeaderDate from "@/components/shared/pageHeader/PageHeaderDate";
 import SiteOverviewStatistics from "@/components/widgetsStatistics/SiteOverviewStatistics";
@@ -13,26 +13,26 @@ import LatestLeads from "@/components/widgetsTables/LatestLeads";
 import TeamProgress from "@/components/widgetsList/Progress";
 import { projectsDataTwo } from "@/utils/fackData/projectsDataTwo";
 import DuplicateLayout from "./duplicateLayout";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 
 const Home = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
 
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then(res => res.json())
-      .then(data => {
-        if (!data.user) {
-          router.push("/authentication/login/minimal");
-        } else if (data.user.role === "ADMIN") {
-          router.push("/dashboard/admin/");
-        } else {
-          router.push("/dashboard/user/");
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/auth/me")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       if (!data.user) {
+  //         router.push("/authentication/login/minimal");
+  //       } else if (data.user.role === "ADMIN") {
+  //         router.push("/dashboard/admin/");
+  //       } else {
+  //         router.push("/dashboard/user/");
+  //       }
+  //     });
+  // }, []);
 
 
   return (

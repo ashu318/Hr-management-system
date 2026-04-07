@@ -1,4 +1,3 @@
-'use client'
 import React from "react";
 import PageHeader from "@/components/shared/pageHeader/PageHeader";
 import PageHeaderDate from "@/components/shared/pageHeader/PageHeaderDate";
@@ -13,45 +12,45 @@ import LatestLeads from "@/components/widgetsTables/LatestLeads";
 import TeamProgress from "@/components/widgetsList/Progress";
 import { projectsDataTwo } from "@/utils/fackData/projectsDataTwo";
 import DuplicateLayout from "@/app/duplicateLayout";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useEffect } from "react";
+// import { useRouter } from "next/navigation";
+// import { useState } from "react";
+// import { useEffect } from "react";
 
 const Home = () => {
 
-    const router = useRouter();
-    const [loading, setLoading] = useState(true);
+    // const router = useRouter();
+    // const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const checkAccess = async () => {
-            const res = await fetch("/api/auth/me");
-            const data = await res.json();
+    // useEffect(() => {
+    //     const checkAccess = async () => {
+    //         const res = await fetch("/api/auth/me");
+    //         const data = await res.json();
 
-            if (!data.user) {
-                router.push("/authentication/login/minimal");
-                return;
-            }
+    //         if (!data.user) {
+    //             router.push("/authentication/login/minimal");
+    //             return;
+    //         }
 
-            if (data.user.role !== "ADMIN") {
-                router.push("/dashboard/user");
-                return;
-            }
+    //         if (data.user.role !== "ADMIN") {
+    //             router.push("/dashboard/user");
+    //             return;
+    //         }
 
-            setLoading(false);
-        };
+    //         setLoading(false);
+    //     };
 
-        checkAccess();
-    }, []);
+    //     checkAccess();
+    // }, []);
 
-    if (loading) {
-        return (
-            <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-                <div className="spinner-border text-primary mb-3" style={{ width: "3rem", height: "3rem" }}></div>
-                <h6 className="fw-semibold mb-1">Loading Dashboard</h6>
-                <p className="text-muted small">Please wait...</p>
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+    //             <div className="spinner-border text-primary mb-3" style={{ width: "3rem", height: "3rem" }}></div>
+    //             <h6 className="fw-semibold mb-1">Loading Dashboard</h6>
+    //             <p className="text-muted small">Please wait...</p>
+    //         </div>
+    //     );
+    // }
 
 
     return (
