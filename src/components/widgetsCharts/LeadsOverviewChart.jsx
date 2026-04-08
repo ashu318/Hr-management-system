@@ -13,22 +13,22 @@ const LeadsOverviewChart = ({ chartHeight = 280, isFooterShow }) => {
   const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
     useCardTitleActions();
 
-  const { charts, fetchCharts, chartsLoading } = usehrdashboardStore();
+  const { charts, fetchDashboard, loading } = usehrdashboardStore();
 
   if (isRemoved) return null;
 
   useEffect(() => {
-    if (!charts.employmentType.length) {
-      fetchCharts();
-    }
+    fetchDashboard();
   }, []);
 
   // ✅ Format labels
   const formatLabel = (text) =>
     text.replace("_", " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-  const series = charts.employmentType.map(item => item.value);
-  const labels = charts.employmentType.map(item => formatLabel(item.name));
+  const employmentData = charts?.employmentType || [];
+
+  const series = employmentData.map(item => item.value);
+  const labels = employmentData.map(item => formatLabel(item.name));
 
   const options = {
     labels,
@@ -77,7 +77,7 @@ const LeadsOverviewChart = ({ chartHeight = 280, isFooterShow }) => {
 
         <div className="card-body custom-card-action">
           {/* 🔥 Chart */}
-          {chartsLoading ? (
+          {loading ? (
             <div className="d-flex justify-content-center align-items-center" style={{ height: 280 }}>
               <div className="spinner-border text-primary" role="status" />
             </div>

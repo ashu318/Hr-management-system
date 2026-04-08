@@ -9,14 +9,12 @@ export const usehrdashboardStore = create((set, get) => ({
     loading: false,
     error: null,
     hasFetched: false,
-
     charts: {
         department: [],
         employmentType: [],
         status: [],
     },
-    chartsLoading: false,
-    hasFetchedCharts: false,
+
 
     //////////////////////
     // Dashboard Cards Data
@@ -40,6 +38,11 @@ export const usehrdashboardStore = create((set, get) => ({
                 cardsinfo: data.cardsinfo, // ✅ IMPORTANT
                 birthdayinfo: data.birthdayinfo || [],
                 anniversaryinfo: data.anniversaryinfo || [],
+                charts: data.charts || {   // ✅ ADD THIS
+                    department: [],
+                    employmentType: [],
+                    status: [],
+                },
                 loading: false,
                 hasFetched: true,
             });
@@ -51,33 +54,7 @@ export const usehrdashboardStore = create((set, get) => ({
         }
     },
 
-    //////////////////////
-    // Ananlysis chats Data
-    //////////////////////
-    fetchCharts: async () => {
-        if (get().hasFetchedCharts) return;
 
-        try {
-            set({ chartsLoading: true });
-
-            const res = await fetch("/api/dashboard/hr/chats");
-
-            if (!res.ok) throw new Error("Failed to fetch charts");
-
-            const data = await res.json();
-
-            set({
-                charts: data,
-                chartsLoading: false,
-                hasFetchedCharts: true,
-            });
-
-        } catch (error) {
-            console.error(error);
-            set({ chartsLoading: false });
-            toast.error("Failed to load charts");
-        }
-    },
 
 
 }));

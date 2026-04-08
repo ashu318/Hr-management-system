@@ -15,16 +15,14 @@ const PaymentRecordChart = () => {
   const { refreshKey, isRemoved, isExpanded, handleRefresh, handleExpand, handleDelete } =
     useCardTitleActions();
 
-  const { charts, fetchCharts, chartsLoading } = usehrdashboardStore();
+  const { charts, fetchDashboard, loading } = usehrdashboardStore();
 
-  // 🔥 Fetch data
+  // Fetch data
   useEffect(() => {
-    if (!charts.department.length) {
-      fetchCharts();
-    }
+    fetchDashboard();
   }, []);
 
-  // 🔥 Normalize department names
+  // Normalize department names
   const normalizeDept = (name) => {
     if (!name) return "Unknown";
     const n = name.toLowerCase();
@@ -35,7 +33,7 @@ const PaymentRecordChart = () => {
     return name;
   };
 
-  // 🔥 Clean + merge data
+  // Clean + merge data
   const cleanedDept = useMemo(() => {
     return charts.department.reduce((acc, item) => {
       const key = normalizeDept(item.name);
@@ -51,7 +49,7 @@ const PaymentRecordChart = () => {
     }, []);
   }, [charts.department]);
 
-  // 🔥 Chart data
+  // Chart data
   const series = [
     {
       name: "Employees",
@@ -66,7 +64,7 @@ const PaymentRecordChart = () => {
       categories: cleanedDept.map((d) => d.name),
     },
 
-    // 🔥 FIX: remove K from Y-axis
+    // FIX: remove K from Y-axis
     yaxis: {
       labels: {
         formatter: function (val) {
@@ -75,7 +73,7 @@ const PaymentRecordChart = () => {
       },
     },
 
-    // 🔥 FIX: remove K from tooltip
+    // FIX: remove K from tooltip
     tooltip: {
       y: {
         formatter: function (val) {
@@ -84,7 +82,7 @@ const PaymentRecordChart = () => {
       },
     },
 
-    // 🔥 OPTIONAL: show value on top of bars
+    // OPTIONAL: show value on top of bars
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -93,7 +91,7 @@ const PaymentRecordChart = () => {
     },
   };
 
-  // 🔥 Footer stats
+  // Footer stats
   const totalEmployees = cleanedDept.reduce((sum, d) => sum + d.value, 0);
   const maxDept = cleanedDept.reduce(
     (max, d) => (d.value > max.value ? d : max),
@@ -116,7 +114,7 @@ const PaymentRecordChart = () => {
         />
 
         <div className="card-body custom-card-action p-0">
-          {chartsLoading ? (
+          {loading ? (
             <div className="d-flex justify-content-center align-items-center" style={{ height: 280 }}>
               <div className="spinner-border text-primary" role="status" />
             </div>
