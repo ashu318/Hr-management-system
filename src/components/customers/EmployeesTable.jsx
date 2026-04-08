@@ -86,7 +86,6 @@ const EmployeesTable = () => {
                 );
             },
         },
-
         {
             header: "Employee ID",
             meta: {
@@ -98,7 +97,6 @@ const EmployeesTable = () => {
                 </span>
             ),
         },
-
         {
             header: "Contact Info",
             cell: ({ row }) => (
@@ -108,7 +106,6 @@ const EmployeesTable = () => {
                 </div>
             ),
         },
-
         {
             header: "Department",
             cell: ({ row }) => (
