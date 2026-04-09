@@ -85,82 +85,82 @@ const previtems = [
   },
 ];
 
-const departmentOptions = [
-  { value: "Development", label: "Development" },
-  { value: "HR", label: "HR" },
-  { value: "Sales", label: "Sales" },
-  { value: "SEO", label: "SEO" },
-  { value: "SMO", label: "SMO" },
-  { value: "Graphic Design", label: " Graphic Design" },
-  { value: "Lead Generation", label: "Lead Generation" },
-  { value: "Accounting", label: "Accounting" },
-];
+// const departmentOptions = [
+//   { value: "Development", label: "Development" },
+//   { value: "HR", label: "HR" },
+//   { value: "Sales", label: "Sales" },
+//   { value: "SEO", label: "SEO" },
+//   { value: "SMO", label: "SMO" },
+//   { value: "Graphic Design", label: " Graphic Design" },
+//   { value: "Lead Generation", label: "Lead Generation" },
+//   { value: "Accounting", label: "Accounting" },
+// ];
 
-const designationOptions = {
-  Development: [
-    { value: "Frontend Developer", label: "Frontend Developer" },
-    { value: "Backend Developer", label: "Backend Developer" },
-    { value: "Full Stack Developer", label: "Full Stack Developer" },
-    { value: "Software Engineer", label: "Software Engineer" },
-    { value: "Senior Developer", label: "Senior Developer" },
-    { value: "Tech Lead", label: "Tech Lead" },
-    { value: "QA Engineer", label: "QA Engineer" },
-    { value: "DevOps Engineer", label: "DevOps Engineer" },
-  ],
+// const designationOptions = {
+//   Development: [
+//     { value: "Frontend Developer", label: "Frontend Developer" },
+//     { value: "Backend Developer", label: "Backend Developer" },
+//     { value: "Full Stack Developer", label: "Full Stack Developer" },
+//     { value: "Software Engineer", label: "Software Engineer" },
+//     { value: "Senior Developer", label: "Senior Developer" },
+//     { value: "Tech Lead", label: "Tech Lead" },
+//     { value: "QA Engineer", label: "QA Engineer" },
+//     { value: "DevOps Engineer", label: "DevOps Engineer" },
+//   ],
 
-  HR: [
-    { value: "HR Executive", label: "HR Executive" },
-    { value: "HR Manager", label: "HR Manager" },
-    { value: "Recruiter", label: "Recruiter" },
-    { value: "Talent Acquisition Specialist", label: "Talent Acquisition Specialist" },
-    { value: "HR Business Partner", label: "HR Business Partner" },
-  ],
+//   HR: [
+//     { value: "HR Executive", label: "HR Executive" },
+//     { value: "HR Manager", label: "HR Manager" },
+//     { value: "Recruiter", label: "Recruiter" },
+//     { value: "Talent Acquisition Specialist", label: "Talent Acquisition Specialist" },
+//     { value: "HR Business Partner", label: "HR Business Partner" },
+//   ],
 
-  Sales: [
-    { value: "Sales Executive", label: "Sales Executive" },
-    { value: "Sales Manager", label: "Sales Manager" },
-    { value: "Business Development Executive", label: "Business Development Executive" },
-    { value: "Business Development Manager", label: "Business Development Manager" },
-    { value: "Account Manager", label: "Account Manager" },
-  ],
+//   Sales: [
+//     { value: "Sales Executive", label: "Sales Executive" },
+//     { value: "Sales Manager", label: "Sales Manager" },
+//     { value: "Business Development Executive", label: "Business Development Executive" },
+//     { value: "Business Development Manager", label: "Business Development Manager" },
+//     { value: "Account Manager", label: "Account Manager" },
+//   ],
 
-  SEO: [
-    { value: "SEO Executive", label: "SEO Executive" },
-    { value: "SEO Analyst", label: "SEO Analyst" },
-    { value: "Senior SEO Specialist", label: "Senior SEO Specialist" },
-    { value: "SEO Manager", label: "SEO Manager" },
-  ],
+//   SEO: [
+//     { value: "SEO Executive", label: "SEO Executive" },
+//     { value: "SEO Analyst", label: "SEO Analyst" },
+//     { value: "Senior SEO Specialist", label: "Senior SEO Specialist" },
+//     { value: "SEO Manager", label: "SEO Manager" },
+//   ],
 
-  SMO: [
-    { value: "SMO Executive", label: "SMO Executive" },
-    { value: "Social Media Executive", label: "Social Media Executive" },
-    { value: "Social Media Manager", label: "Social Media Manager" },
-    { value: "Content Strategist", label: "Content Strategist" },
-  ],
+//   SMO: [
+//     { value: "SMO Executive", label: "SMO Executive" },
+//     { value: "Social Media Executive", label: "Social Media Executive" },
+//     { value: "Social Media Manager", label: "Social Media Manager" },
+//     { value: "Content Strategist", label: "Content Strategist" },
+//   ],
 
-  "Graphic Design": [
-    { value: "Graphic Designer", label: "Graphic Designer" },
-    { value: "Senior Graphic Designer", label: "Senior Graphic Designer" },
-    { value: "UI/UX Designer", label: "UI/UX Designer" },
-    { value: "Visual Designer", label: "Visual Designer" },
-    { value: "Creative Head", label: "Creative Head" },
-  ],
+//   "Graphic Design": [
+//     { value: "Graphic Designer", label: "Graphic Designer" },
+//     { value: "Senior Graphic Designer", label: "Senior Graphic Designer" },
+//     { value: "UI/UX Designer", label: "UI/UX Designer" },
+//     { value: "Visual Designer", label: "Visual Designer" },
+//     { value: "Creative Head", label: "Creative Head" },
+//   ],
 
-  "Lead Generation": [
-    { value: "Lead Generation Executive", label: "Lead Generation Executive" },
-    { value: "Lead Generation Specialist", label: "Lead Generation Specialist" },
-    { value: "Inside Sales Executive", label: "Inside Sales Executive" },
-    { value: "Email Marketing Executive", label: "Email Marketing Executive" },
-  ],
+//   "Lead Generation": [
+//     { value: "Lead Generation Executive", label: "Lead Generation Executive" },
+//     { value: "Lead Generation Specialist", label: "Lead Generation Specialist" },
+//     { value: "Inside Sales Executive", label: "Inside Sales Executive" },
+//     { value: "Email Marketing Executive", label: "Email Marketing Executive" },
+//   ],
 
-  Accounting: [
-    { value: "Accountant", label: "Accountant" },
-    { value: "Senior Accountant", label: "Senior Accountant" },
-    { value: "Accounts Executive", label: "Accounts Executive" },
-    { value: "Finance Manager", label: "Finance Manager" },
-    { value: "Billing Executive", label: "Billing Executive" },
-  ],
-};
+//   Accounting: [
+//     { value: "Accountant", label: "Accountant" },
+//     { value: "Senior Accountant", label: "Senior Accountant" },
+//     { value: "Accounts Executive", label: "Accounts Executive" },
+//     { value: "Finance Manager", label: "Finance Manager" },
+//     { value: "Billing Executive", label: "Billing Executive" },
+//   ],
+// };
 
 const bloodOptions = [
   { value: "A+", label: "A+" },
@@ -172,9 +172,6 @@ const bloodOptions = [
   { value: "O-", label: "O-" },
   { value: "AB-", label: "AB-" },
 ];
-
-
-
 
 
 // Default selected values
@@ -252,6 +249,10 @@ const ProposalEditContent = () => {
   const [selectedBloodGroup, setSelectedBloodGroup] = useState(null);
   const [selectedRelationship, setSelectedRelationship] = useState(defaultRelationship);
 
+
+  const [departments, setDepartments] = useState([]);
+  const [designations, setDesignations] = useState([]);
+
   // Checkbox states
   const [payrollSettings, setPayrollSettings] = useState({
     overtime: false,
@@ -265,6 +266,62 @@ const ProposalEditContent = () => {
     setStartDate(new Date());
     setEndDate(addDays(new Date(), 2));
   }, []);
+
+
+  // Department and designation section 
+  const fetchDepartments = async () => {
+    const res = await fetch("/api/departments");
+    const data = await res.json();
+    setDepartments(data.departments || []);
+  };
+  const fetchDesignations = async () => {
+    const res = await fetch("/api/designations");
+    const data = await res.json();
+    setDesignations(data.designations || []);
+  };
+
+  useEffect(() => {
+    fetchDepartments();
+    fetchDesignations();
+  }, []);
+
+  console.log("departments", departments);
+  console.log("designations", designations);
+
+
+  const departmentOptions = departments.map((dept) => ({
+    value: dept.id,        // use ID (better than name)
+    label: dept.name,
+  }));
+  const designationOptions = departments.reduce((acc, dept) => {
+    acc[dept.id] = designations
+      .filter((des) => des.departmentId === dept.id)
+      .map((des) => ({
+        value: des.id,
+        label: des.name,
+      }));
+
+    return acc;
+  }, {});
+
+  const selectedDepartmentOption = departmentOptions.find(
+    (opt) => opt.value === selectedDepartment
+  );
+
+  const selectedDesignationOption =
+    selectedDepartment && designationOptions[selectedDepartment]
+      ? designationOptions[selectedDepartment].find(
+        (opt) => opt.value === selectedDesignation
+      )
+      : null;
+  // Department and designation section 
+
+
+
+
+
+
+
 
 
 
@@ -369,18 +426,18 @@ const ProposalEditContent = () => {
   };
 
   const handleDepartmentChange = (option) => {
-    setSelectedDepartment(option);
+    setSelectedDepartment(option.value); // store only ID
     setSelectedDesignation(null);
 
     setFormData((prev) => ({
       ...prev,
       department: option.value,
-      designation: "", // reset designation when department changes
+      designation: "",
     }));
   };
 
   const handleDesignationChange = (option) => {
-    setSelectedDesignation(option);
+    setSelectedDesignation(option.value);
 
     setFormData((prev) => ({
       ...prev,
@@ -756,32 +813,64 @@ const ProposalEditContent = () => {
                       <div className="col-md-4">
                         <div className="mb-4">
                           <label className="form-label">Department <span className="text-danger">*</span></label>
-                          <SelectDropdown
+                          {/* <SelectDropdown
                             options={departmentOptions}
                             defaultSelect="Select Department"
-                            selectedOption={selectedDepartment}
+                            selectedOption={selectedDepartmentOption} // ✅ FIXED
                             onSelectOption={handleDepartmentChange}
                             searchable={true}
                             placeholder="Search department..."
-                          />
+                          /> */}
+                          <select
+                            className="form-control"
+                            value={selectedDepartment || ""}
+                            onChange={(e) => handleDepartmentChange({
+                              value: e.target.value,
+                              label: e.target.options[e.target.selectedIndex].text
+                            })}
+                          >
+                            <option value="">Select Department</option>
+                            {departmentOptions.map((dept) => (
+                              <option key={dept.value} value={dept.value}>
+                                {dept.label}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
                           <label className="form-label">Designation <span className="text-danger">*</span></label>
-                          <SelectDropdown
+                          {/* <SelectDropdown
                             options={
                               selectedDepartment
-                                ? designationOptions[selectedDepartment.value]
+                                ? designationOptions[selectedDepartment]
                                 : []
                             }
                             defaultSelect="Select Designation"
-                            selectedOption={selectedDesignation}
+                            selectedOption={selectedDesignationOption} // ✅ FIXED
                             onSelectOption={handleDesignationChange}
                             searchable={true}
                             placeholder="Search designation..."
-                            disabled={!selectedDepartment} // 🔥 disable until department selected
-                          />
+                            disabled={!selectedDepartment}
+                          /> */}
+                          <select
+                            className="form-control"
+                            value={selectedDesignation || ""}
+                            onChange={(e) => handleDesignationChange({
+                              value: e.target.value,
+                              label: e.target.options[e.target.selectedIndex].text
+                            })}
+                            disabled={!selectedDepartment}
+                          >
+                            <option value="">Select Designation</option>
+                            {selectedDepartment &&
+                              designationOptions[selectedDepartment]?.map((des) => (
+                                <option key={des.value} value={des.value}>
+                                  {des.label}
+                                </option>
+                              ))}
+                          </select>
                         </div>
                       </div>
 

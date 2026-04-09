@@ -5,7 +5,7 @@ export const menuList = [
     path: "/",
     roles: ["ADMIN"],
     icon: "feather-airplay",
-    
+
   },
 
   {
@@ -190,7 +190,7 @@ export const menuList = [
         path: "/customers/view",
         subdropdownMenu: false,
         hidden: true,
-        
+
       },
       {
         id: 4,
@@ -636,5 +636,27 @@ export const menuList = [
       },
     ],
   },
+  {
+    id: 15,
+    name: "organization",
+    path: "#",
+    icon: "feather-grid", // clean & generic
+    dropdownMenu: [
+      {
+        id: 1,
+        name: "Departments",
+        path: "/organization/departments",
+        subdropdownMenu: false,
+        roles: ["ADMIN"],
+      },
+      {
+        id: 2,
+        name: "Job Titles",
+        path: "/organization/designations",
+        subdropdownMenu: false,
+        roles: ["ADMIN"],
+      },
+    ],
+  }
 
 ];

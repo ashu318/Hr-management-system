@@ -84,6 +84,18 @@ export type UserDocument = $Result.DefaultSelection<Prisma.$UserDocumentPayload>
  * 
  */
 export type Attendance = $Result.DefaultSelection<Prisma.$AttendancePayload>
+/**
+ * Model Department
+ * ////////////////////////
+ * ////////////////////////
+ */
+export type Department = $Result.DefaultSelection<Prisma.$DepartmentPayload>
+/**
+ * Model Designation
+ * ////////////////////////
+ * ////////////////////////
+ */
+export type Designation = $Result.DefaultSelection<Prisma.$DesignationPayload>
 
 /**
  * Enums
@@ -446,6 +458,26 @@ export class PrismaClient<
     * ```
     */
   get attendance(): Prisma.AttendanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.department`: Exposes CRUD operations for the **Department** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Departments
+    * const departments = await prisma.department.findMany()
+    * ```
+    */
+  get department(): Prisma.DepartmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.designation`: Exposes CRUD operations for the **Designation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Designations
+    * const designations = await prisma.designation.findMany()
+    * ```
+    */
+  get designation(): Prisma.DesignationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -898,7 +930,9 @@ export namespace Prisma {
     PayrollSettings: 'PayrollSettings',
     LeaveComment: 'LeaveComment',
     UserDocument: 'UserDocument',
-    Attendance: 'Attendance'
+    Attendance: 'Attendance',
+    Department: 'Department',
+    Designation: 'Designation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -917,7 +951,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment" | "userDocument" | "attendance"
+      modelProps: "organization" | "user" | "holiday" | "leaveBalance" | "leaveApplication" | "announcement" | "announcementRecipient" | "financialDetails" | "payrollSettings" | "leaveComment" | "userDocument" | "attendance" | "department" | "designation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1809,6 +1843,154 @@ export namespace Prisma {
           }
         }
       }
+      Department: {
+        payload: Prisma.$DepartmentPayload<ExtArgs>
+        fields: Prisma.DepartmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DepartmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DepartmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          findFirst: {
+            args: Prisma.DepartmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DepartmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          findMany: {
+            args: Prisma.DepartmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          create: {
+            args: Prisma.DepartmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          createMany: {
+            args: Prisma.DepartmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DepartmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          delete: {
+            args: Prisma.DepartmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          update: {
+            args: Prisma.DepartmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DepartmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DepartmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DepartmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.DepartmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          aggregate: {
+            args: Prisma.DepartmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDepartment>
+          }
+          groupBy: {
+            args: Prisma.DepartmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DepartmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DepartmentCountArgs<ExtArgs>
+            result: $Utils.Optional<DepartmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Designation: {
+        payload: Prisma.$DesignationPayload<ExtArgs>
+        fields: Prisma.DesignationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DesignationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DesignationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          findFirst: {
+            args: Prisma.DesignationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DesignationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          findMany: {
+            args: Prisma.DesignationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>[]
+          }
+          create: {
+            args: Prisma.DesignationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          createMany: {
+            args: Prisma.DesignationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DesignationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>[]
+          }
+          delete: {
+            args: Prisma.DesignationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          update: {
+            args: Prisma.DesignationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          deleteMany: {
+            args: Prisma.DesignationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DesignationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DesignationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>[]
+          }
+          upsert: {
+            args: Prisma.DesignationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DesignationPayload>
+          }
+          aggregate: {
+            args: Prisma.DesignationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDesignation>
+          }
+          groupBy: {
+            args: Prisma.DesignationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DesignationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DesignationCountArgs<ExtArgs>
+            result: $Utils.Optional<DesignationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1917,6 +2099,8 @@ export namespace Prisma {
     leaveComment?: LeaveCommentOmit
     userDocument?: UserDocumentOmit
     attendance?: AttendanceOmit
+    department?: DepartmentOmit
+    designation?: DesignationOmit
   }
 
   /* Types for Logging */
@@ -2203,6 +2387,77 @@ export namespace Prisma {
    */
   export type AnnouncementCountOutputTypeCountRecipientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnnouncementRecipientWhereInput
+  }
+
+
+  /**
+   * Count Type DepartmentCountOutputType
+   */
+
+  export type DepartmentCountOutputType = {
+    designations: number
+    users: number
+  }
+
+  export type DepartmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    designations?: boolean | DepartmentCountOutputTypeCountDesignationsArgs
+    users?: boolean | DepartmentCountOutputTypeCountUsersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DepartmentCountOutputType
+     */
+    select?: DepartmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeCountDesignationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DesignationWhereInput
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * Count Type DesignationCountOutputType
+   */
+
+  export type DesignationCountOutputType = {
+    users: number
+  }
+
+  export type DesignationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | DesignationCountOutputTypeCountUsersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DesignationCountOutputType without action
+   */
+  export type DesignationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DesignationCountOutputType
+     */
+    select?: DesignationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DesignationCountOutputType without action
+   */
+  export type DesignationCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -3422,8 +3677,8 @@ export namespace Prisma {
     employeeId: string | null
     fullName: string | null
     phone: string | null
-    designation: string | null
-    department: string | null
+    designationId: string | null
+    departmentId: string | null
     employmentType: $Enums.EmploymentType | null
     workLocation: string | null
     dateOfJoining: Date | null
@@ -3464,8 +3719,8 @@ export namespace Prisma {
     employeeId: string | null
     fullName: string | null
     phone: string | null
-    designation: string | null
-    department: string | null
+    designationId: string | null
+    departmentId: string | null
     employmentType: $Enums.EmploymentType | null
     workLocation: string | null
     dateOfJoining: Date | null
@@ -3506,8 +3761,8 @@ export namespace Prisma {
     employeeId: number
     fullName: number
     phone: number
-    designation: number
-    department: number
+    designationId: number
+    departmentId: number
     employmentType: number
     workLocation: number
     dateOfJoining: number
@@ -3558,8 +3813,8 @@ export namespace Prisma {
     employeeId?: true
     fullName?: true
     phone?: true
-    designation?: true
-    department?: true
+    designationId?: true
+    departmentId?: true
     employmentType?: true
     workLocation?: true
     dateOfJoining?: true
@@ -3600,8 +3855,8 @@ export namespace Prisma {
     employeeId?: true
     fullName?: true
     phone?: true
-    designation?: true
-    department?: true
+    designationId?: true
+    departmentId?: true
     employmentType?: true
     workLocation?: true
     dateOfJoining?: true
@@ -3642,8 +3897,8 @@ export namespace Prisma {
     employeeId?: true
     fullName?: true
     phone?: true
-    designation?: true
-    department?: true
+    designationId?: true
+    departmentId?: true
     employmentType?: true
     workLocation?: true
     dateOfJoining?: true
@@ -3771,8 +4026,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department: string | null
+    designationId: string | null
+    departmentId: string | null
     employmentType: $Enums.EmploymentType | null
     workLocation: string | null
     dateOfJoining: Date
@@ -3832,8 +4087,8 @@ export namespace Prisma {
     employeeId?: boolean
     fullName?: boolean
     phone?: boolean
-    designation?: boolean
-    department?: boolean
+    designationId?: boolean
+    departmentId?: boolean
     employmentType?: boolean
     workLocation?: boolean
     dateOfJoining?: boolean
@@ -3862,6 +4117,8 @@ export namespace Prisma {
     resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     leaveBalances?: boolean | User$leaveBalancesArgs<ExtArgs>
     LeaveApplication?: boolean | User$LeaveApplicationArgs<ExtArgs>
@@ -3885,8 +4142,8 @@ export namespace Prisma {
     employeeId?: boolean
     fullName?: boolean
     phone?: boolean
-    designation?: boolean
-    department?: boolean
+    designationId?: boolean
+    departmentId?: boolean
     employmentType?: boolean
     workLocation?: boolean
     dateOfJoining?: boolean
@@ -3915,6 +4172,8 @@ export namespace Prisma {
     resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3928,8 +4187,8 @@ export namespace Prisma {
     employeeId?: boolean
     fullName?: boolean
     phone?: boolean
-    designation?: boolean
-    department?: boolean
+    designationId?: boolean
+    departmentId?: boolean
     employmentType?: boolean
     workLocation?: boolean
     dateOfJoining?: boolean
@@ -3958,6 +4217,8 @@ export namespace Prisma {
     resetPasswordExpires?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3971,8 +4232,8 @@ export namespace Prisma {
     employeeId?: boolean
     fullName?: boolean
     phone?: boolean
-    designation?: boolean
-    department?: boolean
+    designationId?: boolean
+    departmentId?: boolean
     employmentType?: boolean
     workLocation?: boolean
     dateOfJoining?: boolean
@@ -4003,8 +4264,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designation" | "department" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "profileImagePublicId" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "bloodGroup" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "spouseName" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "status" | "lastLoginAt" | "employeeId" | "fullName" | "phone" | "designationId" | "departmentId" | "employmentType" | "workLocation" | "dateOfJoining" | "profileImageUrl" | "profileImagePublicId" | "gender" | "dateOfBirth" | "fatherName" | "motherName" | "bloodGroup" | "currentAddress" | "permanentAddress" | "city" | "state" | "country" | "pincode" | "emergencyContactName" | "emergencyContactPhone" | "emergencyContactRelation" | "reportingManagerName" | "organizationId" | "isDeleted" | "deletedAt" | "spouseName" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     leaveBalances?: boolean | User$leaveBalancesArgs<ExtArgs>
     LeaveApplication?: boolean | User$LeaveApplicationArgs<ExtArgs>
@@ -4018,15 +4281,21 @@ export namespace Prisma {
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    designation?: boolean | User$designationArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      designation: Prisma.$DesignationPayload<ExtArgs> | null
+      department: Prisma.$DepartmentPayload<ExtArgs> | null
       organization: Prisma.$OrganizationPayload<ExtArgs>
       leaveBalances: Prisma.$LeaveBalancePayload<ExtArgs>[]
       LeaveApplication: Prisma.$LeaveApplicationPayload<ExtArgs>[]
@@ -4048,8 +4317,8 @@ export namespace Prisma {
       employeeId: string
       fullName: string
       phone: string
-      designation: string
-      department: string | null
+      designationId: string | null
+      departmentId: string | null
       employmentType: $Enums.EmploymentType | null
       workLocation: string | null
       dateOfJoining: Date
@@ -4472,6 +4741,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    designation<T extends User$designationArgs<ExtArgs> = {}>(args?: Subset<T, User$designationArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    department<T extends User$departmentArgs<ExtArgs> = {}>(args?: Subset<T, User$departmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     leaveBalances<T extends User$leaveBalancesArgs<ExtArgs> = {}>(args?: Subset<T, User$leaveBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     LeaveApplication<T extends User$LeaveApplicationArgs<ExtArgs> = {}>(args?: Subset<T, User$LeaveApplicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4520,8 +4791,8 @@ export namespace Prisma {
     readonly employeeId: FieldRef<"User", 'String'>
     readonly fullName: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
-    readonly designation: FieldRef<"User", 'String'>
-    readonly department: FieldRef<"User", 'String'>
+    readonly designationId: FieldRef<"User", 'String'>
+    readonly departmentId: FieldRef<"User", 'String'>
     readonly employmentType: FieldRef<"User", 'EmploymentType'>
     readonly workLocation: FieldRef<"User", 'String'>
     readonly dateOfJoining: FieldRef<"User", 'DateTime'>
@@ -4943,6 +5214,44 @@ export namespace Prisma {
      * Limit how many Users to delete.
      */
     limit?: number
+  }
+
+  /**
+   * User.designation
+   */
+  export type User$designationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    where?: DesignationWhereInput
+  }
+
+  /**
+   * User.department
+   */
+  export type User$departmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
   }
 
   /**
@@ -16491,6 +16800,2218 @@ export namespace Prisma {
 
 
   /**
+   * Model Department
+   */
+
+  export type AggregateDepartment = {
+    _count: DepartmentCountAggregateOutputType | null
+    _min: DepartmentMinAggregateOutputType | null
+    _max: DepartmentMaxAggregateOutputType | null
+  }
+
+  export type DepartmentMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartmentMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartmentCountAggregateOutputType = {
+    id: number
+    name: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DepartmentMinAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartmentMaxAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartmentCountAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DepartmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Department to aggregate.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Departments
+    **/
+    _count?: true | DepartmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DepartmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DepartmentMaxAggregateInputType
+  }
+
+  export type GetDepartmentAggregateType<T extends DepartmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDepartment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDepartment[P]>
+      : GetScalarType<T[P], AggregateDepartment[P]>
+  }
+
+
+
+
+  export type DepartmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DepartmentWhereInput
+    orderBy?: DepartmentOrderByWithAggregationInput | DepartmentOrderByWithAggregationInput[]
+    by: DepartmentScalarFieldEnum[] | DepartmentScalarFieldEnum
+    having?: DepartmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DepartmentCountAggregateInputType | true
+    _min?: DepartmentMinAggregateInputType
+    _max?: DepartmentMaxAggregateInputType
+  }
+
+  export type DepartmentGroupByOutputType = {
+    id: string
+    name: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DepartmentCountAggregateOutputType | null
+    _min: DepartmentMinAggregateOutputType | null
+    _max: DepartmentMaxAggregateOutputType | null
+  }
+
+  type GetDepartmentGroupByPayload<T extends DepartmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DepartmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DepartmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DepartmentGroupByOutputType[P]>
+            : GetScalarType<T[P], DepartmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DepartmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    designations?: boolean | Department$designationsArgs<ExtArgs>
+    users?: boolean | Department$usersArgs<ExtArgs>
+    _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectScalar = {
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+  export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    designations?: boolean | Department$designationsArgs<ExtArgs>
+    users?: boolean | Department$usersArgs<ExtArgs>
+    _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DepartmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DepartmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Department"
+    objects: {
+      designations: Prisma.$DesignationPayload<ExtArgs>[]
+      users: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["department"]>
+    composites: {}
+  }
+
+  type DepartmentGetPayload<S extends boolean | null | undefined | DepartmentDefaultArgs> = $Result.GetResult<Prisma.$DepartmentPayload, S>
+
+  type DepartmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DepartmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DepartmentCountAggregateInputType | true
+    }
+
+  export interface DepartmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Department'], meta: { name: 'Department' } }
+    /**
+     * Find zero or one Department that matches the filter.
+     * @param {DepartmentFindUniqueArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DepartmentFindUniqueArgs>(args: SelectSubset<T, DepartmentFindUniqueArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Department that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DepartmentFindUniqueOrThrowArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DepartmentFindUniqueOrThrowArgs>(args: SelectSubset<T, DepartmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Department that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindFirstArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DepartmentFindFirstArgs>(args?: SelectSubset<T, DepartmentFindFirstArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Department that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindFirstOrThrowArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DepartmentFindFirstOrThrowArgs>(args?: SelectSubset<T, DepartmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Departments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Departments
+     * const departments = await prisma.department.findMany()
+     * 
+     * // Get first 10 Departments
+     * const departments = await prisma.department.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const departmentWithIdOnly = await prisma.department.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DepartmentFindManyArgs>(args?: SelectSubset<T, DepartmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Department.
+     * @param {DepartmentCreateArgs} args - Arguments to create a Department.
+     * @example
+     * // Create one Department
+     * const Department = await prisma.department.create({
+     *   data: {
+     *     // ... data to create a Department
+     *   }
+     * })
+     * 
+     */
+    create<T extends DepartmentCreateArgs>(args: SelectSubset<T, DepartmentCreateArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Departments.
+     * @param {DepartmentCreateManyArgs} args - Arguments to create many Departments.
+     * @example
+     * // Create many Departments
+     * const department = await prisma.department.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DepartmentCreateManyArgs>(args?: SelectSubset<T, DepartmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Departments and returns the data saved in the database.
+     * @param {DepartmentCreateManyAndReturnArgs} args - Arguments to create many Departments.
+     * @example
+     * // Create many Departments
+     * const department = await prisma.department.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Departments and only return the `id`
+     * const departmentWithIdOnly = await prisma.department.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DepartmentCreateManyAndReturnArgs>(args?: SelectSubset<T, DepartmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Department.
+     * @param {DepartmentDeleteArgs} args - Arguments to delete one Department.
+     * @example
+     * // Delete one Department
+     * const Department = await prisma.department.delete({
+     *   where: {
+     *     // ... filter to delete one Department
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DepartmentDeleteArgs>(args: SelectSubset<T, DepartmentDeleteArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Department.
+     * @param {DepartmentUpdateArgs} args - Arguments to update one Department.
+     * @example
+     * // Update one Department
+     * const department = await prisma.department.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DepartmentUpdateArgs>(args: SelectSubset<T, DepartmentUpdateArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Departments.
+     * @param {DepartmentDeleteManyArgs} args - Arguments to filter Departments to delete.
+     * @example
+     * // Delete a few Departments
+     * const { count } = await prisma.department.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DepartmentDeleteManyArgs>(args?: SelectSubset<T, DepartmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Departments
+     * const department = await prisma.department.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DepartmentUpdateManyArgs>(args: SelectSubset<T, DepartmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departments and returns the data updated in the database.
+     * @param {DepartmentUpdateManyAndReturnArgs} args - Arguments to update many Departments.
+     * @example
+     * // Update many Departments
+     * const department = await prisma.department.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Departments and only return the `id`
+     * const departmentWithIdOnly = await prisma.department.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DepartmentUpdateManyAndReturnArgs>(args: SelectSubset<T, DepartmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Department.
+     * @param {DepartmentUpsertArgs} args - Arguments to update or create a Department.
+     * @example
+     * // Update or create a Department
+     * const department = await prisma.department.upsert({
+     *   create: {
+     *     // ... data to create a Department
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Department we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DepartmentUpsertArgs>(args: SelectSubset<T, DepartmentUpsertArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Departments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentCountArgs} args - Arguments to filter Departments to count.
+     * @example
+     * // Count the number of Departments
+     * const count = await prisma.department.count({
+     *   where: {
+     *     // ... the filter for the Departments we want to count
+     *   }
+     * })
+    **/
+    count<T extends DepartmentCountArgs>(
+      args?: Subset<T, DepartmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DepartmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Department.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DepartmentAggregateArgs>(args: Subset<T, DepartmentAggregateArgs>): Prisma.PrismaPromise<GetDepartmentAggregateType<T>>
+
+    /**
+     * Group by Department.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DepartmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DepartmentGroupByArgs['orderBy'] }
+        : { orderBy?: DepartmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DepartmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDepartmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Department model
+   */
+  readonly fields: DepartmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Department.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    designations<T extends Department$designationsArgs<ExtArgs> = {}>(args?: Subset<T, Department$designationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends Department$usersArgs<ExtArgs> = {}>(args?: Subset<T, Department$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Department model
+   */
+  interface DepartmentFieldRefs {
+    readonly id: FieldRef<"Department", 'String'>
+    readonly name: FieldRef<"Department", 'String'>
+    readonly isActive: FieldRef<"Department", 'Boolean'>
+    readonly createdAt: FieldRef<"Department", 'DateTime'>
+    readonly updatedAt: FieldRef<"Department", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Department findUnique
+   */
+  export type DepartmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department findUniqueOrThrow
+   */
+  export type DepartmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department findFirst
+   */
+  export type DepartmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departments.
+     */
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department findFirstOrThrow
+   */
+  export type DepartmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departments.
+     */
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department findMany
+   */
+  export type DepartmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Departments to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department create
+   */
+  export type DepartmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Department.
+     */
+    data: XOR<DepartmentCreateInput, DepartmentUncheckedCreateInput>
+  }
+
+  /**
+   * Department createMany
+   */
+  export type DepartmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Departments.
+     */
+    data: DepartmentCreateManyInput | DepartmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Department createManyAndReturn
+   */
+  export type DepartmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Departments.
+     */
+    data: DepartmentCreateManyInput | DepartmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Department update
+   */
+  export type DepartmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Department.
+     */
+    data: XOR<DepartmentUpdateInput, DepartmentUncheckedUpdateInput>
+    /**
+     * Choose, which Department to update.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department updateMany
+   */
+  export type DepartmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Departments.
+     */
+    data: XOR<DepartmentUpdateManyMutationInput, DepartmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Departments to update
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department updateManyAndReturn
+   */
+  export type DepartmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * The data used to update Departments.
+     */
+    data: XOR<DepartmentUpdateManyMutationInput, DepartmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Departments to update
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department upsert
+   */
+  export type DepartmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Department to update in case it exists.
+     */
+    where: DepartmentWhereUniqueInput
+    /**
+     * In case the Department found by the `where` argument doesn't exist, create a new Department with this data.
+     */
+    create: XOR<DepartmentCreateInput, DepartmentUncheckedCreateInput>
+    /**
+     * In case the Department was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DepartmentUpdateInput, DepartmentUncheckedUpdateInput>
+  }
+
+  /**
+   * Department delete
+   */
+  export type DepartmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter which Department to delete.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department deleteMany
+   */
+  export type DepartmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Departments to delete
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department.designations
+   */
+  export type Department$designationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    where?: DesignationWhereInput
+    orderBy?: DesignationOrderByWithRelationInput | DesignationOrderByWithRelationInput[]
+    cursor?: DesignationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DesignationScalarFieldEnum | DesignationScalarFieldEnum[]
+  }
+
+  /**
+   * Department.users
+   */
+  export type Department$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Department without action
+   */
+  export type DepartmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Designation
+   */
+
+  export type AggregateDesignation = {
+    _count: DesignationCountAggregateOutputType | null
+    _min: DesignationMinAggregateOutputType | null
+    _max: DesignationMaxAggregateOutputType | null
+  }
+
+  export type DesignationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    title: string | null
+    departmentId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DesignationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    title: string | null
+    departmentId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DesignationCountAggregateOutputType = {
+    id: number
+    name: number
+    title: number
+    departmentId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DesignationMinAggregateInputType = {
+    id?: true
+    name?: true
+    title?: true
+    departmentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DesignationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    title?: true
+    departmentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DesignationCountAggregateInputType = {
+    id?: true
+    name?: true
+    title?: true
+    departmentId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DesignationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Designation to aggregate.
+     */
+    where?: DesignationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Designations to fetch.
+     */
+    orderBy?: DesignationOrderByWithRelationInput | DesignationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DesignationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Designations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Designations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Designations
+    **/
+    _count?: true | DesignationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DesignationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DesignationMaxAggregateInputType
+  }
+
+  export type GetDesignationAggregateType<T extends DesignationAggregateArgs> = {
+        [P in keyof T & keyof AggregateDesignation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDesignation[P]>
+      : GetScalarType<T[P], AggregateDesignation[P]>
+  }
+
+
+
+
+  export type DesignationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DesignationWhereInput
+    orderBy?: DesignationOrderByWithAggregationInput | DesignationOrderByWithAggregationInput[]
+    by: DesignationScalarFieldEnum[] | DesignationScalarFieldEnum
+    having?: DesignationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DesignationCountAggregateInputType | true
+    _min?: DesignationMinAggregateInputType
+    _max?: DesignationMaxAggregateInputType
+  }
+
+  export type DesignationGroupByOutputType = {
+    id: string
+    name: string
+    title: string
+    departmentId: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DesignationCountAggregateOutputType | null
+    _min: DesignationMinAggregateOutputType | null
+    _max: DesignationMaxAggregateOutputType | null
+  }
+
+  type GetDesignationGroupByPayload<T extends DesignationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DesignationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DesignationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DesignationGroupByOutputType[P]>
+            : GetScalarType<T[P], DesignationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DesignationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    title?: boolean
+    departmentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    users?: boolean | Designation$usersArgs<ExtArgs>
+    _count?: boolean | DesignationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["designation"]>
+
+  export type DesignationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    title?: boolean
+    departmentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["designation"]>
+
+  export type DesignationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    title?: boolean
+    departmentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["designation"]>
+
+  export type DesignationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    title?: boolean
+    departmentId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DesignationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "title" | "departmentId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["designation"]>
+  export type DesignationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    users?: boolean | Designation$usersArgs<ExtArgs>
+    _count?: boolean | DesignationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DesignationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }
+  export type DesignationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }
+
+  export type $DesignationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Designation"
+    objects: {
+      department: Prisma.$DepartmentPayload<ExtArgs>
+      users: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      title: string
+      departmentId: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["designation"]>
+    composites: {}
+  }
+
+  type DesignationGetPayload<S extends boolean | null | undefined | DesignationDefaultArgs> = $Result.GetResult<Prisma.$DesignationPayload, S>
+
+  type DesignationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DesignationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DesignationCountAggregateInputType | true
+    }
+
+  export interface DesignationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Designation'], meta: { name: 'Designation' } }
+    /**
+     * Find zero or one Designation that matches the filter.
+     * @param {DesignationFindUniqueArgs} args - Arguments to find a Designation
+     * @example
+     * // Get one Designation
+     * const designation = await prisma.designation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DesignationFindUniqueArgs>(args: SelectSubset<T, DesignationFindUniqueArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Designation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DesignationFindUniqueOrThrowArgs} args - Arguments to find a Designation
+     * @example
+     * // Get one Designation
+     * const designation = await prisma.designation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DesignationFindUniqueOrThrowArgs>(args: SelectSubset<T, DesignationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Designation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationFindFirstArgs} args - Arguments to find a Designation
+     * @example
+     * // Get one Designation
+     * const designation = await prisma.designation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DesignationFindFirstArgs>(args?: SelectSubset<T, DesignationFindFirstArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Designation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationFindFirstOrThrowArgs} args - Arguments to find a Designation
+     * @example
+     * // Get one Designation
+     * const designation = await prisma.designation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DesignationFindFirstOrThrowArgs>(args?: SelectSubset<T, DesignationFindFirstOrThrowArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Designations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Designations
+     * const designations = await prisma.designation.findMany()
+     * 
+     * // Get first 10 Designations
+     * const designations = await prisma.designation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const designationWithIdOnly = await prisma.designation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DesignationFindManyArgs>(args?: SelectSubset<T, DesignationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Designation.
+     * @param {DesignationCreateArgs} args - Arguments to create a Designation.
+     * @example
+     * // Create one Designation
+     * const Designation = await prisma.designation.create({
+     *   data: {
+     *     // ... data to create a Designation
+     *   }
+     * })
+     * 
+     */
+    create<T extends DesignationCreateArgs>(args: SelectSubset<T, DesignationCreateArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Designations.
+     * @param {DesignationCreateManyArgs} args - Arguments to create many Designations.
+     * @example
+     * // Create many Designations
+     * const designation = await prisma.designation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DesignationCreateManyArgs>(args?: SelectSubset<T, DesignationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Designations and returns the data saved in the database.
+     * @param {DesignationCreateManyAndReturnArgs} args - Arguments to create many Designations.
+     * @example
+     * // Create many Designations
+     * const designation = await prisma.designation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Designations and only return the `id`
+     * const designationWithIdOnly = await prisma.designation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DesignationCreateManyAndReturnArgs>(args?: SelectSubset<T, DesignationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Designation.
+     * @param {DesignationDeleteArgs} args - Arguments to delete one Designation.
+     * @example
+     * // Delete one Designation
+     * const Designation = await prisma.designation.delete({
+     *   where: {
+     *     // ... filter to delete one Designation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DesignationDeleteArgs>(args: SelectSubset<T, DesignationDeleteArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Designation.
+     * @param {DesignationUpdateArgs} args - Arguments to update one Designation.
+     * @example
+     * // Update one Designation
+     * const designation = await prisma.designation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DesignationUpdateArgs>(args: SelectSubset<T, DesignationUpdateArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Designations.
+     * @param {DesignationDeleteManyArgs} args - Arguments to filter Designations to delete.
+     * @example
+     * // Delete a few Designations
+     * const { count } = await prisma.designation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DesignationDeleteManyArgs>(args?: SelectSubset<T, DesignationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Designations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Designations
+     * const designation = await prisma.designation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DesignationUpdateManyArgs>(args: SelectSubset<T, DesignationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Designations and returns the data updated in the database.
+     * @param {DesignationUpdateManyAndReturnArgs} args - Arguments to update many Designations.
+     * @example
+     * // Update many Designations
+     * const designation = await prisma.designation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Designations and only return the `id`
+     * const designationWithIdOnly = await prisma.designation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DesignationUpdateManyAndReturnArgs>(args: SelectSubset<T, DesignationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Designation.
+     * @param {DesignationUpsertArgs} args - Arguments to update or create a Designation.
+     * @example
+     * // Update or create a Designation
+     * const designation = await prisma.designation.upsert({
+     *   create: {
+     *     // ... data to create a Designation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Designation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DesignationUpsertArgs>(args: SelectSubset<T, DesignationUpsertArgs<ExtArgs>>): Prisma__DesignationClient<$Result.GetResult<Prisma.$DesignationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Designations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationCountArgs} args - Arguments to filter Designations to count.
+     * @example
+     * // Count the number of Designations
+     * const count = await prisma.designation.count({
+     *   where: {
+     *     // ... the filter for the Designations we want to count
+     *   }
+     * })
+    **/
+    count<T extends DesignationCountArgs>(
+      args?: Subset<T, DesignationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DesignationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Designation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DesignationAggregateArgs>(args: Subset<T, DesignationAggregateArgs>): Prisma.PrismaPromise<GetDesignationAggregateType<T>>
+
+    /**
+     * Group by Designation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DesignationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DesignationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DesignationGroupByArgs['orderBy'] }
+        : { orderBy?: DesignationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DesignationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDesignationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Designation model
+   */
+  readonly fields: DesignationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Designation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DesignationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    department<T extends DepartmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentDefaultArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users<T extends Designation$usersArgs<ExtArgs> = {}>(args?: Subset<T, Designation$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Designation model
+   */
+  interface DesignationFieldRefs {
+    readonly id: FieldRef<"Designation", 'String'>
+    readonly name: FieldRef<"Designation", 'String'>
+    readonly title: FieldRef<"Designation", 'String'>
+    readonly departmentId: FieldRef<"Designation", 'String'>
+    readonly isActive: FieldRef<"Designation", 'Boolean'>
+    readonly createdAt: FieldRef<"Designation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Designation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Designation findUnique
+   */
+  export type DesignationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter, which Designation to fetch.
+     */
+    where: DesignationWhereUniqueInput
+  }
+
+  /**
+   * Designation findUniqueOrThrow
+   */
+  export type DesignationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter, which Designation to fetch.
+     */
+    where: DesignationWhereUniqueInput
+  }
+
+  /**
+   * Designation findFirst
+   */
+  export type DesignationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter, which Designation to fetch.
+     */
+    where?: DesignationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Designations to fetch.
+     */
+    orderBy?: DesignationOrderByWithRelationInput | DesignationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Designations.
+     */
+    cursor?: DesignationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Designations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Designations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Designations.
+     */
+    distinct?: DesignationScalarFieldEnum | DesignationScalarFieldEnum[]
+  }
+
+  /**
+   * Designation findFirstOrThrow
+   */
+  export type DesignationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter, which Designation to fetch.
+     */
+    where?: DesignationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Designations to fetch.
+     */
+    orderBy?: DesignationOrderByWithRelationInput | DesignationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Designations.
+     */
+    cursor?: DesignationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Designations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Designations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Designations.
+     */
+    distinct?: DesignationScalarFieldEnum | DesignationScalarFieldEnum[]
+  }
+
+  /**
+   * Designation findMany
+   */
+  export type DesignationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter, which Designations to fetch.
+     */
+    where?: DesignationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Designations to fetch.
+     */
+    orderBy?: DesignationOrderByWithRelationInput | DesignationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Designations.
+     */
+    cursor?: DesignationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Designations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Designations.
+     */
+    skip?: number
+    distinct?: DesignationScalarFieldEnum | DesignationScalarFieldEnum[]
+  }
+
+  /**
+   * Designation create
+   */
+  export type DesignationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Designation.
+     */
+    data: XOR<DesignationCreateInput, DesignationUncheckedCreateInput>
+  }
+
+  /**
+   * Designation createMany
+   */
+  export type DesignationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Designations.
+     */
+    data: DesignationCreateManyInput | DesignationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Designation createManyAndReturn
+   */
+  export type DesignationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Designations.
+     */
+    data: DesignationCreateManyInput | DesignationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Designation update
+   */
+  export type DesignationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Designation.
+     */
+    data: XOR<DesignationUpdateInput, DesignationUncheckedUpdateInput>
+    /**
+     * Choose, which Designation to update.
+     */
+    where: DesignationWhereUniqueInput
+  }
+
+  /**
+   * Designation updateMany
+   */
+  export type DesignationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Designations.
+     */
+    data: XOR<DesignationUpdateManyMutationInput, DesignationUncheckedUpdateManyInput>
+    /**
+     * Filter which Designations to update
+     */
+    where?: DesignationWhereInput
+    /**
+     * Limit how many Designations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Designation updateManyAndReturn
+   */
+  export type DesignationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * The data used to update Designations.
+     */
+    data: XOR<DesignationUpdateManyMutationInput, DesignationUncheckedUpdateManyInput>
+    /**
+     * Filter which Designations to update
+     */
+    where?: DesignationWhereInput
+    /**
+     * Limit how many Designations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Designation upsert
+   */
+  export type DesignationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Designation to update in case it exists.
+     */
+    where: DesignationWhereUniqueInput
+    /**
+     * In case the Designation found by the `where` argument doesn't exist, create a new Designation with this data.
+     */
+    create: XOR<DesignationCreateInput, DesignationUncheckedCreateInput>
+    /**
+     * In case the Designation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DesignationUpdateInput, DesignationUncheckedUpdateInput>
+  }
+
+  /**
+   * Designation delete
+   */
+  export type DesignationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+    /**
+     * Filter which Designation to delete.
+     */
+    where: DesignationWhereUniqueInput
+  }
+
+  /**
+   * Designation deleteMany
+   */
+  export type DesignationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Designations to delete
+     */
+    where?: DesignationWhereInput
+    /**
+     * Limit how many Designations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Designation.users
+   */
+  export type Designation$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Designation without action
+   */
+  export type DesignationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Designation
+     */
+    select?: DesignationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Designation
+     */
+    omit?: DesignationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DesignationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16525,8 +19046,8 @@ export namespace Prisma {
     employeeId: 'employeeId',
     fullName: 'fullName',
     phone: 'phone',
-    designation: 'designation',
-    department: 'department',
+    designationId: 'designationId',
+    departmentId: 'departmentId',
     employmentType: 'employmentType',
     workLocation: 'workLocation',
     dateOfJoining: 'dateOfJoining',
@@ -16707,6 +19228,30 @@ export namespace Prisma {
   };
 
   export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+  export const DepartmentScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+  export const DesignationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    title: 'title',
+    departmentId: 'departmentId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DesignationScalarFieldEnum = (typeof DesignationScalarFieldEnum)[keyof typeof DesignationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17024,8 +19569,8 @@ export namespace Prisma {
     employeeId?: StringFilter<"User"> | string
     fullName?: StringFilter<"User"> | string
     phone?: StringFilter<"User"> | string
-    designation?: StringFilter<"User"> | string
-    department?: StringNullableFilter<"User"> | string | null
+    designationId?: StringNullableFilter<"User"> | string | null
+    departmentId?: StringNullableFilter<"User"> | string | null
     employmentType?: EnumEmploymentTypeNullableFilter<"User"> | $Enums.EmploymentType | null
     workLocation?: StringNullableFilter<"User"> | string | null
     dateOfJoining?: DateTimeFilter<"User"> | Date | string
@@ -17054,6 +19599,8 @@ export namespace Prisma {
     resetPasswordExpires?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    designation?: XOR<DesignationNullableScalarRelationFilter, DesignationWhereInput> | null
+    department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     leaveBalances?: LeaveBalanceListRelationFilter
     LeaveApplication?: LeaveApplicationListRelationFilter
@@ -17076,8 +19623,8 @@ export namespace Prisma {
     employeeId?: SortOrder
     fullName?: SortOrder
     phone?: SortOrder
-    designation?: SortOrder
-    department?: SortOrderInput | SortOrder
+    designationId?: SortOrderInput | SortOrder
+    departmentId?: SortOrderInput | SortOrder
     employmentType?: SortOrderInput | SortOrder
     workLocation?: SortOrderInput | SortOrder
     dateOfJoining?: SortOrder
@@ -17106,6 +19653,8 @@ export namespace Prisma {
     resetPasswordExpires?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    designation?: DesignationOrderByWithRelationInput
+    department?: DepartmentOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
     leaveBalances?: LeaveBalanceOrderByRelationAggregateInput
     LeaveApplication?: LeaveApplicationOrderByRelationAggregateInput
@@ -17132,8 +19681,8 @@ export namespace Prisma {
     employeeId?: StringFilter<"User"> | string
     fullName?: StringFilter<"User"> | string
     phone?: StringFilter<"User"> | string
-    designation?: StringFilter<"User"> | string
-    department?: StringNullableFilter<"User"> | string | null
+    designationId?: StringNullableFilter<"User"> | string | null
+    departmentId?: StringNullableFilter<"User"> | string | null
     employmentType?: EnumEmploymentTypeNullableFilter<"User"> | $Enums.EmploymentType | null
     workLocation?: StringNullableFilter<"User"> | string | null
     dateOfJoining?: DateTimeFilter<"User"> | Date | string
@@ -17162,6 +19711,8 @@ export namespace Prisma {
     resetPasswordExpires?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    designation?: XOR<DesignationNullableScalarRelationFilter, DesignationWhereInput> | null
+    department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     leaveBalances?: LeaveBalanceListRelationFilter
     LeaveApplication?: LeaveApplicationListRelationFilter
@@ -17184,8 +19735,8 @@ export namespace Prisma {
     employeeId?: SortOrder
     fullName?: SortOrder
     phone?: SortOrder
-    designation?: SortOrder
-    department?: SortOrderInput | SortOrder
+    designationId?: SortOrderInput | SortOrder
+    departmentId?: SortOrderInput | SortOrder
     employmentType?: SortOrderInput | SortOrder
     workLocation?: SortOrderInput | SortOrder
     dateOfJoining?: SortOrder
@@ -17234,8 +19785,8 @@ export namespace Prisma {
     employeeId?: StringWithAggregatesFilter<"User"> | string
     fullName?: StringWithAggregatesFilter<"User"> | string
     phone?: StringWithAggregatesFilter<"User"> | string
-    designation?: StringWithAggregatesFilter<"User"> | string
-    department?: StringNullableWithAggregatesFilter<"User"> | string | null
+    designationId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    departmentId?: StringNullableWithAggregatesFilter<"User"> | string | null
     employmentType?: EnumEmploymentTypeNullableWithAggregatesFilter<"User"> | $Enums.EmploymentType | null
     workLocation?: StringNullableWithAggregatesFilter<"User"> | string | null
     dateOfJoining?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -18042,6 +20593,133 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
   }
 
+  export type DepartmentWhereInput = {
+    AND?: DepartmentWhereInput | DepartmentWhereInput[]
+    OR?: DepartmentWhereInput[]
+    NOT?: DepartmentWhereInput | DepartmentWhereInput[]
+    id?: StringFilter<"Department"> | string
+    name?: StringFilter<"Department"> | string
+    isActive?: BoolFilter<"Department"> | boolean
+    createdAt?: DateTimeFilter<"Department"> | Date | string
+    updatedAt?: DateTimeFilter<"Department"> | Date | string
+    designations?: DesignationListRelationFilter
+    users?: UserListRelationFilter
+  }
+
+  export type DepartmentOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    designations?: DesignationOrderByRelationAggregateInput
+    users?: UserOrderByRelationAggregateInput
+  }
+
+  export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DepartmentWhereInput | DepartmentWhereInput[]
+    OR?: DepartmentWhereInput[]
+    NOT?: DepartmentWhereInput | DepartmentWhereInput[]
+    name?: StringFilter<"Department"> | string
+    isActive?: BoolFilter<"Department"> | boolean
+    createdAt?: DateTimeFilter<"Department"> | Date | string
+    updatedAt?: DateTimeFilter<"Department"> | Date | string
+    designations?: DesignationListRelationFilter
+    users?: UserListRelationFilter
+  }, "id">
+
+  export type DepartmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DepartmentCountOrderByAggregateInput
+    _max?: DepartmentMaxOrderByAggregateInput
+    _min?: DepartmentMinOrderByAggregateInput
+  }
+
+  export type DepartmentScalarWhereWithAggregatesInput = {
+    AND?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
+    OR?: DepartmentScalarWhereWithAggregatesInput[]
+    NOT?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Department"> | string
+    name?: StringWithAggregatesFilter<"Department"> | string
+    isActive?: BoolWithAggregatesFilter<"Department"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+  }
+
+  export type DesignationWhereInput = {
+    AND?: DesignationWhereInput | DesignationWhereInput[]
+    OR?: DesignationWhereInput[]
+    NOT?: DesignationWhereInput | DesignationWhereInput[]
+    id?: StringFilter<"Designation"> | string
+    name?: StringFilter<"Designation"> | string
+    title?: StringFilter<"Designation"> | string
+    departmentId?: StringFilter<"Designation"> | string
+    isActive?: BoolFilter<"Designation"> | boolean
+    createdAt?: DateTimeFilter<"Designation"> | Date | string
+    updatedAt?: DateTimeFilter<"Designation"> | Date | string
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    users?: UserListRelationFilter
+  }
+
+  export type DesignationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    departmentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    department?: DepartmentOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
+  }
+
+  export type DesignationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name_departmentId?: DesignationNameDepartmentIdCompoundUniqueInput
+    AND?: DesignationWhereInput | DesignationWhereInput[]
+    OR?: DesignationWhereInput[]
+    NOT?: DesignationWhereInput | DesignationWhereInput[]
+    name?: StringFilter<"Designation"> | string
+    title?: StringFilter<"Designation"> | string
+    departmentId?: StringFilter<"Designation"> | string
+    isActive?: BoolFilter<"Designation"> | boolean
+    createdAt?: DateTimeFilter<"Designation"> | Date | string
+    updatedAt?: DateTimeFilter<"Designation"> | Date | string
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    users?: UserListRelationFilter
+  }, "id" | "name_departmentId">
+
+  export type DesignationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    departmentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DesignationCountOrderByAggregateInput
+    _max?: DesignationMaxOrderByAggregateInput
+    _min?: DesignationMinOrderByAggregateInput
+  }
+
+  export type DesignationScalarWhereWithAggregatesInput = {
+    AND?: DesignationScalarWhereWithAggregatesInput | DesignationScalarWhereWithAggregatesInput[]
+    OR?: DesignationScalarWhereWithAggregatesInput[]
+    NOT?: DesignationScalarWhereWithAggregatesInput | DesignationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Designation"> | string
+    name?: StringWithAggregatesFilter<"Designation"> | string
+    title?: StringWithAggregatesFilter<"Designation"> | string
+    departmentId?: StringWithAggregatesFilter<"Designation"> | string
+    isActive?: BoolWithAggregatesFilter<"Designation"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Designation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Designation"> | Date | string
+  }
+
   export type OrganizationCreateInput = {
     id?: string
     name: string
@@ -18128,8 +20806,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -18157,6 +20833,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -18179,8 +20857,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -18230,8 +20908,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18259,6 +20935,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -18281,8 +20959,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18332,8 +21010,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -18374,8 +21052,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18415,8 +21091,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19273,6 +21949,143 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DepartmentCreateInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    designations?: DesignationCreateNestedManyWithoutDepartmentInput
+    users?: UserCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    designations?: DesignationUncheckedCreateNestedManyWithoutDepartmentInput
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designations?: DesignationUpdateManyWithoutDepartmentNestedInput
+    users?: UserUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designations?: DesignationUncheckedUpdateManyWithoutDepartmentNestedInput
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentCreateManyInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DesignationCreateInput = {
+    id?: string
+    name: string
+    title: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    department: DepartmentCreateNestedOneWithoutDesignationsInput
+    users?: UserCreateNestedManyWithoutDesignationInput
+  }
+
+  export type DesignationUncheckedCreateInput = {
+    id?: string
+    name: string
+    title: string
+    departmentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutDesignationInput
+  }
+
+  export type DesignationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    department?: DepartmentUpdateOneRequiredWithoutDesignationsNestedInput
+    users?: UserUpdateManyWithoutDesignationNestedInput
+  }
+
+  export type DesignationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutDesignationNestedInput
+  }
+
+  export type DesignationCreateManyInput = {
+    id?: string
+    name: string
+    title: string
+    departmentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DesignationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DesignationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19498,6 +22311,16 @@ export namespace Prisma {
     not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
+  export type DesignationNullableScalarRelationFilter = {
+    is?: DesignationWhereInput | null
+    isNot?: DesignationWhereInput | null
+  }
+
+  export type DepartmentNullableScalarRelationFilter = {
+    is?: DepartmentWhereInput | null
+    isNot?: DepartmentWhereInput | null
+  }
+
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
@@ -19568,8 +22391,8 @@ export namespace Prisma {
     employeeId?: SortOrder
     fullName?: SortOrder
     phone?: SortOrder
-    designation?: SortOrder
-    department?: SortOrder
+    designationId?: SortOrder
+    departmentId?: SortOrder
     employmentType?: SortOrder
     workLocation?: SortOrder
     dateOfJoining?: SortOrder
@@ -19614,8 +22437,8 @@ export namespace Prisma {
     employeeId?: SortOrder
     fullName?: SortOrder
     phone?: SortOrder
-    designation?: SortOrder
-    department?: SortOrder
+    designationId?: SortOrder
+    departmentId?: SortOrder
     employmentType?: SortOrder
     workLocation?: SortOrder
     dateOfJoining?: SortOrder
@@ -19656,8 +22479,8 @@ export namespace Prisma {
     employeeId?: SortOrder
     fullName?: SortOrder
     phone?: SortOrder
-    designation?: SortOrder
-    department?: SortOrder
+    designationId?: SortOrder
+    departmentId?: SortOrder
     employmentType?: SortOrder
     workLocation?: SortOrder
     dateOfJoining?: SortOrder
@@ -20337,6 +23160,80 @@ export namespace Prisma {
     _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
   }
 
+  export type DesignationListRelationFilter = {
+    every?: DesignationWhereInput
+    some?: DesignationWhereInput
+    none?: DesignationWhereInput
+  }
+
+  export type DesignationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DepartmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentScalarRelationFilter = {
+    is?: DepartmentWhereInput
+    isNot?: DepartmentWhereInput
+  }
+
+  export type DesignationNameDepartmentIdCompoundUniqueInput = {
+    name: string
+    departmentId: string
+  }
+
+  export type DesignationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    departmentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DesignationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    departmentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DesignationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    departmentId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -20559,6 +23456,18 @@ export namespace Prisma {
     deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
   }
 
+  export type DesignationCreateNestedOneWithoutUsersInput = {
+    create?: XOR<DesignationCreateWithoutUsersInput, DesignationUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DesignationCreateOrConnectWithoutUsersInput
+    connect?: DesignationWhereUniqueInput
+  }
+
+  export type DepartmentCreateNestedOneWithoutUsersInput = {
+    create?: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutUsersInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
   export type OrganizationCreateNestedOneWithoutUsersInput = {
     create?: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutUsersInput
@@ -20717,6 +23626,26 @@ export namespace Prisma {
     decrement?: bigint | number
     multiply?: bigint | number
     divide?: bigint | number
+  }
+
+  export type DesignationUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<DesignationCreateWithoutUsersInput, DesignationUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DesignationCreateOrConnectWithoutUsersInput
+    upsert?: DesignationUpsertWithoutUsersInput
+    disconnect?: DesignationWhereInput | boolean
+    delete?: DesignationWhereInput | boolean
+    connect?: DesignationWhereUniqueInput
+    update?: XOR<XOR<DesignationUpdateToOneWithWhereWithoutUsersInput, DesignationUpdateWithoutUsersInput>, DesignationUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type DepartmentUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutUsersInput
+    upsert?: DepartmentUpsertWithoutUsersInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutUsersInput, DepartmentUpdateWithoutUsersInput>, DepartmentUncheckedUpdateWithoutUsersInput>
   }
 
   export type OrganizationUpdateOneRequiredWithoutUsersNestedInput = {
@@ -21295,6 +24224,146 @@ export namespace Prisma {
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutAttendancesInput, OrganizationUpdateWithoutAttendancesInput>, OrganizationUncheckedUpdateWithoutAttendancesInput>
   }
 
+  export type DesignationCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput> | DesignationCreateWithoutDepartmentInput[] | DesignationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: DesignationCreateOrConnectWithoutDepartmentInput | DesignationCreateOrConnectWithoutDepartmentInput[]
+    createMany?: DesignationCreateManyDepartmentInputEnvelope
+    connect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type DesignationUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput> | DesignationCreateWithoutDepartmentInput[] | DesignationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: DesignationCreateOrConnectWithoutDepartmentInput | DesignationCreateOrConnectWithoutDepartmentInput[]
+    createMany?: DesignationCreateManyDepartmentInputEnvelope
+    connect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type DesignationUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput> | DesignationCreateWithoutDepartmentInput[] | DesignationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: DesignationCreateOrConnectWithoutDepartmentInput | DesignationCreateOrConnectWithoutDepartmentInput[]
+    upsert?: DesignationUpsertWithWhereUniqueWithoutDepartmentInput | DesignationUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: DesignationCreateManyDepartmentInputEnvelope
+    set?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    disconnect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    delete?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    connect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    update?: DesignationUpdateWithWhereUniqueWithoutDepartmentInput | DesignationUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: DesignationUpdateManyWithWhereWithoutDepartmentInput | DesignationUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: DesignationScalarWhereInput | DesignationScalarWhereInput[]
+  }
+
+  export type UserUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDepartmentInput | UserUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDepartmentInput | UserUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDepartmentInput | UserUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type DesignationUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput> | DesignationCreateWithoutDepartmentInput[] | DesignationUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: DesignationCreateOrConnectWithoutDepartmentInput | DesignationCreateOrConnectWithoutDepartmentInput[]
+    upsert?: DesignationUpsertWithWhereUniqueWithoutDepartmentInput | DesignationUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: DesignationCreateManyDepartmentInputEnvelope
+    set?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    disconnect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    delete?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    connect?: DesignationWhereUniqueInput | DesignationWhereUniqueInput[]
+    update?: DesignationUpdateWithWhereUniqueWithoutDepartmentInput | DesignationUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: DesignationUpdateManyWithWhereWithoutDepartmentInput | DesignationUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: DesignationScalarWhereInput | DesignationScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDepartmentInput | UserUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDepartmentInput | UserUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDepartmentInput | UserUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type DepartmentCreateNestedOneWithoutDesignationsInput = {
+    create?: XOR<DepartmentCreateWithoutDesignationsInput, DepartmentUncheckedCreateWithoutDesignationsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutDesignationsInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutDesignationInput = {
+    create?: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput> | UserCreateWithoutDesignationInput[] | UserUncheckedCreateWithoutDesignationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDesignationInput | UserCreateOrConnectWithoutDesignationInput[]
+    createMany?: UserCreateManyDesignationInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutDesignationInput = {
+    create?: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput> | UserCreateWithoutDesignationInput[] | UserUncheckedCreateWithoutDesignationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDesignationInput | UserCreateOrConnectWithoutDesignationInput[]
+    createMany?: UserCreateManyDesignationInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type DepartmentUpdateOneRequiredWithoutDesignationsNestedInput = {
+    create?: XOR<DepartmentCreateWithoutDesignationsInput, DepartmentUncheckedCreateWithoutDesignationsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutDesignationsInput
+    upsert?: DepartmentUpsertWithoutDesignationsInput
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutDesignationsInput, DepartmentUpdateWithoutDesignationsInput>, DepartmentUncheckedUpdateWithoutDesignationsInput>
+  }
+
+  export type UserUpdateManyWithoutDesignationNestedInput = {
+    create?: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput> | UserCreateWithoutDesignationInput[] | UserUncheckedCreateWithoutDesignationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDesignationInput | UserCreateOrConnectWithoutDesignationInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDesignationInput | UserUpsertWithWhereUniqueWithoutDesignationInput[]
+    createMany?: UserCreateManyDesignationInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDesignationInput | UserUpdateWithWhereUniqueWithoutDesignationInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDesignationInput | UserUpdateManyWithWhereWithoutDesignationInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutDesignationNestedInput = {
+    create?: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput> | UserCreateWithoutDesignationInput[] | UserUncheckedCreateWithoutDesignationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDesignationInput | UserCreateOrConnectWithoutDesignationInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDesignationInput | UserUpsertWithWhereUniqueWithoutDesignationInput[]
+    createMany?: UserCreateManyDesignationInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDesignationInput | UserUpdateWithWhereUniqueWithoutDesignationInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDesignationInput | UserUpdateManyWithWhereWithoutDesignationInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21686,8 +24755,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -21715,6 +24782,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
@@ -21736,8 +24805,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -21955,8 +25024,8 @@ export namespace Prisma {
     employeeId?: StringFilter<"User"> | string
     fullName?: StringFilter<"User"> | string
     phone?: StringFilter<"User"> | string
-    designation?: StringFilter<"User"> | string
-    department?: StringNullableFilter<"User"> | string | null
+    designationId?: StringNullableFilter<"User"> | string | null
+    departmentId?: StringNullableFilter<"User"> | string | null
     employmentType?: EnumEmploymentTypeNullableFilter<"User"> | $Enums.EmploymentType | null
     workLocation?: StringNullableFilter<"User"> | string | null
     dateOfJoining?: DateTimeFilter<"User"> | Date | string
@@ -22114,6 +25183,54 @@ export namespace Prisma {
     status?: EnumAttendanceStatusFilter<"Attendance"> | $Enums.AttendanceStatus
     createdAt?: DateTimeFilter<"Attendance"> | Date | string
     updatedAt?: DateTimeFilter<"Attendance"> | Date | string
+  }
+
+  export type DesignationCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    title: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    department: DepartmentCreateNestedOneWithoutDesignationsInput
+  }
+
+  export type DesignationUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    title: string
+    departmentId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DesignationCreateOrConnectWithoutUsersInput = {
+    where: DesignationWhereUniqueInput
+    create: XOR<DesignationCreateWithoutUsersInput, DesignationUncheckedCreateWithoutUsersInput>
+  }
+
+  export type DepartmentCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    designations?: DesignationCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    designations?: DesignationUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutUsersInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
   }
 
   export type OrganizationCreateWithoutUsersInput = {
@@ -22419,6 +25536,66 @@ export namespace Prisma {
   export type LeaveCommentCreateManyUserInputEnvelope = {
     data: LeaveCommentCreateManyUserInput | LeaveCommentCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type DesignationUpsertWithoutUsersInput = {
+    update: XOR<DesignationUpdateWithoutUsersInput, DesignationUncheckedUpdateWithoutUsersInput>
+    create: XOR<DesignationCreateWithoutUsersInput, DesignationUncheckedCreateWithoutUsersInput>
+    where?: DesignationWhereInput
+  }
+
+  export type DesignationUpdateToOneWithWhereWithoutUsersInput = {
+    where?: DesignationWhereInput
+    data: XOR<DesignationUpdateWithoutUsersInput, DesignationUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type DesignationUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    department?: DepartmentUpdateOneRequiredWithoutDesignationsNestedInput
+  }
+
+  export type DesignationUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartmentUpsertWithoutUsersInput = {
+    update: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutUsersInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type DepartmentUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designations?: DesignationUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designations?: DesignationUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type OrganizationUpsertWithoutUsersInput = {
@@ -22763,8 +25940,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -22792,6 +25967,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
@@ -22813,8 +25990,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -22879,8 +26056,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22908,6 +26083,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
@@ -22929,8 +26106,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22979,8 +26156,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23008,6 +26183,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
@@ -23029,8 +26206,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23119,8 +26296,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23148,6 +26323,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
@@ -23169,8 +26346,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23264,8 +26441,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23293,6 +26468,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -23314,8 +26491,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23443,8 +26620,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23472,6 +26647,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -23493,8 +26670,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23586,8 +26763,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23615,6 +26790,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -23636,8 +26813,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23735,8 +26912,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23764,6 +26939,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -23785,8 +26962,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23835,8 +27012,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23864,6 +27039,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -23885,8 +27062,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -23951,8 +27128,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23980,6 +27155,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -24001,8 +27178,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24051,8 +27228,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24080,6 +27255,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -24101,8 +27278,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24167,8 +27344,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24196,6 +27371,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -24217,8 +27394,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24296,8 +27473,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24325,6 +27500,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -24346,8 +27523,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24447,8 +27624,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24476,6 +27651,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -24497,8 +27674,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24547,8 +27724,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24576,6 +27751,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -24597,8 +27774,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24692,8 +27869,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24721,6 +27896,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -24742,8 +27919,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24827,8 +28004,6 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24856,6 +28031,8 @@ export namespace Prisma {
     resetPasswordExpires?: bigint | number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
     organization: OrganizationCreateNestedOneWithoutUsersInput
     leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
     LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
@@ -24877,8 +28054,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -24972,8 +28149,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25001,6 +28176,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
@@ -25022,8 +28199,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25097,6 +28274,369 @@ export namespace Prisma {
     documents?: UserDocumentUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
+  export type DesignationCreateWithoutDepartmentInput = {
+    id?: string
+    name: string
+    title: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutDesignationInput
+  }
+
+  export type DesignationUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    name: string
+    title: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutDesignationInput
+  }
+
+  export type DesignationCreateOrConnectWithoutDepartmentInput = {
+    where: DesignationWhereUniqueInput
+    create: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type DesignationCreateManyDepartmentInputEnvelope = {
+    data: DesignationCreateManyDepartmentInput | DesignationCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutDepartmentInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    designation?: DesignationCreateNestedOneWithoutUsersInput
+    organization: OrganizationCreateNestedOneWithoutUsersInput
+    leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designationId?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type UserCreateManyDepartmentInputEnvelope = {
+    data: UserCreateManyDepartmentInput | UserCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DesignationUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: DesignationWhereUniqueInput
+    update: XOR<DesignationUpdateWithoutDepartmentInput, DesignationUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<DesignationCreateWithoutDepartmentInput, DesignationUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type DesignationUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: DesignationWhereUniqueInput
+    data: XOR<DesignationUpdateWithoutDepartmentInput, DesignationUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type DesignationUpdateManyWithWhereWithoutDepartmentInput = {
+    where: DesignationScalarWhereInput
+    data: XOR<DesignationUpdateManyMutationInput, DesignationUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type DesignationScalarWhereInput = {
+    AND?: DesignationScalarWhereInput | DesignationScalarWhereInput[]
+    OR?: DesignationScalarWhereInput[]
+    NOT?: DesignationScalarWhereInput | DesignationScalarWhereInput[]
+    id?: StringFilter<"Designation"> | string
+    name?: StringFilter<"Designation"> | string
+    title?: StringFilter<"Designation"> | string
+    departmentId?: StringFilter<"Designation"> | string
+    isActive?: BoolFilter<"Designation"> | boolean
+    createdAt?: DateTimeFilter<"Designation"> | Date | string
+    updatedAt?: DateTimeFilter<"Designation"> | Date | string
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutDepartmentInput, UserUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutDepartmentInput, UserUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutDepartmentInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type DepartmentCreateWithoutDesignationsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutDesignationsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutDesignationsInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutDesignationsInput, DepartmentUncheckedCreateWithoutDesignationsInput>
+  }
+
+  export type UserCreateWithoutDesignationInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    department?: DepartmentCreateNestedOneWithoutUsersInput
+    organization: OrganizationCreateNestedOneWithoutUsersInput
+    leaveBalances?: LeaveBalanceCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsCreateNestedOneWithoutUserInput
+    documents?: UserDocumentCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDesignationInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    departmentId?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveBalances?: LeaveBalanceUncheckedCreateNestedManyWithoutUserInput
+    LeaveApplication?: LeaveApplicationUncheckedCreateNestedManyWithoutUserInput
+    createdAnnouncements?: AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+    announcementReceipts?: AnnouncementRecipientUncheckedCreateNestedManyWithoutUserInput
+    financialDetails?: FinancialDetailsUncheckedCreateNestedOneWithoutUserInput
+    payrollSettings?: PayrollSettingsUncheckedCreateNestedOneWithoutUserInput
+    documents?: UserDocumentUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
+    leaveComments?: LeaveCommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDesignationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput>
+  }
+
+  export type UserCreateManyDesignationInputEnvelope = {
+    data: UserCreateManyDesignationInput | UserCreateManyDesignationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartmentUpsertWithoutDesignationsInput = {
+    update: XOR<DepartmentUpdateWithoutDesignationsInput, DepartmentUncheckedUpdateWithoutDesignationsInput>
+    create: XOR<DepartmentCreateWithoutDesignationsInput, DepartmentUncheckedCreateWithoutDesignationsInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutDesignationsInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutDesignationsInput, DepartmentUncheckedUpdateWithoutDesignationsInput>
+  }
+
+  export type DepartmentUpdateWithoutDesignationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutDesignationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutDesignationInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutDesignationInput, UserUncheckedUpdateWithoutDesignationInput>
+    create: XOR<UserCreateWithoutDesignationInput, UserUncheckedCreateWithoutDesignationInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutDesignationInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutDesignationInput, UserUncheckedUpdateWithoutDesignationInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutDesignationInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutDesignationInput>
+  }
+
   export type UserCreateManyOrganizationInput = {
     id?: string
     email: string
@@ -25107,8 +28647,8 @@ export namespace Prisma {
     employeeId: string
     fullName: string
     phone: string
-    designation: string
-    department?: string | null
+    designationId?: string | null
+    departmentId?: string | null
     employmentType?: $Enums.EmploymentType | null
     workLocation?: string | null
     dateOfJoining: Date | string
@@ -25197,8 +28737,6 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25226,6 +28764,8 @@ export namespace Prisma {
     resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
     leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
     LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
     createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
@@ -25247,8 +28787,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25297,8 +28837,8 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    designation?: StringFieldUpdateOperationsInput | string
-    department?: NullableStringFieldUpdateOperationsInput | string | null
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
     employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
     workLocation?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25835,6 +29375,408 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
     readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DesignationCreateManyDepartmentInput = {
+    id?: string
+    name: string
+    title: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateManyDepartmentInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    designationId?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DesignationUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutDesignationNestedInput
+  }
+
+  export type DesignationUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutDesignationNestedInput
+  }
+
+  export type DesignationUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    designation?: DesignationUpdateOneWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    designationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyDesignationInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    employeeId: string
+    fullName: string
+    phone: string
+    departmentId?: string | null
+    employmentType?: $Enums.EmploymentType | null
+    workLocation?: string | null
+    dateOfJoining: Date | string
+    profileImageUrl?: string | null
+    profileImagePublicId?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    fatherName?: string | null
+    motherName?: string | null
+    bloodGroup?: string | null
+    currentAddress?: string | null
+    permanentAddress?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    pincode?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    emergencyContactRelation?: string | null
+    reportingManagerName?: string | null
+    organizationId: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    spouseName?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUpdateWithoutDesignationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    leaveBalances?: LeaveBalanceUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDesignationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveBalances?: LeaveBalanceUncheckedUpdateManyWithoutUserNestedInput
+    LeaveApplication?: LeaveApplicationUncheckedUpdateManyWithoutUserNestedInput
+    createdAnnouncements?: AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+    announcementReceipts?: AnnouncementRecipientUncheckedUpdateManyWithoutUserNestedInput
+    financialDetails?: FinancialDetailsUncheckedUpdateOneWithoutUserNestedInput
+    payrollSettings?: PayrollSettingsUncheckedUpdateOneWithoutUserNestedInput
+    documents?: UserDocumentUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
+    leaveComments?: LeaveCommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutDesignationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfJoining?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    currentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    permanentAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactRelation?: NullableStringFieldUpdateOperationsInput | string | null
+    reportingManagerName?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
