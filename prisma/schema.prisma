@@ -107,8 +107,11 @@ model User {
   employeeId     String // given by HR
   fullName       String
   phone          String
-  designation    String
-  department     String?
+  designationId String?
+  designation   Designation? @relation(fields: [designationId], references: [id])
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
   employmentType EmploymentType?
   workLocation   String?
   dateOfJoining  DateTime
@@ -450,4 +453,41 @@ model Attendance {
   @@unique([userId, date])
   @@index([organizationId])
   @@index([userId])
+}
+
+
+
+///////////////////////////
+// DEPARTMENT
+///////////////////////////
+model Department {
+  id        String   @id @default(uuid())
+  name      String
+  isActive  Boolean  @default(true)
+
+  designations Designation[]
+
+  users User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+///////////////////////////
+// DESIGNATION
+///////////////////////////
+model Designation {
+  id           String   @id @default(uuid())
+  name         String 
+  title        String
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+
+  users User[]
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([name, departmentId]) 
 }

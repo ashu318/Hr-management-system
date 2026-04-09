@@ -42,7 +42,7 @@ export async function GET(request) {
             },
         });
 
-       
+
         // ✅ Sequential queries (SAFE for DB)
 
         const approvedLeavesThisMonth = await prisma.leaveApplication.count({
@@ -158,7 +158,14 @@ export async function GET(request) {
         const groupCount = (data, key) => {
             return Object.values(
                 data.reduce((acc, item) => {
-                    const value = item[key] || "Unknown";
+                    let value = item[key];
+
+                    // 🔥 FIX: handle object (department relation)
+                    if (value && typeof value === "object") {
+                        value = value.name;
+                    }
+
+                    value = value || "Unknown";
 
                     if (!acc[value]) {
                         acc[value] = { name: value, value: 0 };
@@ -170,7 +177,6 @@ export async function GET(request) {
                 }, {})
             );
         };
-
         const charts = {
             department: groupCount(users, "department"),
             employmentType: groupCount(users, "employmentType"),
