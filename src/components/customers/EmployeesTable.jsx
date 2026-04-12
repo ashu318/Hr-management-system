@@ -110,7 +110,7 @@ const EmployeesTable = () => {
             header: "Department",
             cell: ({ row }) => (
                 <span className="badge border border-dashed text-danger border-danger">
-                    {row.original.department || "—"}
+                    {row.original.department?.name || "—"}
                 </span>
             ),
         },
