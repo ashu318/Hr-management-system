@@ -97,7 +97,7 @@ const CustomersTable = () => {
                           <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                         </svg>
-                        {user.designation}
+                        {user.designation?.name || "No Designation"}
                       </p>
 
                     </div>
@@ -128,7 +128,7 @@ const CustomersTable = () => {
 
                     <div className="text-center mb-3">
                       <div className="profile-info">
-                        <span>  {user.department} Head Office</span>
+                        <span> {user.department?.name || "No Department"} Head Office</span>
                         <span>
                           <FiMail /> {user.email || "N/A"}
                         </span>
