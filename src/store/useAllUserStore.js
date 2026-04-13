@@ -21,7 +21,7 @@ export const useAllUsersStore = create((set, get) => ({
             const data = await response.json();
 
             // IMPORTANT: access data.users
-            toast.success(data.message || "Data fetched successfully");
+            // toast.success(data.message || "Data fetched successfully");
 
             set({
                 users: data.users,

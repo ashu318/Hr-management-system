@@ -6,12 +6,10 @@ import { verifyToken } from "@/lib/jwt";
 import { Resend } from "resend";
 import cloudinary from "@/lib/cloudinary";
 
-
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
-
     // 🔐 Auth
     const token = request.cookies.get("auth_token")?.value;
     if (!token) {
@@ -25,16 +23,11 @@ export async function POST(request) {
 
     // ✅ ROLE CHECK (Very Important)
     if (decoded.role !== "ADMIN") {
-      return NextResponse.json(
-        { message: "Access denied. Admins only." },
-        { status: 403 }
-      );
+      return NextResponse.json({ message: "Access denied. Admins only." }, { status: 403 });
     }
 
     const userId = decoded.userId;
     const organizationId = decoded.organizationId;
-
-
 
     // const data = await request.json();
     const formData = await request.formData(); // ✅ CORRECT
@@ -80,7 +73,6 @@ export async function POST(request) {
       reportingManagerName: formData.get("reportingManagerName"),
     };
 
-
     // Profile image uploade  and Process to store in the db
     const file = formData.get("profileImage");
 
@@ -123,7 +115,7 @@ export async function POST(request) {
           password: hashedPassword,
           role: Role.EMPLOYEE,
 
-          profileImageUrl: profileImageUrl,          // ✅ ADD THIS
+          profileImageUrl: profileImageUrl, // ✅ ADD THIS
           profileImagePublicId: profileImagePublicId, // ✅ ADD THIS
 
           employeeId: data.employeeId,
@@ -141,7 +133,6 @@ export async function POST(request) {
           motherName: data.motherName || null,
           spouseName: data.spouseName || null,
           bloodGroup: data.bloodGroup || null,
-
 
           currentAddress: data.currentAddress || null,
           permanentAddress: data.permanentAddress || null,
@@ -237,17 +228,13 @@ export async function POST(request) {
             remaining: 2,
             year: currentYear,
           },
-
         ],
-      })
+      });
 
       return user;
     });
 
-
     console.log("The new uers is created :", newUser);
-
-
 
     try {
       // Send welcome email
@@ -329,7 +316,6 @@ export async function POST(request) {
       console.error("Error sending welcome email:", error);
     }
 
-
     return NextResponse.json({
       success: true,
       message: "User created successfully",
@@ -361,6 +347,54 @@ export async function POST(request) {
   }
 }
 
+// export async function GET(request) {
+//   try {
+//     // 1️⃣ Validate token
+//     const token = request.cookies.get("auth_token")?.value;
+//     if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+//     const decoded = verifyToken(token);
+//     if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+
+//     const users = await prisma.user.findMany({
+//       select: {
+//         id: true,
+//         fullName: true,
+//         designation: true,
+//         email: true,
+//         phone: true,
+//         department: true,
+//         employeeId: true,
+//         profileImageUrl: true,
+//         lastLoginAt: true,
+//         organization: {
+//           select: {
+//             id: true,
+//             name: true,
+//           },
+//         },
+//       },
+//     });
+
+//     return NextResponse.json({
+//       success: true,
+//       users: users,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     return new Response(
+//       JSON.stringify({
+//         success: false,
+//         error: "Failed to fetch users",
+//       }),
+//       {
+//         status: 500,
+//         headers: { "Content-Type": "application/json" },
+//       }
+//     );
+//   }
+// }
+
 
 
 
@@ -371,12 +405,29 @@ export async function GET(request) {
   try {
     // 1️⃣ Validate token
     const token = request.cookies.get("auth_token")?.value;
-    if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    if (!token) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
     const decoded = verifyToken(token);
-    if (!decoded) return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    if (!decoded) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    }
 
+    // ✅ 2️⃣ Get query param
+    const { searchParams } = new URL(request.url);
+    const departmentId = searchParams.get("departmentId");
+
+    // ✅ 3️⃣ Build filter condition
+    const whereCondition = {};
+
+    if (departmentId) {
+      whereCondition.departmentId = departmentId;
+    }
+
+    // ✅ 4️⃣ Fetch users with filter
     const users = await prisma.user.findMany({
+      where: whereCondition, // 🔥 dynamic filter
       select: {
         id: true,
         fullName: true,
@@ -398,7 +449,7 @@ export async function GET(request) {
 
     return NextResponse.json({
       success: true,
-      users: users,
+      users,
     });
   } catch (error) {
     console.error("Error fetching users:", error);

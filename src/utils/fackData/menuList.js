@@ -300,6 +300,7 @@ export const menuList = [
     name: "settings",
     path: "#",
     icon: "feather-settings",
+    hidden: true,
     dropdownMenu: [
       {
         id: 1,
