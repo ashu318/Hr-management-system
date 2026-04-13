@@ -43,11 +43,18 @@ const Menus = ({ userRole }) => {
     }
   }, [pathName]);
 
+  if (!userRole) return null;
+  
   return (
     <>
       {menuList
         .filter((menu) => !menu.hidden) // ✅ hide full menu
-        .filter((menu) => !menu.roles || menu.roles.includes(userRole)) // ✅ role check
+        // .filter((menu) => !menu.roles || menu.roles.includes(userRole)) // ✅ role check
+        .filter((menu) => {
+          if (!menu.roles) return true;
+          if (!userRole) return false; // 🚀 stop rendering before role is ready
+          return menu.roles.includes(userRole);
+        })
         .filter((menu) => {
           if (!menu.dropdownMenu) return true;
 
@@ -83,7 +90,11 @@ const Menus = ({ userRole }) => {
                 {dropdownMenu &&
                   dropdownMenu
                     .filter((item) => !item.hidden) // ✅ hide submenu
-                    .filter((item) => !item.roles || item.roles.includes(userRole))
+                    .filter((item) => {
+                      if (!item.roles) return true;
+                      if (!userRole) return false;
+                      return item.roles.includes(userRole);
+                    })
                     .map(({ id, name, path, subdropdownMenu, target }) => {
                       const x = name;
                       return (
@@ -107,8 +118,11 @@ const Menus = ({ userRole }) => {
                                 return (
                                   <ul
                                     key={id}
-                                    className={`nxl-submenu ${openSubDropdown === x ? "nxl-menu-visible" : "nxl-menu-hidden "
-                                      }`}
+                                    className={`nxl-submenu ${
+                                      openSubDropdown === x
+                                        ? "nxl-menu-visible"
+                                        : "nxl-menu-hidden "
+                                    }`}
                                   >
                                     <li className={`nxl-item ${pathName === path ? "active" : ""}`}>
                                       <Link className="nxl-link text-capitalize" href={path}>

@@ -1,160 +1,252 @@
 "use client";
+import React, { useEffect, useState, useMemo, memo } from "react";
+import {
+  FiAlertOctagon,
+  FiArchive,
+  FiClock,
+  FiEdit3,
+  FiEye,
+  FiMoreHorizontal,
+  FiPrinter,
+  FiTrash2,
+} from "react-icons/fi";
+import Dropdown from "@/components/shared/Dropdown";
+import SelectDropdown from "@/components/shared/SelectDropdown";
+import { paymentTableData } from "@/utils/fackData/paymentTableData";
+import Table from "@/components/shared/table/Table";
+import Link from "next/link";
+import dayjs from "dayjs";
+import getIcon from "@/utils/getIcon";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
-export default function DepartmentPage() {
-  const [name, setName] = useState("");
-  const [departments, setDepartments] = useState([]);
-  const [loading, setLoading] = useState(false);
+const actions = [
+  { label: "Edit", icon: <FiEdit3 /> },
+  { label: "Print", icon: <FiPrinter /> },
+  { label: "Remind", icon: <FiClock /> },
+  { type: "divider" },
+  { label: "Archive", icon: <FiArchive /> },
+  { label: "Report Spam", icon: <FiAlertOctagon /> },
+  { type: "divider" },
+  { label: "Delete", icon: <FiTrash2 /> },
+];
 
-  // Fetch Departments
-  const fetchDepartments = async () => {
-    try {
-      const res = await fetch("/api/departments");
-      const data = await res.json();
-      setDepartments(data.departments || []);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+const EmployeesTable = () => {
+  const router = useRouter();
 
-  useEffect(() => {
-    fetchDepartments();
-  }, []);
+  //colums of the table
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "fullName",
+        id: "employee",
+        header: "Employee Name",
+        cell: ({ row }) => {
+          const user = row.original;
 
-  // Create Department
-  const handleCreate = async () => {
-    if (!name) return alert("Enter department name");
+          return (
+            <div className="d-flex align-items-center gap-3 position-relative">
+              {/* ✅ Status Vertical Bar */}
+              <div
+                style={{
+                  width: "4px",
+                  height: "40px",
+                  borderRadius: "4px",
+                  backgroundColor: "#3454d1",
+                }}
+              />
 
-    setLoading(true);
+              {/* ✅ Avatar */}
+              <div className="avatar-image avatar-md">
+                <img
+                  src={user?.profileImageUrl || "/default-avatar.png"}
+                  alt={user?.fullName}
+                  className="img-fluid"
+                  style={{
+                    width: 40,
+                    height: 40,
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                />
+              </div>
 
-    try {
-      const res = await fetch("/api/departments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+              {/* ✅ Info */}
+              <div>
+                <span className="fw-bold">{user?.fullName}</span>
+                <small className="fs-12 fw-normal text-muted d-block">{user?.email}</small>
+              </div>
+            </div>
+          );
         },
-        body: JSON.stringify({ name }),
-      });
+      },
+      {
+        header: "Employee ID",
+        meta: {
+          className: "fw-bold text-dark",
+        },
+        cell: ({ row }) => (
+          <span className="badge border border-dashed text-primary border-primary">
+            {row.original.employeeId || "—"}
+          </span>
+        ),
+      },
+      {
+        header: "Contact Info",
+        cell: ({ row }) => (
+          <div className="hstack gap-2">
+            <div className="avatar-text avatar-sm">{getIcon("feather-phone")}</div>
+            <a href="#">{row.original.phone}</a>
+          </div>
+        ),
+      },
+      {
+        header: "Department",
+        cell: ({ row }) => (
+          <span className="badge border border-dashed text-danger border-danger">
+            {row.original.department?.name || "—"}
+          </span>
+        ),
+      },
+      {
+        id: "lastLogin",
+        header: "Last Login",
+        meta: {
+          className: "fw-bold text-dark",
+        },
+        cell: ({ row }) => {
+          const lastLogin = row.original.lastLoginAt;
 
-      const data = await res.json();
+          return (
+            <span className="badge border border-dashed text-success border-success">
+              {lastLogin ? dayjs(lastLogin).format("DD MMM YYYY, hh:mm A") : "Never"}
+            </span>
+          );
+        },
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => (
+          <div className="hstack gap-2 justify-content-end">
+            <button
+              className="avatar-text avatar-md"
+              onClick={() => router.push(`/employees/${row.original.employeeId.trim()}`)}
+            >
+              <FiEye />
+            </button>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+  //colums of the table
 
-      if (data.success) {
-        setName("");
-        fetchDepartments(); // refresh list
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error(err);
+  // function to fetch and set the data to the tabel
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [departments, setDepartments] = useState([]);
+
+  const fetchUsersInfo = async (deptId = "") => {
+    try {
+      setLoading(true);
+
+      const url = deptId
+        ? `/api/users/all-users-details?departmentId=${deptId}`
+        : `/api/users/all-users-details`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setUsers(data.users);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch users");
     } finally {
       setLoading(false);
     }
   };
 
-
-
-  const handleDelete = async (id) => {
-    const confirmDelete = confirm("Are you sure you want to delete?");
-
-    if (!confirmDelete) return;
-
+  const fetchDepartments = async () => {
     try {
-      const res = await fetch(`/api/departments/${id}`, {
-        method: "DELETE",
-      });
-
+      const res = await fetch("/api/departments");
       const data = await res.json();
 
-      if (data.success) {
-        fetchDepartments(); // refresh list
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Delete failed");
+      const formatted = [
+        { label: "All Departments", value: "" },
+        ...data.departments.map((dept) => ({
+          label: dept.name,
+          value: dept.id,
+        })),
+      ];
+
+      setDepartments(formatted);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch departments");
     }
   };
 
+  useEffect(() => {
+    fetchUsersInfo(selectedDepartment);
+  }, [selectedDepartment]);
+
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
+  // function to fetch and set the data to the tabel
 
   return (
-    <div className="container py-4">
+    <>
+      {/* Toolbar */}
+      <div
+        className="d-flex justify-content-between align-items-center mb-3 px-3 py-2"
+        style={{
+          background: "#3454d1",
+          borderRadius: "8px",
+          border: "1px solid rgba(255,255,255,0.05)",
+        }}
+      >
+        {/* Left Side */}
+        <div className="d-flex flex-column justify-content-center">
+          <h6 className="mb-0 fw-semibold text-white">Search Employees with Filters</h6>
+          <small className="text-white opacity-75">Filter employees by department</small>
+        </div>
 
-      {/* 🔹 Add Department Section */}
-      <div className="card mb-4 shadow-sm border-0">
-        <div className="card-body">
-          <h5 className="mb-3 fw-semibold">Add Department</h5>
+        {/* Right Side */}
+        <div style={{ width: "250px" }}>
+          <select
+            className="form-select"
+            style={{
+              height: "45px",
+              borderRadius: "6px",
+              border: "none",
+            }}
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
+          >
+            <option value="">All Departments</option>
 
-          <div className="d-flex gap-2 flex-wrap">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter department name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{ maxWidth: "300px" }}
-            />
-
-            <button
-              className="btn btn-primary"
-              onClick={handleCreate}
-              disabled={loading}
-            >
-              {loading ? "Adding..." : "Add"}
-            </button>
-          </div>
+            {departments.map((dept) => (
+              <option key={dept.value} value={dept.value}>
+                {dept.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* 🔹 Department List */}
-      <div className="row">
-        {departments.length === 0 ? (
-          <p className="text-muted">No departments found</p>
-        ) : (
-          departments.map((dept) => (
-            <div
-              key={dept.id}
-              className="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
-            >
-              <div className="card h-100 shadow-sm border-0 hover-shadow position-relative">
-
-                {/* 🗑️ Delete Button (Top Right) */}
-                <button
-                  onClick={() => handleDelete(dept.id)}
-                  className="btn btn-sm btn-light position-absolute top-0 end-0 m-2 d-flex align-items-center justify-content-center "
-                  style={{ zIndex: 1 }}
-                >
-                  <Trash2 size={16} />
-                </button>
-
-                <div className="card-body d-flex flex-column justify-content-between">
-
-                  {/* Department Name */}
-                  <h6 className="fw-bold mb-2 text-body">
-                    {dept.name}
-                  </h6>
-
-                  {/* Footer */}
-                  <div className="d-flex justify-content-between align-items-center mt-3">
-
-                    {/* ✅ Green Active Badge */}
-                    <span className="badge bg-success-subtle text-success">
-                      Active
-                    </span>
-
-                    <button className="btn btn-sm btn-outline-primary">
-                      View
-                    </button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-    </div>
+      {/* Table */}
+      <Table
+        data={users}
+        columns={columns}
+        loading={loading}
+        searchPlaceholder="Search employees..."
+      />
+    </>
   );
-}
+};
+
+export default EmployeesTable;

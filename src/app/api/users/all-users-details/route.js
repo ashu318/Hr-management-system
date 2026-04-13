@@ -33,10 +33,17 @@ export async function POST(request) {
     const formData = await request.formData(); // ✅ CORRECT
     // console.log("FORM DATA", formData);
 
+    const rawEmployeeId = formData.get("employeeId");
+
+    // ✅ Add prefix safely
+    const employeeId = rawEmployeeId ? `CTSL${rawEmployeeId}` : null;
+
+
+    
     // Extract all fields properly
     const data = {
       email: formData.get("email"),
-      employeeId: formData.get("employeeId"),
+      employeeId: employeeId,
       fullName: formData.get("fullName"),
       phone: formData.get("phone"),
       designation: formData.get("designation"),
@@ -394,12 +401,6 @@ export async function POST(request) {
 //     );
 //   }
 // }
-
-
-
-
-
-
 
 export async function GET(request) {
   try {

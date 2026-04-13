@@ -7,7 +7,8 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { FiSunrise } from "react-icons/fi";
 import Menus from "./Menus";
 import { NavigationContext } from "@/contentApi/navigationProvider";
-import { useUserStore } from "@/store/useUserStore"
+import { useUserStore } from "@/store/useUserStore";
+import SidebarSkeleton from "@/components/loaders/SidebarSkeleton";
 
 const NavigationManu = () => {
   const { navigationOpen, setNavigationOpen } = useContext(NavigationContext);
@@ -16,14 +17,11 @@ const NavigationManu = () => {
     setNavigationOpen(false);
   }, [pathName]);
 
-
-
   const { user, loading, fetchUser } = useUserStore();
 
   useEffect(() => {
     fetchUser();
   }, []);
-
 
   // console.log("the logged in user is : ", user.role);
   const userRole = user?.role;
@@ -57,7 +55,11 @@ const NavigationManu = () => {
               <li className="nxl-item nxl-caption">
                 <label>Navigation</label>
               </li>
-              <Menus userRole={userRole} />
+              {loading ? (
+                <SidebarSkeleton /> // ✅ show skeleton while loading
+              ) : (
+                <Menus userRole={userRole} />
+              )}
             </ul>
             <div className="card text-center">
               <div className="card-body">
@@ -65,9 +67,7 @@ const NavigationManu = () => {
                   <FiSunrise />
                 </i>
                 <h6 className="mt-2 text-dark fw-bolder">HRMS v1.0</h6>
-                <p className="fs-11 my-2 text-muted">
-                  System is up to date
-                </p>
+                <p className="fs-11 my-2 text-muted">System is up to date</p>
                 <Link href="#" className="btn btn-primary text-dark w-100">
                   Check Updates
                 </Link>

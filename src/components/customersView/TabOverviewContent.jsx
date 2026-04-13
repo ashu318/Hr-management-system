@@ -21,7 +21,6 @@ const informationData = [
 const TabOverviewContent = ({ user }) => {
   return (
     <div className="tab-pane fade show active p-4" id="overviewTab" role="tabpanel">
-
       <div className="profile-details mb-5">
         <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
           <h5 className="fw-bold mb-0">Profile Details:</h5>
@@ -57,23 +56,26 @@ const TabOverviewContent = ({ user }) => {
 
         <div className="row g-2 mb-2">
           <div className="col-sm-6 text-muted">Date of Birth :</div>
-          <div className="col-sm-6 fw-semibold">    {user?.dateOfBirth
-            ? new Date(user.dateOfBirth).toLocaleDateString("en-IN", {
-              day: "2-digit",
-              month: "long",
-              year: "numeric",
-            })
-            : "-"}</div>
+          <div className="col-sm-6 fw-semibold">
+            {" "}
+            {user?.dateOfBirth
+              ? new Date(user.dateOfBirth).toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })
+              : "-"}
+          </div>
         </div>
 
         <div className="row g-2 mb-2">
           <div className="col-sm-6 text-muted">Designation</div>
-          <div className="col-sm-6 fw-semibold">{user?.designation || "-"}</div>
+          <div className="col-sm-6 fw-semibold">{user?.designation.name || "-"}</div>
         </div>
 
         <div className="row g-2 mb-2">
           <div className="col-sm-6 text-muted">Department</div>
-          <div className="col-sm-6 fw-semibold">{user?.department || "-"}</div>
+          <div className="col-sm-6 fw-semibold">{user?.department.name || "-"}</div>
         </div>
 
         <div className="row g-2 mb-2">
@@ -90,7 +92,6 @@ const TabOverviewContent = ({ user }) => {
           <div className="col-sm-6 text-muted">Reporting Manager</div>
           <div className="col-sm-6 fw-semibold">{user?.reportingManagerName || "-"}</div>
         </div>
-
 
         {/* Address Information */}
         <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
@@ -125,11 +126,9 @@ const TabOverviewContent = ({ user }) => {
           <div className="col-sm-6 fw-semibold">{user?.country || "-"}</div>
         </div>
 
-
         {/* Emergency Contact */}
         <div className="mb-2 mt-4 d-flex align-items-center justify-content-between">
           <h5 className="fw-bold mb-0">Emergency Contact:</h5>
-
         </div>
 
         <div className="row g-2 mb-2">
@@ -146,7 +145,6 @@ const TabOverviewContent = ({ user }) => {
           <div className="col-sm-6 text-muted">Relation</div>
           <div className="col-sm-6 fw-semibold">{user?.emergencyContactRelation || "-"}</div>
         </div>
-
 
         {/* {informationData.map((item, index) => (
           <div

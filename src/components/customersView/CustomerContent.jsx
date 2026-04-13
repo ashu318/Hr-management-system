@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import { useParams } from "next/navigation";
 import CustomerSocalMedia from "./CustomerSocalMedia";
@@ -18,27 +18,25 @@ const CustomerContent = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     if (!employeeId) return;
-    
+
     const fetchUserDetails = async () => {
       try {
         setLoading(true);
 
-        const res = await fetch(
-          `/api/users/users-profile/${employeeId.trim()}`,
-          {
-            method: "GET",
-            credentials: "include", // important for cookies (auth_token)
-          }
-        );
+        const res = await fetch(`/api/users/users-profile/${employeeId.trim()}`, {
+          method: "GET",
+          credentials: "include", // important for cookies (auth_token)
+        });
 
         if (!res.ok) {
           throw new Error("Failed to fetch user");
         }
 
         const data = await res.json();
+
+        // console.log("The user infor what we are getting is :", user);
 
         if (data.success) {
           setUser(data.user);

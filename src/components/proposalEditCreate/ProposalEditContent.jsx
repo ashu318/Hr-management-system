@@ -22,7 +22,6 @@ import {
 import useLocationData from "@/hooks/useLocationData";
 import toast from "react-hot-toast";
 
-
 // Options for dropdowns
 const employmentTypeOptions = [
   { value: "FULL_TIME", label: "Full Time" },
@@ -173,7 +172,6 @@ const bloodOptions = [
   { value: "AB-", label: "AB-" },
 ];
 
-
 // Default selected values
 const defaultEmploymentType = employmentTypeOptions[0]; // Full Time
 const defaultGender = genderOptions[0]; // Male
@@ -184,9 +182,7 @@ const defaultRelationship = relationshipOptions[0]; // Father
 
 // Profile Picture Upload Component (defined outside)
 const ProfilePictureUpload = ({ profileImage, setProfileImage }) => {
-  const [preview, setPreview] = useState(
-    "https://placehold.co/60x60/000000/FFFFFF/?text=No+Image"
-  );
+  const [preview, setPreview] = useState("https://placehold.co/60x60/000000/FFFFFF/?text=No+Image");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -196,8 +192,6 @@ const ProfilePictureUpload = ({ profileImage, setProfileImage }) => {
       setPreview(imageUrl);
     }
   };
-
-
 
   return (
     <div className="d-flex flex-column align-items-center gap-4 flex-wrap">
@@ -212,23 +206,13 @@ const ProfilePictureUpload = ({ profileImage, setProfileImage }) => {
       <div className="d-flex flex-column gap-2">
         <label className="btn btn-outline-secondary mb-0">
           Upload
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            hidden
-            onChange={handleImageChange}
-          />
+          <input type="file" accept="image/png, image/jpeg" hidden onChange={handleImageChange} />
         </label>
         <small className="text-muted">Optional (JPG, PNG)</small>
       </div>
     </div>
   );
 };
-
-
-
-
-
 
 const ProposalEditContent = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -239,7 +223,6 @@ const ProposalEditContent = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedDesignation, setSelectedDesignation] = useState(null);
 
-
   // Dropdown selected values with defaults
   const [selectedEmploymentType, setSelectedEmploymentType] = useState(defaultEmploymentType);
   const [selectedGender, setSelectedGender] = useState(defaultGender);
@@ -248,7 +231,6 @@ const ProposalEditContent = () => {
   const [selectedCity, setSelectedCity] = useState(defaultCity);
   const [selectedBloodGroup, setSelectedBloodGroup] = useState(null);
   const [selectedRelationship, setSelectedRelationship] = useState(defaultRelationship);
-
 
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
@@ -259,7 +241,7 @@ const ProposalEditContent = () => {
     conveyance: false,
     medical: false,
     pf: false,
-    es: false
+    es: false,
   });
 
   useEffect(() => {
@@ -267,8 +249,7 @@ const ProposalEditContent = () => {
     setEndDate(addDays(new Date(), 2));
   }, []);
 
-
-  // Department and designation section 
+  // Department and designation section
   const fetchDepartments = async () => {
     const res = await fetch("/api/departments");
     const data = await res.json();
@@ -288,9 +269,8 @@ const ProposalEditContent = () => {
   console.log("departments", departments);
   console.log("designations", designations);
 
-
   const departmentOptions = departments.map((dept) => ({
-    value: dept.id,        // use ID (better than name)
+    value: dept.id, // use ID (better than name)
     label: dept.name,
   }));
   const designationOptions = departments.reduce((acc, dept) => {
@@ -310,28 +290,14 @@ const ProposalEditContent = () => {
 
   const selectedDesignationOption =
     selectedDepartment && designationOptions[selectedDepartment]
-      ? designationOptions[selectedDepartment].find(
-        (opt) => opt.value === selectedDesignation
-      )
+      ? designationOptions[selectedDepartment].find((opt) => opt.value === selectedDesignation)
       : null;
-  // Department and designation section 
-
-
-
-
-
-
-
-
-
-
-
-
+  // Department and designation section
 
   // form submission login
   const [formData, setFormData] = useState({
     fullName: "",
-    employeeId: "UTC+0530", // Default value
+    employeeId: "", // Default value
     email: "",
     phone: "",
     designation: "",
@@ -374,8 +340,8 @@ const ProposalEditContent = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      setPayrollSettings(prev => ({ ...prev, [name]: checked }));
+    if (type === "checkbox") {
+      setPayrollSettings((prev) => ({ ...prev, [name]: checked }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -383,23 +349,23 @@ const ProposalEditContent = () => {
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
-    setPayrollSettings(prev => ({ ...prev, [name]: checked }));
+    setPayrollSettings((prev) => ({ ...prev, [name]: checked }));
   };
 
   // Dropdown handlers
   const handleEmploymentTypeChange = (option) => {
     setSelectedEmploymentType(option);
-    setFormData(prev => ({ ...prev, employmentType: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, employmentType: option?.value || "" }));
   };
 
   const handleGenderChange = (option) => {
     setSelectedGender(option);
-    setFormData(prev => ({ ...prev, gender: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, gender: option?.value || "" }));
   };
 
   const handleCountryChange = (option) => {
     setSelectedCountry(option);
-    setFormData(prev => ({ ...prev, country: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, country: option?.value || "" }));
     // Fetch states based on selected country
     if (option?.value) {
       fetchStates(option.value);
@@ -408,7 +374,7 @@ const ProposalEditContent = () => {
 
   const handleStateChange = (option) => {
     setSelectedState(option);
-    setFormData(prev => ({ ...prev, state: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, state: option?.value || "" }));
     // Fetch cities based on selected state
     if (option?.value) {
       fetchCities(option.value);
@@ -417,12 +383,12 @@ const ProposalEditContent = () => {
 
   const handleCityChange = (option) => {
     setSelectedCity(option);
-    setFormData(prev => ({ ...prev, city: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, city: option?.value || "" }));
   };
 
   const handleRelationshipChange = (option) => {
     setSelectedRelationship(option);
-    setFormData(prev => ({ ...prev, emergencyContactRelation: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, emergencyContactRelation: option?.value || "" }));
   };
 
   const handleDepartmentChange = (option) => {
@@ -447,11 +413,8 @@ const ProposalEditContent = () => {
 
   const handleBloodGroupChange = (option) => {
     setSelectedBloodGroup(option);
-    setFormData(prev => ({ ...prev, bloodGroup: option?.value || "" }));
+    setFormData((prev) => ({ ...prev, bloodGroup: option?.value || "" }));
   };
-
-
-
 
   const resetForm = () => {
     setFormData({
@@ -491,7 +454,7 @@ const ProposalEditContent = () => {
       conveyance: false,
       medical: false,
       pf: false,
-      es: false
+      es: false,
     });
     setSelectedEmploymentType(defaultEmploymentType);
     setSelectedGender(defaultGender);
@@ -508,6 +471,7 @@ const ProposalEditContent = () => {
 
     try {
       const data = new FormData();
+      
       // Append all text fields
       Object.keys(formData).forEach((key) => {
         data.append(key, formData[key]);
@@ -533,12 +497,9 @@ const ProposalEditContent = () => {
         return;
       }
 
-
       // for (let [key, value] of data.entries()) {
       //   console.log(key, value);
       // }
-
-
 
       toast.success(result.message || "User created successfully");
       resetForm();
@@ -561,10 +522,13 @@ const ProposalEditContent = () => {
             <form onSubmit={handleSubmit}>
               <div className="row g-3">
                 <div className="col-md-4">
-                  <div className="card shadow-sm rounded-3 p-2" style={{
-                    position: "sticky",
-                    alignSelf: "flex-end"
-                  }}>
+                  <div
+                    className="card shadow-sm rounded-3 p-2"
+                    style={{
+                      position: "sticky",
+                      alignSelf: "flex-end",
+                    }}
+                  >
                     {/* Profile Picture Section */}
                     <div className="row mb-4">
                       <div className="col-12">
@@ -587,7 +551,9 @@ const ProposalEditContent = () => {
                                   fill="none"
                                 />
                               </svg>
-                              <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>Profile Picture</h5>
+                              <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>
+                                Profile Picture
+                              </h5>
                             </div>
 
                             {/* Divider */}
@@ -603,7 +569,8 @@ const ProposalEditContent = () => {
 
                             {/* Helper Text */}
                             <small className="text-muted d-block mt-3">
-                              Upload a clear headshot (JPG or PNG). This photo will appear on employee records.
+                              Upload a clear headshot (JPG or PNG). This photo will appear on
+                              employee records.
                             </small>
                           </div>
                         </div>
@@ -614,7 +581,9 @@ const ProposalEditContent = () => {
                     <div className="row mb-4">
                       <div className="col-12">
                         <div className="border-bottom pb-2 mb-3">
-                          <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>Payroll & Settings</h5>
+                          <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>
+                            Payroll & Settings
+                          </h5>
                         </div>
                         <div className="d-flex gap-4 flex-wrap">
                           <div className="form-check">
@@ -626,7 +595,9 @@ const ProposalEditContent = () => {
                               checked={payrollSettings.overtime}
                               onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="overtime">Overtime</label>
+                            <label className="form-check-label" htmlFor="overtime">
+                              Overtime
+                            </label>
                           </div>
                           <div className="form-check">
                             <input
@@ -637,7 +608,9 @@ const ProposalEditContent = () => {
                               checked={payrollSettings.conveyance}
                               onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="conveyance">Conveyance</label>
+                            <label className="form-check-label" htmlFor="conveyance">
+                              Conveyance
+                            </label>
                           </div>
                           <div className="form-check">
                             <input
@@ -648,7 +621,9 @@ const ProposalEditContent = () => {
                               checked={payrollSettings.medical}
                               onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="medical">Medical</label>
+                            <label className="form-check-label" htmlFor="medical">
+                              Medical
+                            </label>
                           </div>
                           <div className="form-check">
                             <input
@@ -659,7 +634,9 @@ const ProposalEditContent = () => {
                               checked={payrollSettings.pf}
                               onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="pf">PF</label>
+                            <label className="form-check-label" htmlFor="pf">
+                              PF
+                            </label>
                           </div>
                           <div className="form-check">
                             <input
@@ -670,7 +647,9 @@ const ProposalEditContent = () => {
                               checked={payrollSettings.es}
                               onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="es">ES</label>
+                            <label className="form-check-label" htmlFor="es">
+                              ES
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -688,9 +667,19 @@ const ProposalEditContent = () => {
                               fill="#3353d0"
                               viewBox="0 0 24 24"
                             >
-                              <path d="M4 4h16v16H4z" stroke="#3353d0" strokeWidth="2" fill="none" />
+                              <path
+                                d="M4 4h16v16H4z"
+                                stroke="#3353d0"
+                                strokeWidth="2"
+                                fill="none"
+                              />
                               <circle cx="12" cy="10" r="3" fill="#3353d0" />
-                              <path d="M8 17c1.5-2 6.5-2 8 0" stroke="#3353d0" strokeWidth="2" fill="none" />
+                              <path
+                                d="M8 17c1.5-2 6.5-2 8 0"
+                                stroke="#3353d0"
+                                strokeWidth="2"
+                                fill="none"
+                              />
                             </svg>
                             <span style={{ color: "#3353d0" }}>Employee ID</span>
                           </h5>
@@ -701,18 +690,26 @@ const ProposalEditContent = () => {
                             <input
                               type="text"
                               className="form-control text-center fw-bold bg-light"
-                              placeholder="UTC12345"
+                              placeholder="Enter last 4 digits"
                               name="employeeId"
                               value={formData.employeeId}
-                              onChange={handleChange}
-                              readOnly
+                              onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, "").slice(0, 4);
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  employeeId: value,
+                                }));
+                              }}
                               style={{
                                 fontSize: "1.3rem",
                                 letterSpacing: "2px",
                               }}
                             />
                             <small className="text-muted d-block mt-2">
-                              Automatically generated Employee ID
+                              Employee ID: <strong>CTSL{formData.employeeId || "XXXX"}</strong>
+                            </small>
+                            <small className="text-muted d-block mt-2">
+                              Enter Last Four Digit Only To Generate the User
                             </small>
                           </div>
                         </div>
@@ -723,12 +720,16 @@ const ProposalEditContent = () => {
                     <div className="row mb-4">
                       <div className="col-12">
                         <div className="border-bottom pb-2 mb-3">
-                          <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>Reporting Details</h5>
+                          <h5 className="fw-semibold mb-0" style={{ color: "#3353d0" }}>
+                            Reporting Details
+                          </h5>
                         </div>
                       </div>
                       <div className="col-md-12">
                         <div className="mb-4">
-                          <label className="form-label">Reporting Manager <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Reporting Manager <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -750,27 +751,31 @@ const ProposalEditContent = () => {
                     <div className="row mb-4">
                       <div className="col-12">
                         <div className="border-bottom pb-2 mb-3">
-                          <h5 className="fw-semibold mb-0 d-flex align-items-center fs-20 gap-2"><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{ color: "#3353d0" }}
-                          >
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                          </svg>
-                            <span style={{ color: "#3353d0" }}>Personal Details</span></h5>
+                          <h5 className="fw-semibold mb-0 d-flex align-items-center fs-20 gap-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              style={{ color: "#3353d0" }}
+                            >
+                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                              <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span style={{ color: "#3353d0" }}>Personal Details</span>
+                          </h5>
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Employee Name <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Employee Name <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -784,7 +789,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Email <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Email <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="email"
                             className="form-control"
@@ -798,7 +805,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Phone <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Phone <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -812,7 +821,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Department <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Department <span className="text-danger">*</span>
+                          </label>
                           {/* <SelectDropdown
                             options={departmentOptions}
                             defaultSelect="Select Department"
@@ -824,10 +835,12 @@ const ProposalEditContent = () => {
                           <select
                             className="form-control"
                             value={selectedDepartment || ""}
-                            onChange={(e) => handleDepartmentChange({
-                              value: e.target.value,
-                              label: e.target.options[e.target.selectedIndex].text
-                            })}
+                            onChange={(e) =>
+                              handleDepartmentChange({
+                                value: e.target.value,
+                                label: e.target.options[e.target.selectedIndex].text,
+                              })
+                            }
                           >
                             <option value="">Select Department</option>
                             {departmentOptions.map((dept) => (
@@ -840,7 +853,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Designation <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Designation <span className="text-danger">*</span>
+                          </label>
                           {/* <SelectDropdown
                             options={
                               selectedDepartment
@@ -857,10 +872,12 @@ const ProposalEditContent = () => {
                           <select
                             className="form-control"
                             value={selectedDesignation || ""}
-                            onChange={(e) => handleDesignationChange({
-                              value: e.target.value,
-                              label: e.target.options[e.target.selectedIndex].text
-                            })}
+                            onChange={(e) =>
+                              handleDesignationChange({
+                                value: e.target.value,
+                                label: e.target.options[e.target.selectedIndex].text,
+                              })
+                            }
                             disabled={!selectedDepartment}
                           >
                             <option value="">Select Designation</option>
@@ -876,7 +893,9 @@ const ProposalEditContent = () => {
 
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Employment Type <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Employment Type <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={employmentTypeOptions}
                             defaultSelect="Select Type"
@@ -889,7 +908,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Work Location <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Work Location <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -903,7 +924,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Date of Joining <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Date of Joining <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="date"
                             className="form-control"
@@ -916,7 +939,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Gender <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Gender <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={genderOptions}
                             defaultSelect="Select Gender"
@@ -929,7 +954,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Date of Birth <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Date of Birth <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="date"
                             className="form-control"
@@ -942,7 +969,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Father's Name <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Father's Name <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -982,7 +1011,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Blood Group <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Blood Group <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={bloodOptions}
                             defaultSelect="Select Blood Group"
@@ -1016,7 +1047,8 @@ const ProposalEditContent = () => {
                               <line x1="2" y1="10" x2="22" y2="10"></line>
                               <line x1="8" y1="14" x2="16" y2="14"></line>
                             </svg>
-                            <span style={{ color: "#3353d0" }}>Financial & Statutory</span></h5>
+                            <span style={{ color: "#3353d0" }}>Financial & Statutory</span>
+                          </h5>
                         </div>
                       </div>
                       <div className="col-md-4">
@@ -1125,7 +1157,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-6">
                         <div className="mb-4">
-                          <label className="form-label">Current Address <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Current Address <span className="text-danger">*</span>
+                          </label>
                           <textarea
                             type="text"
                             className="form-control"
@@ -1139,7 +1173,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-6">
                         <div className="mb-4">
-                          <label className="form-label">Permanent Address <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Permanent Address <span className="text-danger">*</span>
+                          </label>
                           <textarea
                             type="text"
                             className="form-control"
@@ -1153,7 +1189,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-3">
                         <div className="mb-4">
-                          <label className="form-label">Country <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Country <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={countryOptions}
                             defaultSelect="Select Country"
@@ -1166,7 +1204,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-3">
                         <div className="mb-4">
-                          <label className="form-label">State <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            State <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={stateOptions}
                             defaultSelect="Select State"
@@ -1179,7 +1219,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-3">
                         <div className="mb-4">
-                          <label className="form-label">City <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            City <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={cityOptions}
                             defaultSelect="Select City"
@@ -1192,7 +1234,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-3">
                         <div className="mb-4">
-                          <label className="form-label">Pincode <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Pincode <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -1226,12 +1270,15 @@ const ProposalEditContent = () => {
                               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                               <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                             </svg>
-                            <span style={{ color: "#3353d0" }}>Emergency Details</span></h5>
+                            <span style={{ color: "#3353d0" }}>Emergency Details</span>
+                          </h5>
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Emergency Contact Name <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Emergency Contact Name <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -1245,7 +1292,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Emergency Contact Number <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Emergency Contact Number <span className="text-danger">*</span>
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -1259,7 +1308,9 @@ const ProposalEditContent = () => {
                       </div>
                       <div className="col-md-4">
                         <div className="mb-4">
-                          <label className="form-label">Emergency Contact Relationship <span className="text-danger">*</span></label>
+                          <label className="form-label">
+                            Emergency Contact Relationship <span className="text-danger">*</span>
+                          </label>
                           <SelectDropdown
                             options={relationshipOptions}
                             defaultSelect="Select Relationship"
@@ -1281,7 +1332,11 @@ const ProposalEditContent = () => {
                   <button type="submit" className="btn btn-primary px-4" disabled={loadings}>
                     {loadings ? (
                       <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" />
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                          aria-hidden="true"
+                        />
                         Saving...
                       </>
                     ) : (
