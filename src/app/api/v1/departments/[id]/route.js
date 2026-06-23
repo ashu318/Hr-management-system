@@ -1,30 +1,42 @@
 import { deleteDepartmentController } from "@/controllers/department/department.controller";
 import { NextResponse } from "next/server";
+import { requireAuth } from "@/auth/requireAuth";
 
-export async function DELETE(request, {params}){
-    try {
-        const { id } = await params;
+export async function DELETE(request, { params }) {
+  try {
+    const auth = await requireAuth(request, ["ADMIN"]);
 
-        const result = await deleteDepartmentController(id);
-
-        return NextResponse.json(
-            result,
-            {
-                status: 200
-            }
-        );
-    } catch (error) {
-
-        console.error(error);
-
-        return NextResponse.json({
-            success:false,
-            message: error.message || "Internal Server Error",
-            errors: error.errors || {},
+    if (!auth.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: auth.message,
         },
         {
-            status: error.statusCode || 500,
+          status: auth.status,
         }
-    );
+      );
     }
+
+    const { id } = await params;
+
+    const result = await deleteDepartmentController(id);
+
+    return NextResponse.json(result, {
+      status: 200,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Internal Server Error",
+        errors: error.errors || {},
+      },
+      {
+        status: error.statusCode || 500,
+      }
+    );
+  }
 }
