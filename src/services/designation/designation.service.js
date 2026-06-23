@@ -40,7 +40,7 @@ export async function getDesignationService() {
 
 export async function deleteDesignationService(id) {
   try {
-    const deletedDesignation = await prisma.department.delete({
+    const deletedDesignation = await prisma.designation.delete({
       where: {
         id,
       },
@@ -49,7 +49,7 @@ export async function deleteDesignationService(id) {
     return deletedDesignation;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
-      const customError = new Error("Department doesn't exist");
+      const customError = new Error("Designation doesn't exist");
 
       customError.statusCode = 404;
 
@@ -57,7 +57,7 @@ export async function deleteDesignationService(id) {
     }
 
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2003") {
-      const customError = new Error("Department cannot be deleted because related records exist.");
+      const customError = new Error("Designation cannot be deleted because related records exist.");
 
       customError.statusCode = 409;
 
