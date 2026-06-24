@@ -3,9 +3,24 @@ import {
   getDepartmentController,
 } from "@/controllers/department/department.controller";
 import { NextResponse } from "next/server";
+import { requireAuth } from "@/auth/requireAuth";
 
 export async function POST(request) {
   try {
+    const auth = await requireAuth(request, ["ADMIN"]);
+
+    if (!auth.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: auth.message,
+        },
+        {
+          status: auth.status,
+        }
+      );
+    }
+
     const body = await request.json();
 
     const result = await createDepartmentController(body);
@@ -29,8 +44,22 @@ export async function POST(request) {
   }
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const auth = await requireAuth(request, ["ADMIN", "EMPLOYEE"]);
+
+    if (!auth.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: auth.message,
+        },
+        {
+          status: auth.status,
+        }
+      );
+    }
+
     const result = await getDepartmentController();
 
     return NextResponse.json(result, {
