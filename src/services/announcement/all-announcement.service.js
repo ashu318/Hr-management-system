@@ -2,11 +2,11 @@ import { prisma } from "@/lib/prisma";
 
 export async function getAllAnnouncementService(currentUser) {
 
-  let announcements;
+  let allAnnouncements;
 
   if (currentUser.role === "ADMIN") {
-    //ADMIN → all announcements in org
-    announcements = await prisma.announcement.findMany({
+    //ADMIN → all allAnnouncements in org
+    allAnnouncements = await prisma.announcement.findMany({
       where: {
         organizationId: currentUser.organizationId,
       },
@@ -25,7 +25,7 @@ export async function getAllAnnouncementService(currentUser) {
     });
   } else if (currentUser.role === "EMPLOYEE") {
     // EMPLOYEE → only allowed ones
-    announcements = await prisma.announcement.findMany({
+    allAnnouncements = await prisma.announcement.findMany({
       where: {
         organizationId: currentUser.organizationId,
         OR: [
@@ -60,5 +60,5 @@ export async function getAllAnnouncementService(currentUser) {
     throw error;
   }
 
-  return announcements;
+  return allAnnouncements;
 }

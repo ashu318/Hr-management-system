@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { requireAuth } from "@/auth/requireAuth";
 import { NextResponse } from "next/server";
-import { getAllAnnouncementController } from "@/controllers/users/all-announcement.controller";
+import { getAllAnnouncementController } from "@/controllers/announcement/all-announcement.controller";
 
 export async function GET(request) {
   try {
