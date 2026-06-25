@@ -23,7 +23,7 @@ export const useAnnouncementStore = create((set, get) => ({
         try {
             set({ loading: true });
 
-            const res = await fetch("/api/v1/users/all-announcements");
+            const res = await fetch("/api/v1/announcements/all-announcements");
             const data = await res.json();
 
             set({
