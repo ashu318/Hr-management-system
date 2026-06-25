@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { requireAuth } from "@/auth/requireAuth";
 import { NextResponse } from "next/server";
 import { getAllAnnouncementController } from "@/controllers/users/all-announcement.controller";
